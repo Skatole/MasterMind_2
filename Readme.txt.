@@ -13,7 +13,8 @@ configuration file for the constatnts should be considered.
 All the Pin types derives from this.
 This is a derived class from the Board.
 The pin has a few properties: color, shape.
-This has to be created with a color too BUT THE ONLY COLOR WILL BE THE EMPTY COLOR.
+Thi
+
 IMPORTANT!!! All the pins will be Pin tpyed and instatiated to GuessPin and HintPin ==> THIS IS EXPLICIT CASTING.
 This is done so because this way you can cast back to Parent if you want to delete the Color you have imputed. The parent will only have the empty color.
 So ==> you have to overwrite the Color conversion method in the child classes. So if you casst back to parent the original Converter method will be called.

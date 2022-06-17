@@ -10,6 +10,8 @@ public class Pin
         this._shape = shape;
     }
 
-    public PinColor color { get; set}
+    public PinColor color { get; set; }
+    public string shape { get; set; }
+
 
 }
