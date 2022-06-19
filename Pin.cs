@@ -1,17 +1,30 @@
-public class Pin
+namespace MasterMind_Project_2
 {
-
-    internal PinColor _color;
-    internal string _shape = "";
-
-    public Pin ( PinColor color, string shape) 
+    internal class Pin : Board
     {
-        this._color = color;
-        this._shape = shape;
+
+        internal PinColor _color;
+        internal string _shape = "";
+
+        internal Pin()
+        {
+            _color = PinColor.None;
+            _shape = shape;
+        }
+
+        internal Pin(PinColor color, string shape)
+        {
+            _color = color;
+            _shape = shape;
+        }
+
+        internal PinColor color { get; set; }
+        internal string shape { get; set; }
+
+        public override string ToString()
+        {
+            return color.ToString() + " : " + shape.ToString();
+        }
     }
-
-    public PinColor color { get; set; }
-    public string shape { get; set; }
-
 
 }

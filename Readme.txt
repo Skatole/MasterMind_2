@@ -13,7 +13,6 @@ configuration file for the constatnts should be considered.
 All the Pin types derives from this.
 This is a derived class from the Board.
 The pin has a few properties: color, shape.
-Thi
 
 IMPORTANT!!! All the pins will be Pin tpyed and instatiated to GuessPin and HintPin ==> THIS IS EXPLICIT CASTING.
 This is done so because this way you can cast back to Parent if you want to delete the Color you have imputed. The parent will only have the empty color.
@@ -59,6 +58,9 @@ Contains only black and white.
         Make it a static class so the created List would be constatnt and only for the solution classes.
         THe method returns a List of Pins so somehow you have to add Pins in there. ==> Instatiate with a for cycle as much Pins as Columns there are.
         In the instatiation because the Pin constructor requires Color call the Random generator abstract's instance.
+
+    7.1.2 Random Generator:
+        Takes the PInColor Enum-s and generates a List of solutions. The Pin count is dependent on column amount.
 
     7.2 Guess class.
         Derives from the Board.
