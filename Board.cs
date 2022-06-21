@@ -16,15 +16,11 @@ namespace MasterMind_Project_2
 
         public Board()
         {
+            _row = 10;
+            _columns = 4;
+            _isSessionValid = true;
 
         }
-        public Board(bool isSessionValid)
-        {
-            _row = 4;
-            _columns = 10;
-            _isSessionValid = isSessionValid;
-        }
-
         public Board(int row, int columns, bool isSessionValid)
         {
             _row = row;
