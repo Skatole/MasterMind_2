@@ -16,8 +16,15 @@ namespace MasterMind_Project_2
 
         public static PinColor generateRandomPin(int min, int max)
 		{
-			_rPin = (PinColor)_random.Next(min,Enum.GetValues(typeof(PinColor)).Length - max);
-			return RPin;
+			foreach (var item in Enum.GetValues(typeof(PinColor)))
+			{
+				_rPin = (PinColor)_random.Next(min,Enum.GetNames(typeof(PinColor)).Length - max);
+				
+			}
+
+			System.Console.WriteLine(_rPin + " CICA");
+
+			return _rPin;
 		}
 	}
 }

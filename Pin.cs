@@ -4,12 +4,11 @@ namespace MasterMind_Project_2
     {
 
         internal PinColor _color;
-        internal string _shape = "";
+        internal string _shape = "o";
 
         internal Pin()
         {
             _color = PinColor.None;
-            _shape = shape;
         }
 
         internal Pin(PinColor color, string shape)
