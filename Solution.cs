@@ -18,7 +18,7 @@ namespace MasterMind_Project_2
                 sol.Add(RandomPin.generateRandomPin(1, 0));
 
                 var days = Enum.GetValues(typeof(PinColor))
-                        .Cast<PinColor>()
+                        .Cast<PinColor>() 
                         .Select(d => (d, (int)d))
                         .ToList();
 
