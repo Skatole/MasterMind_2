@@ -4,12 +4,21 @@ namespace MasterMind_Project_2
     {
         internal PinColor Color { get; set; }
 
+        
+
+
 
 
 
 
         // you migh need to use new keyword here because of inheritance
         // if you want to change the color it will need a new Color property
+        public GuessPin()
+        {
+            
+        }
+        
+        
         public GuessPin(PinColor c) : base(c)
         {
             Color = c;

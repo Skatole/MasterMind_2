@@ -8,7 +8,7 @@ using Pastel;
 
 namespace MasterMind_Project_2
 {
-	interface InputValidator
+	interface I_InputValidator
 	{
 
 					
@@ -24,11 +24,13 @@ namespace MasterMind_Project_2
 			{ 
 				Console.WriteLine(" \n	No guess Input! \n 	Please choose from the given color input options. \n"
 				.Pastel(System.Drawing.Color.DarkRed));
+				IsValid = false;
 			}
 			else if (guess.Length != columns)
 			{
 				Console.WriteLine("\n" + "Please Only Enter 4 characters!".Pastel(System.Drawing.Color.DarkRed) + "\n");
 				//guestList.RemoveRange(columns, guestList.Count - columns);
+				IsValid = false;
 			}
 			else
 			{
@@ -43,7 +45,7 @@ namespace MasterMind_Project_2
 						|| guestList[i] != "?")
 					{
 						Console.WriteLine(" \n	Invalid guess input! \n 	Please choose from the given color input options. \n".Pastel(Color.DarkRed));
-
+						IsValid = false;
 					} else
                     {
 						IsValid = true;
