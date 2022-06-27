@@ -8,33 +8,17 @@ namespace MasterMind_Project_2
 {
     internal class Solution : Pin
     {
-        private List<PinColor> sol = new List<PinColor>();
+
+        private List<(PinColor Name, char CharValue)> _sol;
+        internal List<(PinColor Name, char CharValue)> Sol { get => _sol; }
+
+
 
         public Solution()
         {
-            for (int i = 0; i <= 4; i++)
-            {
-          
-                sol.Add(RandomPin.generateRandomPin(1, 0));
-
-                var days = Enum.GetValues(typeof(PinColor))
-                        .Cast<PinColor>() 
-                        .Select(d => (d, (int)d))
-                        .ToList();
-
-                sol.Cast<PinColor>().Select(d => (char)d).ToList().ForEach(s => Console.WriteLine(s)) ;
-                
-            }
+            _sol = RandomPin.genereateColumnSizedRandom(Columns, 1, 0);
+            
         }
-
-        internal List<PinColor> Sol { get => sol; }
-
-
-        public override string ToString()
-        {
-            return Enum.GetName(typeof(PinColor), sol);
-        }
-
 
     }
 }

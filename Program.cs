@@ -11,30 +11,28 @@ namespace MasterMind_Project_2
         private static void Main(String[] args)
         {
 
-            Board Board = new Board(true);
+            Board Board = new Board();
 
-            Console.WriteLine(Board.Columns);
+            // Console.WriteLine(Board.Columns);
 
             while (Board.IsSessionValid)
             {
                 Solution solution = new Solution();
 
-                var days =  Enum.GetValues(typeof(PinColor))
-                        .Cast<PinColor>()
-                        .Select(d => (d, (char)d))
-                        .ToList();
-
-                Console.WriteLine(String.Join(Environment.NewLine, days));
-
-
-                foreach (PinColor i in Enum.GetValues(typeof(PinColor)))
+                foreach (var item in solution.Sol)
                 {
-                    if (solution.Sol.Contains(i))
-                    {
-
-                    Console.WriteLine("CICA");
-                    }
+                    System.Console.WriteLine(item);
                 }
+
+                // var days =  Enum.GetValues(typeof(PinColor))
+                //         .Cast<PinColor>()
+                //         .Select(d => (d, (char)d))
+                //         .ToList();
+
+                // Console.WriteLine(String.Join(Environment.NewLine, days));
+
+
+
 
                 Board.IsSessionValid = false;
             }

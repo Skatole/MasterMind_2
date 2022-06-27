@@ -3,7 +3,6 @@ namespace MasterMind_Project_2
     internal class GuessPin : Pin
     {
         internal PinColor Color { get; set; }
-        public string Shape { get; set; }
 
 
 
@@ -11,13 +10,7 @@ namespace MasterMind_Project_2
 
         // you migh need to use new keyword here because of inheritance
         // if you want to change the color it will need a new Color property
-        public GuessPin(PinColor c, string s) : base(c, s)
-        {
-            Color = c;
-            Shape = s;
-        }
-
-        public GuessPin(PinColor c)
+        public GuessPin(PinColor c) : base(c)
         {
             Color = c;
         }
@@ -25,8 +18,7 @@ namespace MasterMind_Project_2
         public override bool Equals(object? obj)
         {
             return obj is GuessPin pin &&
-                   Color == pin.Color &&
-                   Shape == pin.Shape;
+                   Color == pin.Color;
         }
 
         public override int GetHashCode()

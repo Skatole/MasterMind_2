@@ -2,14 +2,14 @@ namespace MasterMind_Project_2
 {
     internal enum PinColor
     {
-        None = 'N',
-        Blue = 'B',
-        Red = 'R',
-        Green = 'G',
-        Yellow = 'Y',
-        Purple = 'P',
-        Cyan = 'C',
-        White = 'W',
-        Black = 'B',
+        None = (int) 'N',
+        Blue = (int) 'B',
+        Red = (int) 'R',
+        Green = (int) 'G',
+        Yellow = (int) 'Y',
+        Purple = (int) 'P',
+        Cyan = (int) 'C',
+        White = (int) 'W',
+        Black = (int) 'B',
     }
 }
