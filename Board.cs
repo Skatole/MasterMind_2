@@ -33,9 +33,13 @@ namespace MasterMind_Project_2
                 IsGuessValid = _guessValidator.CleanAndValidate(_guessString, Columns).Item2;
                 if(IsGuessValid)
                 {
-                    _convertPin.PinConverter(
-                        (_guessValidator.CleanAndValidate(_guessString, Columns).Item1,
-                        _guessValidator.CleanAndValidate(_guessString, Columns).Item2));
+                   Guess.GuessBoard = Guess.mapper(
+                       _convertPin.PinConverter(
+                            (_guessValidator.CleanAndValidate(_guessString, Columns).Item1,
+                                         _guessValidator.CleanAndValidate(_guessString, Columns).Item2)
+                                    ), 
+                       Guess.GuessBoard,
+                         GuessCounter);
                 }
             }
         }

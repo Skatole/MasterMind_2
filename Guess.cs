@@ -8,7 +8,7 @@ namespace MasterMind_Project_2
 
         private Pin _guessPin;
         private Dictionary<int, GuessPin[]> _guessBoard;
-        internal Dictionary<int, GuessPin[]> GuessBoard { get => _guessBoard; }
+        internal Dictionary<int, GuessPin[]> GuessBoard { get => _guessBoard; set => _guessBoard = value; }
         private Array allPin = Enum.GetValues(typeof(PinColor));
         private List<(PinColor Name, char Value)> convertedGuessPins;
         private bool isGuessValid;
@@ -24,16 +24,7 @@ namespace MasterMind_Project_2
 
         }
 
-        internal Dictionary<int, GuessPin[]> guessBoardLoader(List<(PinColor Name, char Vlaue)> guessList)
-        {
-
-            Console.WriteLine("CICA");
-
-
-
-
-            return _guessBoard;
-        }
+        
 
 
 
