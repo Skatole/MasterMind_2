@@ -3,7 +3,9 @@ namespace MasterMind_Project_2
     internal class Pin : Board
     {
 
-        internal PinColor _color;
+        private PinColor _color;
+
+        internal PinColor Color { get => _color; set => _color = value; }
 
         internal Pin()
         {
@@ -15,12 +17,11 @@ namespace MasterMind_Project_2
             _color = color;
         }
 
-        internal PinColor color { get; set; }
         internal string shape { get; set; }
 
         public override string ToString()
         {
-            return color.ToString();
+            return _color.ToString();
         }
     }
 
