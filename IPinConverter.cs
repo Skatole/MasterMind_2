@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
+
 namespace MasterMind_Project_2
 {
-    interface I_PinConverter
+    interface IPinConverter
     {
 
 
@@ -24,6 +27,9 @@ namespace MasterMind_Project_2
     
                         }
                 }
+            } else
+            {
+                global::System.Console.WriteLine("Invalid Guess while converting.");
             }
 
 

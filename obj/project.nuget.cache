@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Nxfjd7mQn6dA8MLjkjZ57K8fmc3pLdVdqPv53+nJDNBz49AlDahwEOwec1n2IPD7zTx3N1ZmlS68XG1q+uEE0w==",
+  "dgSpecHash": "i/nqCfS770eaHUIA1HB4P8PF36pG/QTau04gTyHE+UAquvGBYUDdW3xjW4MOD59IhNp+Ckoxy21x0sO1pdr5cw==",
   "success": true,
-  "projectFilePath": "/home/skatole/Documents/C#/MasterMind_Project_2/MasterMind_Project_2.csproj",
+  "projectFilePath": "D:\\C#\\MasterMind_2\\MasterMind_2\\MasterMind_Project_2.csproj",
   "expectedPackageFiles": [
-    "/home/skatole/.nuget/packages/pastel/3.0.0/pastel.3.0.0.nupkg.sha512"
+    "C:\\Users\\Skatole\\.nuget\\packages\\pastel\\3.0.0\\pastel.3.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace MasterMind_Project_2
 {
     class Hint : PinMapper

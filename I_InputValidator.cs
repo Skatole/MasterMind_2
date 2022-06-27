@@ -8,7 +8,7 @@ using Pastel;
 
 namespace MasterMind_Project_2
 {
-	interface I_InputValidator
+	interface IInputValidator
 	{
 
 		

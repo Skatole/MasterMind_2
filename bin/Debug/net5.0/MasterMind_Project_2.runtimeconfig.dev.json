@@ -1,8 +1,9 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/home/skatole/.dotnet/store/|arch|/|tfm|",
-      "/home/skatole/.nuget/packages"
+      "C:\\Users\\Skatole\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Skatole\\.nuget\\packages",
+      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ]
   }
 }
