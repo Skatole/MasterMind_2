@@ -4,22 +4,28 @@ namespace MasterMind_Project_2
     {
 
 
-        internal List<(PinColor Name, char Vlaue)> Converter((List<string> Guesses, bool Valid) validatedInput)
+        internal List<(PinColor Name, char Vlaue)> PinConverter((List<string> Guesses, bool Valid) validatedInput)
         {
+
             List<(PinColor Name, char Value)> convertedPins = new List<(PinColor Name, char Value)>();
             Array Pins = Enum.GetValues(typeof(PinColor));
 
-            foreach (var guess in validatedInput.Guesses)
+            if (validatedInput.Valid)
             {
-                foreach (var pin in Pins)
+
+                foreach (var guess in validatedInput.Guesses)
                 {
-                	if (validatedInput.Valid && guess == pin) 
-                	{
-                	    convertedPins.Add(((PinColor) pin, (char) ((int) pin)));
-                	}
-	
+                    foreach (var pin in Pins)
+                    {
+                    	if (validatedInput.Valid && guess == pin) 
+                    	{
+                    	    convertedPins.Add(((PinColor) pin, (char) ((int) pin)));
+                    	}
+    
+                        }
                 }
             }
+
 
 			
             

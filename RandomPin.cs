@@ -31,6 +31,8 @@ namespace MasterMind_Project_2
 				
 			}
 
+		
+
 			return _rPinList;
 		}
 	}

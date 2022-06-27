@@ -11,14 +11,15 @@ namespace MasterMind_Project_2
 	interface I_InputValidator
 	{
 
-					
-        bool IsValid { get; set; }
+		
 
-		internal Tuple<List<string>, bool> CleanAndValidate(string guess, int columns, List<PinColor> inputOptions )
+		internal Tuple<List<string>, bool> CleanAndValidate(string guess, int columns )
 		{
-			IsValid = false;
+			bool IsValid = false;
 
 			List<string> guestList = new List<string> { };
+
+			PinColor[] pinArray = (PinColor[]) Enum.GetValues(typeof(PinColor));
 
 			if (guess.Length == 0) 
 			{ 
@@ -41,7 +42,7 @@ namespace MasterMind_Project_2
 				}
 				for (var i = 0; i < guestList.Count; i++)
 				{
-					if (guestList[i].Split().Any(x => !inputOptions.Contains((PinColor) Enum.Parse(typeof(char), x, true))) 
+					if (guestList[i].Split().Any(x => !pinArray.Contains((PinColor) Enum.Parse(typeof(char), x, true))) 
 						|| guestList[i] != "?")
 					{
 						Console.WriteLine(" \n	Invalid guess input! \n 	Please choose from the given color input options. \n".Pastel(Color.DarkRed));

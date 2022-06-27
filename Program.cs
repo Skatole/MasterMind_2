@@ -13,16 +13,14 @@ namespace MasterMind_Project_2
 
             Board Board = new Board();
 
-            // Console.WriteLine(Board.Columns);
+            while (Board.SessionValidator())
+            { 
 
-            while (Board.IsSessionValid)
-            {
-                Solution solution = new Solution();
+                System.Console.WriteLine("Make a Guess:");
+                string input = Console.ReadLine();
+               
 
-                foreach (var item in solution.Sol)
-                {
-                    System.Console.WriteLine(item);
-                }
+
 
                 // var days =  Enum.GetValues(typeof(PinColor))
                 //         .Cast<PinColor>()
