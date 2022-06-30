@@ -2,7 +2,7 @@ namespace MasterMind_Project_2
 {
     internal enum PinColor
     {
-        None = (int) 'N',
+        None,
         Blue = (int) 'B',
         Red = (int) 'R',
         Green = (int) 'G',
@@ -10,6 +10,6 @@ namespace MasterMind_Project_2
         Purple = (int) 'P',
         Cyan = (int) 'C',
         White = (int) 'W',
-        Black = (int) 'B',
+        Black = (int) 'X',
     }
 }

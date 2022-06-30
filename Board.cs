@@ -30,16 +30,24 @@ namespace MasterMind_Project_2
                 _guessString = value;
                 IInputValidator _guessValidator = Guess;
                 IPinConverter _convertPin = Guess;
-                IsGuessValid = _guessValidator.CleanAndValidate(_guessString, Columns).Item2;
-                if(IsGuessValid)
+                var localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row);
+				_isGuessValid = localPassableVar.Item2;
+                if(_isGuessValid)
                 {
+
+				// Convert and Map validated Guesses
                    Guess.GuessBoard = Guess.mapper(
                        _convertPin.PinConverter(
-                            (_guessValidator.CleanAndValidate(_guessString, Columns).Item1,
-                                         _guessValidator.CleanAndValidate(_guessString, Columns).Item2)
-                                    ), 
+                            (localPassableVar.Item1, localPassableVar.Item2)),
                        Guess.GuessBoard,
                          GuessCounter);
+
+				// Generate Hint
+
+				System.Console.WriteLine(GuessCounter);
+					
+					
+						 GuessCounter--;
                 }
             }
         }
@@ -61,6 +69,7 @@ namespace MasterMind_Project_2
             _solution = new Solution();
             _guess = new Guess();
             _hint = new Hint();
+            GuessCounter = Row;
         }
 
         public Board()
@@ -68,7 +77,6 @@ namespace MasterMind_Project_2
             Row = 10;
             Columns = 4;
             IsSessionValid = true;
-            GuessCounter = Row;
 
         }
         public Board(int row, int columns, bool isSessionValid)
@@ -86,14 +94,14 @@ namespace MasterMind_Project_2
             {
                 IsSessionValid = false;
             }
-            else if (GuessCounter <= Row)
+            else if (GuessCounter <= Row && !(Row - GuessCounter > Row - 1))
             {
                 IsSessionValid = true;
             }
-            else
-            {
-                IsSessionValid = false;
-            }
+			else 
+			{
+				IsSessionValid = false;
+			}
             return IsSessionValid;
         }
     }

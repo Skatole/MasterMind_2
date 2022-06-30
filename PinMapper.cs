@@ -50,7 +50,7 @@ namespace MasterMind_Project_2
         }
 
         // Guess Pin from List
-        internal Dictionary<int, GuessPin[]> mapper ( List<(PinColor Name, char Vlaue)> convertedPinList, Dictionary<int, GuessPin[]> guessBoard, int counter) 
+        internal Dictionary<int, GuessPin[]> mapper ( List<(PinColor Name, bool Valid)> convertedPinList, Dictionary<int, GuessPin[]> guessBoard, int counter) 
         {
             Pin pin;
 
@@ -58,18 +58,34 @@ namespace MasterMind_Project_2
 
             for (int i = 0; i < convertedPinList.Count; i++)
             {
-                pin = new GuessPin();
-                pin.Color = convertedPinList[i].Name;
-                pinArr[i] = (GuessPin) pin;
+                if ((convertedPinList[i].Name != PinColor.Red || convertedPinList[i].Name != PinColor.White) && IsGuessValid)
+                {
+                    IsGuessValid = true;
+                    IsGuessValid = convertedPinList[i].Valid;
+                    pin = new GuessPin();
+                    pin.Color = convertedPinList[i].Name;
+                    pinArr[i] = (GuessPin) pin;
+                }
+                else
+                {
+                    IsGuessValid = false;
+                }
             }
-                guessBoard.Add(Row - counter, pinArr);
+
+
+            if(IsGuessValid)
+            {
+                guessBoard[Row - counter] =  pinArr;
+            } 
+                
+        
             
             return guessBoard;
         }
 
         // Hint Pin from List
 
-        internal Dictionary<int, HintPin[]> mapper ( List<(PinColor Name, char Vlaue)> convertedPinList, Dictionary<int, HintPin[]> hintBoard,int counter) 
+        internal Dictionary<int, HintPin[]> mapper ( List<PinColor> convertedPinList, Dictionary<int, HintPin[]> hintBoard,int counter) 
         {
            Pin pin;
 
@@ -78,7 +94,7 @@ namespace MasterMind_Project_2
             for (int i = 0; i < convertedPinList.Count; i++)
             {
                 pin = new HintPin();
-                pin.Color = convertedPinList[i].Name;
+                pin.Color = convertedPinList[i];
                 pinArr[i] = (HintPin) pin;
             }
                 hintBoard.Add(Row - counter, pinArr);

@@ -19,7 +19,6 @@ namespace MasterMind_Project_2
                 System.Console.WriteLine("Make a Guess:");
                 Board.GuessString = Console.ReadLine();
 
-                Board.Guess.guessInputConverter(input);
 
 
 
