@@ -13,7 +13,6 @@ namespace MasterMind_Project_2
 		private static PinColor _rPin = new PinColor();
 		private static Array _allPins = Enum.GetValues(typeof(PinColor));
 		private static List<(PinColor Name, char CharValue)> _rPinList = new List<(PinColor, char)>();
-		private static bool inValidPinNumber = false;
 
         internal  static List<(PinColor Name, char CharValue)>  generateRandomPins (int min, int max, int columns)
 		{

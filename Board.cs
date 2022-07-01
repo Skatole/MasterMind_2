@@ -10,12 +10,6 @@ namespace MasterMind_Project_2
         internal static int Columns;
         internal static bool IsSessionValid;
         internal static int GuessCounter;
-        internal static string[] _inputOptions = new string[10]
-        {
-            "B", "C", "R", "G", "Y", "W", "P", "S", "?", "L"
-        };
-
-        internal string[] InputOptions { get => _inputOptions; }
 
         //class specific not static varriables
 
@@ -28,26 +22,22 @@ namespace MasterMind_Project_2
             set
             {
                 _guessString = value;
-                IInputValidator _guessValidator = Guess;
+                IInputCleaner _guessValidator = Guess;
                 IPinConverter _convertPin = Guess;
-                var localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row);
-				_isGuessValid = localPassableVar.Item2;
+                var localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, out _isGuessValid);
                 if(_isGuessValid)
                 {
 
 				// Convert and Map validated Guesses
                    Guess.GuessBoard = Guess.mapper(
-                       _convertPin.PinConverter(
-                            (localPassableVar.Item1, localPassableVar.Item2)),
+                       _convertPin.PinConverter(localPassableVar),
                        Guess.GuessBoard,
-                         GuessCounter);
+                         out GuessCounter, out _isGuessValid);
 
 				// Generate Hint
 
-				System.Console.WriteLine(GuessCounter);
 					
 					
-						 GuessCounter--;
                 }
             }
         }

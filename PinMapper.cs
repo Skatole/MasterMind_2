@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+
+using Pastel;
 
 namespace MasterMind_Project_2
 {
@@ -50,36 +53,36 @@ namespace MasterMind_Project_2
         }
 
         // Guess Pin from List
-        internal Dictionary<int, GuessPin[]> mapper ( List<(PinColor Name, bool Valid)> convertedPinList, Dictionary<int, GuessPin[]> guessBoard, int counter) 
+        internal Dictionary<int, GuessPin[]> mapper ( List<PinColor> convertedPinList, Dictionary<int, GuessPin[]> guessBoard, out int counter, out bool isGuessValid) 
         {
             Pin pin;
-
+            counter = GuessCounter;
+            isGuessValid = IsGuessValid;
             GuessPin[] pinArr = new GuessPin[convertedPinList.Count];
 
             for (int i = 0; i < convertedPinList.Count; i++)
             {
-                if ((convertedPinList[i].Name != PinColor.Red || convertedPinList[i].Name != PinColor.White) && IsGuessValid)
+                if ((convertedPinList[i] != PinColor.Red && convertedPinList[i] != PinColor.White) && convertedPinList.Count == Columns)
                 {
-                    IsGuessValid = true;
-                    IsGuessValid = convertedPinList[i].Valid;
+                    Console.WriteLine("IN here");
                     pin = new GuessPin();
-                    pin.Color = convertedPinList[i].Name;
+                    pin.Color = convertedPinList[i];
                     pinArr[i] = (GuessPin) pin;
+                    isGuessValid = true;
                 }
                 else
                 {
-                    IsGuessValid = false;
+                    Console.WriteLine(" \n	Invalid guess input! \n 	Please choose from the given color input options. \n".Pastel(System.Drawing.Color.DarkRed));
+                    isGuessValid = false;
                 }
             }
 
-
-            if(IsGuessValid)
+            if(isGuessValid)
             {
                 guessBoard[Row - counter] =  pinArr;
-            } 
-                
-        
-            
+                counter--;
+            }
+
             return guessBoard;
         }
 
