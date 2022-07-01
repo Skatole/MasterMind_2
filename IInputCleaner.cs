@@ -13,43 +13,42 @@ namespace MasterMind_Project_2
 
 
 
-        internal List<string> CleanAndValidate ( string guess, int columns, int row, out bool isGuessValid )
+        internal List<string> CleanAndValidate(string guess, int columns, int row, ref bool isGuessValid)
         {
-            isGuessValid = false;
             List<string> guestList = new List<string> { };
             Array pinArray = Enum.GetValues(typeof(PinColor));
 
-            if ( guess.Length == 0 )
+            if (guess.Length == 0)
             {
                 Console.WriteLine(" \n	No guess Input! \n 	Please choose from the given color input options. \n"
                 .Pastel(System.Drawing.Color.DarkRed));
                 isGuessValid = false;
 
             }
-            else if ( guess.Length > columns )
+            else if (guess.Length > columns)
             {
                 Console.WriteLine("\n" + "Please Only Enter " + columns + "characters!".Pastel(System.Drawing.Color.DarkRed) + "\n");
                 isGuessValid = false;
             }
-            else if ( guess.Length < columns )
+            else if (guess.Length < columns)
             {
                 System.Console.WriteLine("\n This is less than " + columns + " characters");
                 isGuessValid = false;
             }
-            else if ( guess.Length == columns )
+            else if (guess.Length == columns)
             {
                 string replacedGuess = Regex.Replace(guess, @"[^0-9a-zA-Z]+", "").ToUpper();
                 isGuessValid = true;
-                for ( var i = 0; i < replacedGuess.Length; i++ )
+                for (var i = 0; i < replacedGuess.Length; i++)
                 {
-                    guestList.Add(replacedGuess [ i ].ToString());
+                    guestList.Add(replacedGuess[i].ToString());
                     if (replacedGuess.Contains("?"))
                     {
                         isGuessValid = true;
-                        //CALL AUTOSOLVER
+                        //CALL AUTOSOLVER HERE !!!!!
                     }
                 }
-                
+
             }
             else
             {

@@ -24,17 +24,19 @@ namespace MasterMind_Project_2
                 _guessString = value;
                 IInputCleaner _guessValidator = Guess;
                 IPinConverter _convertPin = Guess;
-                var localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, out _isGuessValid);
+                var localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, ref _isGuessValid);
                 if(_isGuessValid)
                 {
-
 				// Convert and Map validated Guesses
                    Guess.GuessBoard = Guess.mapper(
                        _convertPin.PinConverter(localPassableVar),
                        Guess.GuessBoard,
-                         out GuessCounter, out _isGuessValid);
+                         out GuessCounter, ref _isGuessValid);
+
 
 				// Generate Hint
+
+
 
 					
 					
@@ -51,7 +53,7 @@ namespace MasterMind_Project_2
         private static Hint _hint;
 
         internal static Solution Solution { get => _solution; }
-        internal static Guess Guess { get => _guess; set => _guess = value; }
+        internal static Guess Guess { get => _guess; set =>_guess = value; }
         internal static Hint Hint { get => _hint; set => _hint = value; }
 
         static Board()

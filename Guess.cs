@@ -9,7 +9,7 @@ namespace MasterMind_Project_2
         private Pin _guessPin;
         private Dictionary<int, GuessPin[]> _guessBoard;
         internal Dictionary<int, GuessPin[]> GuessBoard { get => _guessBoard; set => _guessBoard = value; }
-     
+
 
         internal Guess()
         {
@@ -17,27 +17,5 @@ namespace MasterMind_Project_2
             _guessPin = new GuessPin();
             _guessBoard = mapper((GuessPin)_guessPin, _guessBoard);
         }
-
-        
-
-
-        // private Dictionary<int, GuessPin[]> initialiseNoneGuessBoard()
-        // {
-        //     GuessPin[] guessNone = new GuessPin[Columns];
-
-        //     for ( int i = 0; i < Row; i++)
-        //     {
-        //         for ( int j = 0; j < Columns; j++)
-        //         {
-
-        //             guessPin = new GuessPin();
-        //             guessNone[j] = (GuessPin) guessPin;
-        //         }
-
-        //         _guessBoard.Add(i, guessNone );
-
-        //     }
-        //     return GuessBoard;
-        // }
     }
 }

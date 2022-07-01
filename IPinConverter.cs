@@ -7,12 +7,14 @@ namespace MasterMind_Project_2
     {
 
 
-        internal List<PinColor> PinConverter(List<string> validatedInput)
+        internal List<GuessPin> PinConverter(List<string> validatedInput)
         {
 
-            List<PinColor> convertedPins = new List<PinColor>();
-            Array Pins = Enum.GetValues(typeof(PinColor));
+            List<GuessPin> convertedPins = new List<GuessPin>();
+            GuessPin guessPin;
+            Array Pins = Enum.GetValues(typeof(GuessColor));
 
+// IF NONE IS ALLOWED YOU SHOULD IMPLEMENT IT HERE!!!
 
             foreach (var guess in validatedInput)
             {
@@ -21,18 +23,13 @@ namespace MasterMind_Project_2
                 {
                     if (guess == ((char)((int)pin)).ToString())
                     {
-                        convertedPins.Add(((PinColor)pin));
+                        guessPin = new GuessPin((PinColor) pin);
+                        convertedPins.Add(guessPin);
                     } 
-                    else
-                    {
-                        convertedPins.Add(PinColor.None);
-                    }
                 }
+
             }
 
-            foreach ( var item in convertedPins )
-            {
-            }
             return convertedPins;
         } 
             
