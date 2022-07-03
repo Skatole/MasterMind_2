@@ -4,31 +4,19 @@ namespace MasterMind_Project_2
     {
 
         private GuessColor _color;
-        internal new GuessColor Color { 
-            get => _color; 
-            set 
-            {
-                if(value.GetType() == typeof(PinColor))
-                {
-                    _color = (GuessColor) value;
-                } else if(value.GetType() == typeof(GuessColor))
-                {
-                    _color = value;
-                } else
-                {
-                    System.Console.WriteLine("Invalid Color type. Unable to cast. \n GuessPins can only be PinColor or GuessColor typed.");
-                }
-            }}
+        internal new GuessColor Color { get =>  _color; set => _color = value; }
         // you migh need to use new keyword here because of inheritance
         // if you want to change the color it will need a new Color property
         public GuessPin() : base()
         {
             _color = new GuessColor();
+            Color =  GuessColor.None;
+
         }
 
-        public GuessPin(PinColor pin) : base(pin)
+        public GuessPin(GuessColor pin) : base((PinColor) pin)
         {
-            Color = (GuessColor) pin;
+            Color = pin;
         }        
         
         // public GuessPin(PinColor c) : base(c)

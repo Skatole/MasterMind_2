@@ -1,7 +1,6 @@
 ﻿
 
 using System;
-using System.Linq;
 
 namespace MasterMind_Project_2
 {

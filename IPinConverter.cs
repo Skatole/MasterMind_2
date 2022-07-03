@@ -23,7 +23,7 @@ namespace MasterMind_Project_2
                 {
                     if (guess == ((char)((int)pin)).ToString())
                     {
-                        guessPin = new GuessPin((PinColor) pin);
+                        guessPin = new GuessPin((GuessColor) pin);
                         convertedPins.Add(guessPin);
                     } 
                 }

@@ -2,22 +2,22 @@ namespace MasterMind_Project_2
 {
     internal enum PinColor
     {
-        None = (int) 'N',
-        White = (int) 'W',
-        Red = (int) 'R',
-        Blue = (int) 'B',
-        Green = (int) 'G',
-        Yellow = (int) 'Y',
-        Purple = (int) 'P',
-        Cyan = (int) 'C',
-        Black = (int) 'X',
+        None =  'N',
+        White =  'W',
+        Red =  'R',
+        Blue =  'B',
+        Green =  'G',
+        Yellow =  'Y',
+        Purple =  'P',
+        Cyan =  'C',
+        Black =  'X',
     }
 
     internal enum HintColor
     {
         None = PinColor.None,
-        White = PinColor.White,
-        Red = PinColor.Red,
+        In = PinColor.White,
+        InPlace= PinColor.Red,
     }
 
     internal enum GuessColor

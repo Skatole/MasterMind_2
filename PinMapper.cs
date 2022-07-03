@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Pastel;
 
@@ -8,19 +9,17 @@ namespace MasterMind_Project_2
     abstract class PinMapper : Pin
     {
         // Guess Pin from constructor
-        internal Dictionary<int, GuessPin[]> mapper(GuessPin pin, Dictionary<int, GuessPin[]> Board)
+        internal Dictionary<int, GuessPin [ ]> mapper ( GuessPin pin, Dictionary<int, GuessPin [ ]> Board )
         {
-            Board = new Dictionary<int, GuessPin[]>();
-
             GuessPin[] pinArr = new GuessPin[Columns];
 
-            for (int i = 0; i < Row; i++)
+            for ( int i = 0; i < Row; i++ )
             {
-                for (int j = 0; j < Columns; j++)
+                for ( int j = 0; j < Columns; j++ )
                 {
 
                     pin = new GuessPin();
-                    pinArr[j] = (GuessPin)pin;
+                    pinArr [ j ] = pin;
                 }
 
                 Board.Add(i, pinArr);
@@ -31,19 +30,17 @@ namespace MasterMind_Project_2
 
         // HintPin from constructor
 
-        internal Dictionary<int, HintPin[]> mapper(HintPin pin, Dictionary<int, HintPin[]> Board)
+        internal Dictionary<int, HintPin [ ]> mapper ( HintPin pin, Dictionary<int, HintPin [ ]> Board )
         {
-            Board = new Dictionary<int, HintPin[]>();
-
             HintPin[] pinArr = new HintPin[Columns];
 
-            for (int i = 0; i < Row; i++)
+            for ( int i = 0; i < Row; i++ )
             {
-                for (int j = 0; j < Columns; j++)
+                for ( int j = 0; j < Columns; j++ )
                 {
 
                     pin = new HintPin();
-                    pinArr[j] = (HintPin)pin;
+                    pinArr [ j ] = pin;
                 }
 
                 Board.Add(i, pinArr);
@@ -53,7 +50,7 @@ namespace MasterMind_Project_2
         }
 
         // Guess Pin from List
-        internal Dictionary<int, GuessPin[]> mapper(List<GuessPin> convertedPinList, Dictionary<int, GuessPin[]> guessBoard, out int counter, ref bool isGuessValid)
+        internal Dictionary<int, GuessPin [ ]> mapper ( List<GuessPin> convertedPinList, Dictionary<int, GuessPin [ ]> guessBoard, out int counter, ref bool isGuessValid )
         {
             counter = GuessCounter;
             GuessPin[] pinArr = new GuessPin[Columns];
@@ -61,29 +58,18 @@ namespace MasterMind_Project_2
             // If NONE is allowed then take out the convertedPinList[i] != PinColor.None statement!
 
 
-            if (convertedPinList.Count == Columns && isGuessValid)
+            if ( convertedPinList.Count == Columns && isGuessValid )
             {
-                for (int i = 0; i < convertedPinList.Count; i++)
+                for ( int i = 0; i < convertedPinList.Count; i++ )
                 {
-                    if (convertedPinList[i].Color != GuessColor.None)
+                    if ((GuessColor) convertedPinList [ i ].Color != GuessColor.None )
                     {
-                        pinArr[i] = convertedPinList[i];
+                        pinArr [ i ] = convertedPinList [ i ];
                         isGuessValid = true;
                     }
                 }
 
-                guessBoard[Row - counter] = isGuessValid ? pinArr : guessBoard[Row - counter];
-
-                if ( guessBoard[Row - Columns].Length == Columns)
-                {
-                    counter--;
-                    System.Console.WriteLine(counter);
-                }
-                else
-                {
-                    Console.WriteLine(" \n	Invalid guess input! \n 	Please choose from the given color input options. \n".Pastel(System.Drawing.Color.DarkRed));
-                    isGuessValid = false;
-                }
+                guessBoard [ Row - counter ] = isGuessValid ? pinArr : guessBoard [ Row - counter ];
 
             }
             else
@@ -92,39 +78,43 @@ namespace MasterMind_Project_2
                 isGuessValid = false;
             }
 
-            foreach (var item in guessBoard)
-            {
-                System.Console.WriteLine(item.Key + " : " );
-                foreach (var val in item.Value)
-                {
-                    System.Console.Write(val + " , ");
-                }
-            }
 
             return guessBoard;
         }
 
-        // Hint Pin from List
+        // Hint Pin from Guess Board
 
-        internal Dictionary<int, HintPin[]> mapper(List<PinColor> convertedPinList, Dictionary<int, HintPin[]> hintBoard, int counter)
+        internal Dictionary<int, HintPin [ ]> mapper ( HintPin pin, Dictionary<int, HintPin[]> hintBoard, bool isGuessValid )
         {
-            Pin pin;
 
-            HintPin[] pinArr = new HintPin[convertedPinList.Count];
+            HintPin[] pinArray = new HintPin[Columns];
 
-            for (int i = 0; i < convertedPinList.Count; i++)
+            Console.WriteLine("\n PIN: "+ pin +  " PinCOLOr: " + pin.Color);              
+            foreach ( var item in hintBoard [ Row - GuessCounter].Select((value, i) => new { i, value}))
             {
-                pin = new HintPin();
-                pin.Color = convertedPinList[i];
-                pinArr[i] = (HintPin)pin;
+                Console.WriteLine("\n Something:"+   item.value.Color + " : " + item.i);
+                if ( (HintColor) item.value.Color == HintColor.None && isGuessValid)
+                {
+
+                   pinArray[item.i] = pin;
+                    Console.WriteLine("\n ITEM COLOR: " + pinArray[item.i] + " PINCOLOR: " + pinArray [ item.i ].Color);
+
+                }
+                //Swapper implementation here: !!!!
+                //Swapper()
+
             }
-            hintBoard.Add(Row - counter, pinArr);
 
-            return hintBoard;
+            hintBoard [ Row - GuessCounter ] = pinArray;
 
+            Console.WriteLine("\n hintBoard");
+            foreach ( var item in hintBoard [ Row - GuessCounter ].Select((value, i) => new { value, i } )   )
+            {
+                hintBoard [ Row - GuessCounter ] [ item.i ].Color = HintColor.In;
+                Console.WriteLine("\n hintBoard in Mapper : " + item + " : " + item.value.Color);    
+            }
+
+            return hintBoard;                                                                                            1
         }
-
-
-
     }
 }

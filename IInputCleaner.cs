@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 using Pastel;
@@ -27,12 +26,12 @@ namespace MasterMind_Project_2
             }
             else if (guess.Length > columns)
             {
-                Console.WriteLine("\n" + "Please Only Enter " + columns + "characters!".Pastel(System.Drawing.Color.DarkRed) + "\n");
+                Console.WriteLine("\n" + ("Please Only Enter " + columns + "characters!").Pastel(System.Drawing.Color.DarkRed) + "\n");
                 isGuessValid = false;
             }
             else if (guess.Length < columns)
             {
-                System.Console.WriteLine("\n This is less than " + columns + " characters");
+                System.Console.WriteLine("\n" + ("This is less than " + columns + " characters").Pastel(System.Drawing.Color.DarkRed) + "\n");
                 isGuessValid = false;
             }
             else if (guess.Length == columns)

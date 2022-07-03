@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MasterMind_Project_2
 {
     internal class Solution : Pin
     {
 
-        private List<(PinColor Name, char Value)> _sol = new List<(PinColor Name, char Value)>();
-        internal List<(PinColor Name, char Value)> Sol { get => _sol; }
-		internal Dictionary<(PinColor Name, char Value), int> countedRandomPins = new Dictionary<(PinColor Name, char Value), int>();
+        private GuessColor[] _sol = new GuessColor[Columns];
+        internal GuessColor [] Sol { get => _sol; }
 
 
 
@@ -20,20 +16,31 @@ namespace MasterMind_Project_2
             generateSolution();
         }
 
-        private List<(PinColor Name, char Value)> generateSolution() 
+        private GuessColor[] generateSolution () 
         {
-			Random random = new Random((int) DateTime.Now.Ticks);
-            List<(PinColor, char)>  randomPin = RandomPin.generateRandomPins(1, 0, Columns);
+
+            Console.WriteLine("Solution : \n");
+            Random random = new Random((int) DateTime.Now.Ticks);
+            List<GuessColor>  randomPin = RandomPin.generateRandomPins(1, 0, Columns);
+
 
 			for ( int i = 0; i < Columns; i++) 
 			{
 				int index = random.Next(randomPin.Count);
-				if (randomPin[index].Item1 != PinColor.None)
-				{
-					_sol .Add(randomPin[index]);
-				}
+
+
+                //if NONE is allowed you shoould change the implementation here!!!
+
+
+				
+					_sol[i] = (randomPin[index]);
+			
+            Console.Write(_sol[i] + " , ");
 			}
-            return Sol;
+
+            Console.WriteLine("\n");
+
+            return _sol;
         }
     }
 }

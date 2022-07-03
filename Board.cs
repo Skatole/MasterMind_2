@@ -1,5 +1,3 @@
-using System;
-
 namespace MasterMind_Project_2
 {
     public class Board
@@ -17,7 +15,8 @@ namespace MasterMind_Project_2
 
         internal bool IsGuessValid { get => _isGuessValid; set => _isGuessValid = value; }
         private string _guessString;
-        internal string GuessString { 
+        internal string GuessString
+        {
             get => _guessString;
             set
             {
@@ -25,21 +24,42 @@ namespace MasterMind_Project_2
                 IInputCleaner _guessValidator = Guess;
                 IPinConverter _convertPin = Guess;
                 var localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, ref _isGuessValid);
-                if(_isGuessValid)
+                foreach ( var item in Guess.GuessBoard [ Row - GuessCounter ] )
                 {
-				// Convert and Map validated Guesses
-                   Guess.GuessBoard = Guess.mapper(
-                       _convertPin.PinConverter(localPassableVar),
-                       Guess.GuessBoard,
-                         out GuessCounter, ref _isGuessValid);
+                    System.Console.WriteLine(item.Color);
+                }
+                if ( _isGuessValid )
+                {
+                    // Convert and Map validated Guesses
+                    Guess.GuessBoard = Guess.mapper(
+                        _convertPin.PinConverter(localPassableVar),
+                        Guess.GuessBoard,
+                          out GuessCounter, ref _isGuessValid);
+
+                    System.Console.WriteLine(" \n GUESSBOARD : ");
+                    foreach ( var item in Guess.GuessBoard )
+                    {
+                        System.Console.WriteLine(item.Key + " : ");
+
+                        foreach ( var val in item.Value )
+                        {
+                            System.Console.Write(val + " , ");
+                        }
+                    }
 
 
-				// Generate Hint
 
 
 
-					
-					
+
+                    // Generate Hint
+                    Hint.GenerateHint(Guess, Solution, IsGuessValid);
+
+                    System.Console.WriteLine("\n  GUESSCOUNTER :" + GuessCounter);
+                    GuessCounter--;
+
+
+
                 }
             }
         }
@@ -53,25 +73,24 @@ namespace MasterMind_Project_2
         private static Hint _hint;
 
         internal static Solution Solution { get => _solution; }
-        internal static Guess Guess { get => _guess; set =>_guess = value; }
+        internal static Guess Guess { get => _guess; set => _guess = value; }
         internal static Hint Hint { get => _hint; set => _hint = value; }
 
-        static Board()
+        static Board ( )
         {
+            Row = 10;
+            Columns = 4;
             _solution = new Solution();
             _guess = new Guess();
             _hint = new Hint();
             GuessCounter = Row;
         }
 
-        public Board()
+        public Board ( )
         {
-            Row = 10;
-            Columns = 4;
             IsSessionValid = true;
-
         }
-        public Board(int row, int columns, bool isSessionValid)
+        public Board ( int row, int columns, bool isSessionValid )
         {
             Row = row;
             Columns = columns;
@@ -80,20 +99,20 @@ namespace MasterMind_Project_2
         }
 
 
-        internal bool SessionValidator()
+        internal bool SessionValidator ( )
         {
-            if (GuessCounter < 0)
+            if ( GuessCounter < 0 )
             {
                 IsSessionValid = false;
             }
-            else if (GuessCounter <= Row && !(Row - GuessCounter > Row - 1))
+            else if ( GuessCounter <= Row && !(Row - GuessCounter > Row - 1) )
             {
                 IsSessionValid = true;
             }
-			else 
-			{
-				IsSessionValid = false;
-			}
+            else
+            {
+                IsSessionValid = false;
+            }
             return IsSessionValid;
         }
     }
