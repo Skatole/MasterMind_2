@@ -17,7 +17,7 @@ namespace MasterMind_Project_2
     {
         None = PinColor.None,
         In = PinColor.White,
-        InPlace= PinColor.Red,
+        InPlace = PinColor.Red,
     }
 
     internal enum GuessColor

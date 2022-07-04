@@ -21,6 +21,5 @@ namespace MasterMind_Project_2
         {
             Color = pin;
         }
-
-    }
+   }
 }

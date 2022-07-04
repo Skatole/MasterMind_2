@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MasterMind_Project_2
 {
     class Hint : PinMapper
     {
-        Pin hintPin;
+        private HintPin hintPin;
+        private Dictionary<int, GuessColor> memory = new Dictionary<int, GuessColor>();
         internal Dictionary<int, HintPin[]>? _hintBoard;
         private Array allPin = Enum.GetValues(typeof(PinColor));
         internal Dictionary<int, HintPin [ ]>? HintBoard { get => _hintBoard; set => _hintBoard = value; }
@@ -26,38 +28,51 @@ namespace MasterMind_Project_2
         {
             if (isGuessValid)
             {
-                for ( int i = 0; i < guess.GuessBoard [ Row - GuessCounter ].Length; i++ )
+
+                HintPin[] rowOfHintPins = new HintPin[solution.Sol.Length];
+                // Seed the memory with empty values;
+                for (int i = 0; i < solution.Sol.Length; i++)
                 {
-                    foreach ( var sol in solution.Sol )
+                    memory.Add(i, new GuessColor());
+                    rowOfHintPins[i] = new HintPin( HintColor.None );
+                }
+                foreach (var item in guess.GuessBoard[Row - GuessCounter].Select((value, i) => new {value, i}))
+                {
+                    foreach (var sol in solution.Sol.Select((value, i) => new {value, i}))
                     {
-                       if ( guess.GuessBoard [ Row - GuessCounter ] [ i ].Color == sol)
+                        // System.Console.WriteLine( 
+                        //       (item.i == sol.i) + "  indexek : " + " item: " + item.i + " sol.i: " + sol.i 
+                        //       + " item.Color vs. sol.Color  " + (item.value.Color == sol.value)
+                        //       );  
+
+                        if ((solution.Sol[item.i] == guess.GuessBoard[Row - GuessCounter][item.i].Color) && memory[item.i] != sol.value)
                         {
-                            hintPin.Color = (PinColor) HintColor.In;
-                            _hintBoard = mapper((HintPin) hintPin, _hintBoard, isGuessValid);
+                            memory[item.i] = sol.value;
+                            System.Console.WriteLine("IN RED : " + " MEMORY: " + memory[sol.i]);
+                            hintPin = new HintPin( HintColor.InPlace );
+                            rowOfHintPins[item.i] = hintPin;
                         }
-                       else
+                        else if (solution.Sol[sol.i] == guess.GuessBoard[ Row - GuessCounter ][item.i].Color && memory[sol.i] != sol.value )
                         {
-                            hintPin.Color = (PinColor) HintColor.None;
+
+                            memory[sol.i] = sol.value;
+                            System.Console.WriteLine("IN White : " + " MEMORY: " + memory[sol.i]);
+                            hintPin = new HintPin( HintColor.In );
+                            rowOfHintPins[item.i] = hintPin;
                         }
                     }
-
-
-                    hintPin.Color =  guess.GuessBoard [ Row - GuessCounter ] [ i ].Color == solution.Sol [ i ] ? hintPin.Color = (PinColor) HintColor.InPlace : hintPin.Color;
-
-
-                    _hintBoard = mapper((HintPin) hintPin, _hintBoard, isGuessValid);
                 }
 
-                Console.WriteLine(" \n HintBoard");
-                foreach ( var item in _hintBoard )
+
+
+                foreach (var item in rowOfHintPins)
                 {
-                    Console.WriteLine(item.Key + " : ");
-
-                    foreach ( var val in item.Value )
-                    {
-                        Console.Write(val.Color + " , ");
-                    }
+                    System.Console.Write(item + " , ");
                 }
+
+                _hintBoard[Row - GuessCounter] = rowOfHintPins;
+                memory.Clear();
+
             }
 
             return _hintBoard;

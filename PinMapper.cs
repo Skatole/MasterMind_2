@@ -62,7 +62,8 @@ namespace MasterMind_Project_2
             {
                 for ( int i = 0; i < convertedPinList.Count; i++ )
                 {
-                    if ((GuessColor) convertedPinList [ i ].Color != GuessColor.None )
+                    // (GuessColor) this was a cast taken out for testing
+                    if ( convertedPinList [ i ].Color != GuessColor.None )
                     {
                         pinArr [ i ] = convertedPinList [ i ];
                         isGuessValid = true;
@@ -70,7 +71,6 @@ namespace MasterMind_Project_2
                 }
 
                 guessBoard [ Row - counter ] = isGuessValid ? pinArr : guessBoard [ Row - counter ];
-
             }
             else
             {
@@ -84,37 +84,13 @@ namespace MasterMind_Project_2
 
         // Hint Pin from Guess Board
 
-        internal Dictionary<int, HintPin [ ]> mapper ( HintPin pin, Dictionary<int, HintPin[]> hintBoard, bool isGuessValid )
-        {
+        // internal Dictionary<int, HintPin [ ]> mapper ( HintPin[] rowOfHintPins,  Dictionary<int, HintPin [ ]> hintBoard)
+        // {
 
-            HintPin[] pinArray = new HintPin[Columns];
 
-            Console.WriteLine("\n PIN: "+ pin +  " PinCOLOr: " + pin.Color);              
-            foreach ( var item in hintBoard [ Row - GuessCounter].Select((value, i) => new { i, value}))
-            {
-                Console.WriteLine("\n Something:"+   item.value.Color + " : " + item.i);
-                if ( (HintColor) item.value.Color == HintColor.None && isGuessValid)
-                {
+           
 
-                   pinArray[item.i] = pin;
-                    Console.WriteLine("\n ITEM COLOR: " + pinArray[item.i] + " PINCOLOR: " + pinArray [ item.i ].Color);
-
-                }
-                //Swapper implementation here: !!!!
-                //Swapper()
-
-            }
-
-            hintBoard [ Row - GuessCounter ] = pinArray;
-
-            Console.WriteLine("\n hintBoard");
-            foreach ( var item in hintBoard [ Row - GuessCounter ].Select((value, i) => new { value, i } )   )
-            {
-                hintBoard [ Row - GuessCounter ] [ item.i ].Color = HintColor.In;
-                Console.WriteLine("\n hintBoard in Mapper : " + item + " : " + item.value.Color);    
-            }
-
-            return hintBoard;                                                                                            1
-        }
+        //     return hintBoard;                                                                                            
+        // }
     }
 }
