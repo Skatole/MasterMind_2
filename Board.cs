@@ -1,3 +1,5 @@
+using System;
+
 namespace MasterMind_Project_2
 {
     public class Board
