@@ -92,5 +92,18 @@ namespace MasterMind_Project_2
 
         //     return hintBoard;                                                                                            
         // }
+
+
+        internal Dictionary<int, GuessColor> CreateShortTermMemory( GuessColor[] Pins)
+        {
+            Dictionary<int, GuessColor> sMemory = new Dictionary<int, GuessColor>();
+            for (int i = 0; i < Pins.Length; i++)
+            {
+                sMemory.Add(i, Pins[i]);
+            }
+
+            return sMemory;
+        }
+        
     }
 }

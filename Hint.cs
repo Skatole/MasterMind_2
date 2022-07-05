@@ -33,15 +33,11 @@ namespace MasterMind_Project_2
                 // Seed one row of hints with empty pins 
                 for ( int i = 0; i < guess.GuessBoard [ Row - GuessCounter ].Length; i++ )
                 {
-
                     rowOfHintPins [ i ] = new HintPin(HintColor.None);
                 }
                 //Seed memory
 
-                for ( int i = 0; i < solution.Sol.Length; i++ )
-                {
-                    memory.Add(i, solution.Sol [ i ]);
-                }
+                memory = CreateShortTermMemory( solution.Sol );
 
                 foreach ( var item in guess.GuessBoard [ Row - GuessCounter ].Select(( value, i ) => new { value, i }) )
                 {

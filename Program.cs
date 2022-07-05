@@ -1,6 +1,7 @@
 ﻿
 
 using System;
+using MasterMind_Project_2.console_display_classes;
 
 namespace MasterMind_Project_2
 {
@@ -12,11 +13,15 @@ namespace MasterMind_Project_2
 
             Board Board = new Board();
 
+            ConsoleMenu Menu = new ConsoleMenu();
+            DisplayOnConsole ConsoleDisplay = new DisplayOnConsole();
+            ConsoleDisplay.ParseText("./Welcome.txt");
+
             while (Board.SessionValidator())
             { 
+                ConsoleDisplay.DisplayBoard();
+                Board.GuessString = ConsoleDisplay.AskForGuess();
 
-                System.Console.WriteLine("Make a Guess:");
-                Board.GuessString = Console.ReadLine();
 
 
 

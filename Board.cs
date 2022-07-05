@@ -34,42 +34,8 @@ namespace MasterMind_Project_2
                         Guess.GuessBoard,
                           out GuessCounter, ref _isGuessValid);
 
-                    System.Console.WriteLine(" \n GUESSBOARD : ");
-                foreach ( var item in Guess.GuessBoard [ Row - GuessCounter ] )
-                {
-                    System.Console.WriteLine(item.Color);
-                }
-                    // foreach ( var item in Guess.GuessBoard )
-                    // {
-                    //     System.Console.WriteLine(item.Key + " : ");
 
-                    //     foreach ( var val in item.Value )
-                    //     {
-                    //         System.Console.Write("val type: " + val.GetType() + ", val: " + val + ", val.Color type: " + val.Color.GetType() + ", val.Color: " + val.Color + " , ");
-                    //     }
-                    // }
-
-
-
-
-
-
-                    // Generate Hint
-                    Hint.GenerateHint(Guess, Solution, IsGuessValid);
-
-					 Console.WriteLine(" \n HintBoard");
-
-                foreach ( var item in Hint.HintBoard )
-                {
-                    Console.WriteLine(item.Key + " : ");
-
-                    foreach ( var val in item.Value )
-                    {
-                        Console.Write(val.Color + " , ");
-                    }
-                }
-
-                    System.Console.WriteLine("\n  GUESSCOUNTER :" + GuessCounter);
+					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
                     GuessCounter--;
 
 
