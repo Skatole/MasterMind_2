@@ -34,11 +34,11 @@
 
 		HINTS : ( Right board ==> (   o   ) )
 
-			The Red dot (R):
+			The black dot (B):
 			you have one of the right colors and
 			it's at the right position.
 
-			The White dot (W): 
+			The white dot (W): 
 			you have one of the right colors BUT
 			it's NOT on the right position.
 
@@ -47,7 +47,7 @@
 			You can choose from these colors:
 				Blue : B;
 				Cyan : C;
-				Black: B;
+				Red: R;
 				Green : G;
 				Yellow: Y;
 				White: W;

@@ -2,7 +2,7 @@ using System;
 
 namespace MasterMind_Project_2
 {
-    public class Board
+    public class Board : IInputCleaner, IPinConverter
     {
 
         //Class specific static variables.
@@ -32,9 +32,10 @@ namespace MasterMind_Project_2
                     Guess.GuessBoard = Guess.mapper(
                         _convertPin.PinConverter(localPassableVar),
                         Guess.GuessBoard,
-                          out GuessCounter, ref _isGuessValid);
+                          ref GuessCounter);
 
 
+                    Hint.GenerateHint(Guess, Solution);
 					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
                     GuessCounter--;
 

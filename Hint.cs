@@ -24,11 +24,8 @@ namespace MasterMind_Project_2
 
 
 
-        internal Dictionary<int, HintPin [ ]> GenerateHint ( Guess guess, Solution solution, bool isGuessValid )
+        internal Dictionary<int, HintPin [ ]> GenerateHint ( Guess guess, Solution solution )
         {
-            if ( isGuessValid )
-            {
-
                 HintPin[] rowOfHintPins = new HintPin[guess.GuessBoard [ Row - GuessCounter ].Length];
                 // Seed one row of hints with empty pins 
                 for ( int i = 0; i < guess.GuessBoard [ Row - GuessCounter ].Length; i++ )
@@ -37,33 +34,30 @@ namespace MasterMind_Project_2
                 }
                 //Seed memory
 
-                memory = CreateShortTermMemory( solution.Sol );
+                memory = CreateShortTermMemory(solution.Sol);
 
                 foreach ( var item in guess.GuessBoard [ Row - GuessCounter ].Select(( value, i ) => new { value, i }) )
                 {
-                    if ( guess.GuessBoard [ Row - GuessCounter ] [ item.i ].Color == solution.Sol [ item.i ] )
+                    if ( guess.GuessBoard [ Row - GuessCounter ] [ item.i ].Color == memory [ item.i ] )
                     {
                         rowOfHintPins [ item.i ] = new HintPin(HintColor.InPlace);
                         memory [ item.i ] = GuessColor.None;
                     }
-                    else
+                }
+                foreach ( var item in guess.GuessBoard [ Row - GuessCounter ].Select(( value, i ) => new { value, i }) )
+                {
+                    foreach ( var sol in solution.Sol.Select(( value, i ) => new { value, i }) )
                     {
-                        foreach ( var sol in solution.Sol.Select(( value, i ) => new { value, i }) )
+                        if ( guess.GuessBoard [ Row - GuessCounter ] [ item.i ].Color == memory [ sol.i ] )
                         {
-                            if ( guess.GuessBoard [ Row - GuessCounter ] [ item.i ].Color == memory[sol.i] )
-                            {
-                                rowOfHintPins [ item.i ] = new HintPin(HintColor.In);
-                                memory [ sol.i ] = GuessColor.None;
-                            }
+                            rowOfHintPins [ item.i ] = new HintPin(HintColor.In);
+                            memory [ sol.i ] = GuessColor.None;
                         }
                     }
-
                 }
 
                 _hintBoard [ Row - GuessCounter ] = rowOfHintPins;
                 memory.Clear();
-
-            }
 
             return _hintBoard;
         }
