@@ -81,5 +81,31 @@ namespace MasterMind_Project_2
             return sMemory;
         }
 
+        internal HintPin[] Scramble (HintPin[] oneRow)
+        {
+            List<int> indexMemory = new List<int>();
+            Random random = new Random((int) DateTime.Now.Ticks);
+            
+
+
+            while(indexMemory.Count < oneRow.Length)
+            {
+                int randIndex = random.Next(oneRow.Length);
+                HintPin temp = new HintPin();
+                for (int i = 0; i < oneRow.Length; i++)
+                {
+                    if (!indexMemory.Contains(randIndex) && i != randIndex)
+                    {
+                        System.Console.WriteLine("CICA");
+                        indexMemory.Add(randIndex);
+                        temp = oneRow[i];
+                        oneRow[i] = oneRow[randIndex];
+                        oneRow[randIndex] = temp;
+
+                    }
+                }
+            }
+            return oneRow;
+        }
     }
 }

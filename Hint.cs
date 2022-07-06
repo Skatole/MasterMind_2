@@ -55,7 +55,18 @@ namespace MasterMind_Project_2
                         }
                     }
                 }
+                
+                foreach (var item in rowOfHintPins)
+                {
+                    System.Console.WriteLine(item + " , ");
+                }
 
+                rowOfHintPins = Scramble(rowOfHintPins);
+
+                foreach (var item in rowOfHintPins)
+                {
+                    System.Console.WriteLine(item + " , ");
+                }
                 _hintBoard [ Row - GuessCounter ] = rowOfHintPins;
                 memory.Clear();
 
