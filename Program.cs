@@ -41,7 +41,6 @@ namespace MasterMind_Project_2
 
 
 
-                Board.IsSessionValid = false;
             }
 
 

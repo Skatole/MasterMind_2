@@ -25,15 +25,16 @@ namespace MasterMind_Project_2
                 _guessString = value;
                 IInputCleaner _guessValidator = Guess;
                 IPinConverter _convertPin = Guess;
-                var localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, ref _isGuessValid);
+                var _localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, out _isGuessValid);
+				List<(GuessPin pin, bool valid)> _convertedGuessPins = _convertPin.PinConverter(_localPassableVar, ref _isGuessValid);
+
+				System.Console.WriteLine(	_isGuessValid + " : " + IsGuessValid + " OUTSIDE");
                 if ( _isGuessValid )
                 {
-                    // Convert and Map validated Guesses
-                    Guess.GuessBoard = Guess.mapper(
-                        _convertPin.PinConverter(localPassableVar),
-                        Guess.GuessBoard,
-                          ref GuessCounter);
+                    // Map validated Guesses
 
+
+                    Guess.GuessBoard = Guess.mapper(_convertedGuessPins, Guess.GuessBoard, ref GuessCounter, ref _isGuessValid);
 
                     Hint.GenerateHint(Guess, Solution);
 					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);

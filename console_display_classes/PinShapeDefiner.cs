@@ -9,7 +9,6 @@ namespace MasterMind_Project_2.console_display_classes
         {
             foreach (var item in guess.GuessBoard)
             {
-
                 foreach (var pin in item.Value.Select((value,i) => new { value, i }))
                 {
                     switch(pin.value.Color)
@@ -24,7 +23,6 @@ namespace MasterMind_Project_2.console_display_classes
                         default : { pin.value.shape = "o".Pastel(System.Drawing.Color.DarkOliveGreen); break;}
                     }
                 }
-
             }
             return guess;
         }
@@ -43,7 +41,6 @@ namespace MasterMind_Project_2.console_display_classes
                         default : { pin.value.shape = "o".Pastel(System.Drawing.Color.DarkOliveGreen); break;}
                         
                     }
-
                 }
             }
             return hint;

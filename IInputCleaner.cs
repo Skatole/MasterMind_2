@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using Pastel;
@@ -12,42 +13,43 @@ namespace MasterMind_Project_2
 
 
 
-        internal List<string> CleanAndValidate(string guess, int columns, int row, ref bool isGuessValid)
+        internal string[] CleanAndValidate ( string guess, int columns, int row, out bool isGuessValid )
         {
-            List<string> guestList = new List<string> { };
+            isGuessValid = false;
+            string[] guessArr = new string[columns];
             Array pinArray = Enum.GetValues(typeof(PinColor));
 
-            if (guess.Length == 0)
+            if ( guess.Length == 0 )
             {
                 Console.WriteLine(" \n	No guess Input! \n 	Please choose from the given color input options. \n"
                 .Pastel(System.Drawing.Color.DarkRed));
                 isGuessValid = false;
 
             }
-            else if (guess.Length > columns)
+            else if ( guess.Length > columns )
             {
-                Console.WriteLine("\n" + ("Please Only Enter " + columns + "characters!").Pastel(System.Drawing.Color.DarkRed) + "\n");
+                Console.WriteLine($"\n Please Only Enter {columns} characters! \n".Pastel(System.Drawing.Color.DarkRed) );
                 isGuessValid = false;
             }
-            else if (guess.Length < columns)
+            else if ( guess.Length < columns )
             {
-                System.Console.WriteLine("\n" + ("This is less than " + columns + " characters").Pastel(System.Drawing.Color.DarkRed) + "\n");
+                System.Console.WriteLine( $"\n This is less than {columns} characters".Pastel(System.Drawing.Color.DarkRed) );
                 isGuessValid = false;
             }
-            else if (guess.Length == columns)
+            else if ( guess.Length == columns )
             {
                 string replacedGuess = Regex.Replace(guess, @"[^0-9a-zA-Z]+", "").ToUpper();
                 isGuessValid = true;
-                for (var i = 0; i < replacedGuess.Length; i++)
+                    // if (replacedGuess.Contains("?"))
+                    // {
+                        // isGuessValid = true;
+                        // CALL AUTOSOLVER
+                    // }
+                for ( var i = 0; i < replacedGuess.Length; i++ )
                 {
-                    guestList.Add(replacedGuess[i].ToString());
-                    if (replacedGuess.Contains("?"))
-                    {
-                        isGuessValid = true;
-                        //CALL AUTOSOLVER HERE !!!!!
-                    }
+                    guessArr[i] = replacedGuess [ i ].ToString();
                 }
-
+                
             }
             else
             {
@@ -55,8 +57,7 @@ namespace MasterMind_Project_2
                 isGuessValid = false;
             }
 
-
-            return guestList;
+            return guessArr;
         }
     }
 }
