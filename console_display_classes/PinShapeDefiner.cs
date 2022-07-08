@@ -44,6 +44,7 @@ namespace MasterMind_Project_2.console_display_classes
                 }
             }
             return hint;
+            
         }
     }
 }

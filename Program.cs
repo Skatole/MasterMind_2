@@ -22,7 +22,10 @@ namespace MasterMind_Project_2
             { 
                 ConsoleDisplay.DisplayBoard();
                 Board.GuessString = ConsoleDisplay.AskForGuess();
-
+                foreach (var item in Board.Solution.Sol)
+                {
+                    System.Console.WriteLine("Solution: "  +    item  + " , ");
+                }
 
                
 

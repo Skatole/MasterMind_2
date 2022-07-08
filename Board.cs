@@ -28,7 +28,6 @@ namespace MasterMind_Project_2
                 var _localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, out _isGuessValid);
 				List<(GuessPin pin, bool valid)> _convertedGuessPins = _convertPin.PinConverter(_localPassableVar, ref _isGuessValid);
 
-				System.Console.WriteLine(	_isGuessValid + " : " + IsGuessValid + " OUTSIDE");
                 if ( _isGuessValid )
                 {
                     // Map validated Guesses
@@ -36,8 +35,7 @@ namespace MasterMind_Project_2
 
                     Guess.GuessBoard = Guess.mapper(_convertedGuessPins, Guess.GuessBoard, ref GuessCounter, ref _isGuessValid);
 
-                    Hint.GenerateHint(Guess, Solution);
-					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
+                    Hint.GenerateHint2(Guess, Solution);
                     GuessCounter--;
 
 
