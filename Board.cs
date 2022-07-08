@@ -6,6 +6,7 @@ namespace MasterMind_Project_2
     {
 
         //Class specific static variables.
+
         internal static int Row;
         internal static int Columns;
         internal static bool IsSessionValid;
@@ -14,7 +15,6 @@ namespace MasterMind_Project_2
         //class specific not static varriables
 
         private bool _isGuessValid;
-
         internal bool IsGuessValid { get => _isGuessValid; set => _isGuessValid = value; }
         private string _guessString;
         internal string GuessString
@@ -26,34 +26,23 @@ namespace MasterMind_Project_2
                 IInputCleaner _guessValidator = Guess;
                 IPinConverter _convertPin = Guess;
                 var _localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, out _isGuessValid);
-				List<(GuessPin pin, bool valid)> _convertedGuessPins = _convertPin.PinConverter(_localPassableVar, ref _isGuessValid);
+                List<(GuessPin pin, bool valid)> _convertedGuessPins = _convertPin.PinConverter(_localPassableVar, ref _isGuessValid);
 
-				System.Console.WriteLine(	_isGuessValid + " : " + IsGuessValid + " OUTSIDE");
                 if ( _isGuessValid )
                 {
                     // Map validated Guesses
-
-
                     Guess.GuessBoard = Guess.mapper(_convertedGuessPins, Guess.GuessBoard, ref GuessCounter, ref _isGuessValid);
-
                     Hint.GenerateHint(Guess, Solution);
-					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
                     GuessCounter--;
-
-
-
                 }
             }
         }
 
-
         //Object inicialisations for setting defult values
-
 
         private static Solution _solution;
         private static Guess _guess;
         private static Hint _hint;
-
         internal static Solution Solution { get => _solution; }
         internal static Guess Guess { get => _guess; set => _guess = value; }
         internal static Hint Hint { get => _hint; set => _hint = value; }
@@ -79,8 +68,7 @@ namespace MasterMind_Project_2
             GuessCounter = row;
             IsSessionValid = isSessionValid;
         }
-
-
+                                
         internal bool SessionValidator ( )
         {
             if ( GuessCounter < 0 )

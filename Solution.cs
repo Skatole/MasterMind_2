@@ -7,38 +7,38 @@ namespace MasterMind_Project_2
     {
 
         private GuessColor[] _sol = new GuessColor[Columns];
-        internal GuessColor [] Sol { get => _sol; }
+        internal GuessColor [ ] Sol { get => _sol; }
 
 
 
-        public Solution()
+        public Solution ( )
         {
             generateSolution();
         }
 
-        private GuessColor[] generateSolution () 
+        private GuessColor [ ] generateSolution ( )
         {
 
-            Console.WriteLine("Solution : \n");
+            //Console.WriteLine("Solution : \n");
             Random random = new Random((int) DateTime.Now.Ticks);
             List<GuessColor>  randomPin = RandomPin.generateRandomPins(1, 0, Columns);
 
 
-			for ( int i = 0; i < Columns; i++) 
-			{
-				int index = random.Next(randomPin.Count);
+            for ( int i = 0; i < Columns; i++ )
+            {
+                int index = random.Next(randomPin.Count);
 
 
                 //if NONE is allowed you shoould change the implementation here!!!
 
 
-				
-					_sol[i] = (randomPin[index]);
-			
-            Console.Write(_sol[i] + " , ");
-			}
 
-            Console.WriteLine("\n");
+                _sol [ i ] = (randomPin [ index ]);
+
+                //Console.Write(_sol [ i ] + " , ");
+            }
+
+            //Console.WriteLine("\n");
 
             return _sol;
         }

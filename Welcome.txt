@@ -50,7 +50,6 @@
 				Black: X;
 				Green : G;
 				Yellow: Y;
-				White: W;
 				Purple: P;
 
 	Please only input the given shortcut letters, those represents the

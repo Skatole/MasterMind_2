@@ -96,7 +96,6 @@ namespace MasterMind_Project_2
                 {
                     if (!indexMemory.Contains(randIndex) && i != randIndex)
                     {
-                        System.Console.WriteLine("CICA");
                         indexMemory.Add(randIndex);
                         temp = oneRow[i];
                         oneRow[i] = oneRow[randIndex];
