@@ -70,12 +70,43 @@ namespace MasterMind_Project_2
             return guessBoard;
         }
 
-        internal Dictionary<int, GuessColor> CreateShortTermMemory ( GuessColor [ ] Pins )
+        // HintPin to Hint Dictionary Mapping
+        internal HintPin[] mapper( int InPlace, int In, HintPin[] BoardRow )
         {
-            Dictionary<int, GuessColor> sMemory = new Dictionary<int, GuessColor>();
+            System.Console.WriteLine("HintBoardMapper: ");
+            if (InPlace > 0)
+            {
+                for (int i = 0; i < InPlace; i++)
+                {
+                    
+                    BoardRow[i] = new HintPin( HintColor.InPlace); 
+                }
+            }
+            foreach (var item in BoardRow.Select( (value, i ) => new { value, i }))
+            {
+                if ( item.value.Color == HintColor.None && In > 0 )    
+                { 
+                    for (int j = 0; j < In; j++)
+                    {
+                        BoardRow[item.i] = new HintPin( HintColor.In );
+                    }
+                }
+
+                System.Console.WriteLine(item.value);
+            }
+
+
+            return BoardRow;
+        }
+
+
+
+        internal List<GuessPin> CreateShortTermMemory ( GuessPin[ ] Pins )
+        {
+            List<GuessPin> sMemory = new List<GuessPin>();
             for ( int i = 0; i < Pins.Length; i++ )
             {
-                sMemory.Add(i, Pins [ i ]);
+                sMemory[i] = (Pins [ i ]);
             }
 
             return sMemory;
@@ -104,6 +135,7 @@ namespace MasterMind_Project_2
                     }
                 }
             }
+
             return oneRow;
         }
     }

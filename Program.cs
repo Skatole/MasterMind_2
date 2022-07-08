@@ -23,6 +23,28 @@ namespace MasterMind_Project_2
             {
                 ConsoleDisplay.DisplayBoard();
                 Board.GuessString = ConsoleDisplay.AskForGuess();
+                foreach (var item in Board.Solution.Sol)
+                {
+                    System.Console.WriteLine("Solution: "  +    item  + " , ");
+                }
+
+               
+
+
+
+
+
+
+                // var days =  Enum.GetValues(typeof(PinColor))
+                //         .Cast<PinColor>()
+                //         .Select(d => (d, (char)d))
+                //         .ToList();
+
+                // Console.WriteLine(String.Join(Environment.NewLine, days));
+
+
+
+
             }
         }
     }

@@ -32,7 +32,12 @@ namespace MasterMind_Project_2
                 {
                     // Map validated Guesses
                     Guess.GuessBoard = Guess.mapper(_convertedGuessPins, Guess.GuessBoard, ref GuessCounter, ref _isGuessValid);
-                    Hint.GenerateHint(Guess, Solution);
+
+                    Hint.GenerateHint2(Guess, Solution);
+					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
+					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
+					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
+					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
                     GuessCounter--;
                 }
             }
