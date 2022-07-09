@@ -35,9 +35,6 @@ namespace MasterMind_Project_2
 
                     Hint.GenerateHint2(Guess, Solution);
 					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
-					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
-					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
-					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
                     GuessCounter--;
                 }
             }

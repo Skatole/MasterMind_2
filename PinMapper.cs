@@ -111,7 +111,7 @@ namespace MasterMind_Project_2
 
             return sMemory;
         }
-
+    
         internal HintPin[] Scramble (HintPin[] oneRow)
         {
             List<int> indexMemory = new List<int>();

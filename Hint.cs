@@ -70,11 +70,21 @@ namespace MasterMind_Project_2
         internal Dictionary<int, HintPin[]> GenerateHint2 (Guess guess, Solution solution)
         {
 
-            GuessColor[] sMemory = solution.Sol;
-            GuessPin[] gMemory = guess.GuessBoard[ Row - GuessCounter ];
+            In = 0;
+            InPlace = 0;
+
+            GuessColor[] sMemory = new GuessColor[solution.Sol.Length];
+            List<GuessPin> gMemory = CreateShortTermMemory(guess.GuessBoard[ Row - GuessCounter ]);
+
+            Console.WriteLine("Solution: ");
+            for ( int i = 0; i < solution.Sol.Length; i++ )
+            {
+                sMemory [ i ] = solution.Sol [ i ];
+                Console.WriteLine(solution.Sol [i]);
+            }
 
             // Red 
-            foreach (var item in guess.GuessBoard[ Row - GuessCounter ].Select( (value, i ) => new { value, i}))
+            foreach (var item in gMemory.Select( (value, i ) => new { value, i}))
             {   
                 int position = Array.IndexOf(sMemory, item.value.Color);
                 System.Console.WriteLine("INDEX:  " + item.i + " POSITION IN BLACK: " + position);
@@ -82,14 +92,14 @@ namespace MasterMind_Project_2
                 {
                     System.Console.WriteLine(   "In RED" );
                     InPlace++;
-                    gMemory[ item.i ] = new GuessPin( GuessColor.None );
                     sMemory[ item.i ] = GuessColor.None;
+                    gMemory [ item.i ] = new GuessPin(GuessColor.None);
+
                 }
             }
 
-
             // White
-            foreach (var item in guess.GuessBoard[ Row - GuessCounter ].Select( (value, i ) => new { value, i}))
+            foreach (var item in gMemory.Select( (value, i ) => new { value, i}))
             {
                 int position = Array.IndexOf(sMemory, item.value.Color);
                 System.Console.WriteLine("INDEX:  " + item.i  + " POSITION IN WHITE: " + position );
@@ -98,7 +108,6 @@ namespace MasterMind_Project_2
                 {
                     System.Console.WriteLine(   "In White" );
                     In++;
-                    gMemory[ item.i ] = new GuessPin ( GuessColor.None );
                     sMemory[ item.i ] = GuessColor.None;
                 }
             }
@@ -106,6 +115,7 @@ namespace MasterMind_Project_2
             System.Console.WriteLine(" ALL IN ALL: " + " WHITE: " + In + " RED: " + InPlace);
 
             _hintBoard[ Row - GuessCounter ] = Scramble(mapper(InPlace, In, _hintBoard[ Row - GuessCounter ]));
+
             return _hintBoard;
         }
 

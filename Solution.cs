@@ -19,7 +19,7 @@ namespace MasterMind_Project_2
         private GuessColor [ ] generateSolution ( )
         {
 
-            //Console.WriteLine("Solution : \n");
+            Console.WriteLine("Solution : \n");
             Random random = new Random((int) DateTime.Now.Ticks);
             List<GuessColor>  randomPin = RandomPin.generateRandomPins(1, 0, Columns);
 
@@ -35,7 +35,7 @@ namespace MasterMind_Project_2
 
                 _sol [ i ] = (randomPin [ index ]);
 
-                //Console.Write(_sol [ i ] + " , ");
+                Console.Write(_sol [ i ] + " , ");
             }
 
             //Console.WriteLine("\n");
