@@ -50,14 +50,13 @@ namespace MasterMind_Project_2
         }
 
         // Guess Pin from List
-        internal Dictionary<int, GuessPin [ ]> mapper ( List<(GuessPin pin, bool valid)> convertedPinList, Dictionary<int, GuessPin [ ]> guessBoard, ref int counter, ref bool isGuessValid )
+        internal Dictionary<int, GuessPin [ ]> mapper ( List<(GuessPin pin, bool valid)> convertedPinList, Dictionary<int, GuessPin [ ]> guessBoard, ref int guessCounter, ref bool isGuessValid )
         {
             GuessPin[] pinArr = new GuessPin[Columns];
 
             // If NONE is allowed then take out the convertedPinList[i] != PinColor.None statement!
 
-            if ( isGuessValid )
-            {
+          
                 for ( int i = 0; i < convertedPinList.Count; i++ )
                 {
                     if ( convertedPinList [ i ].pin.Color != GuessColor.None && convertedPinList[i].valid )
@@ -65,8 +64,9 @@ namespace MasterMind_Project_2
                         pinArr [ i ] = convertedPinList [ i ].pin;
                     }
                 }
-                guessBoard [ Row - counter ] = isGuessValid ? pinArr : guessBoard [ Row - counter ];
-            }
+                guessBoard [ guessCounter ] = isGuessValid ? pinArr : guessBoard [ guessCounter ];
+            
+            System.Console.WriteLine(guessCounter + "IN MAPPER");
             return guessBoard;
         }
 
@@ -101,12 +101,12 @@ namespace MasterMind_Project_2
 
 
 
-        internal List<GuessPin> CreateShortTermMemory ( GuessPin[ ] Pins )
+        internal List<GuessColor> CreateShortTermMemory ( GuessColor[ ] Pins )
         {
-            List<GuessPin> sMemory = new List<GuessPin>();
+            List<GuessColor> sMemory = new List<GuessColor>();
             for ( int i = 0; i < Pins.Length; i++ )
             {
-                sMemory[i] = (Pins [ i ]);
+                sMemory.Add(Pins[i]);
             }
 
             return sMemory;

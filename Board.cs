@@ -10,10 +10,11 @@ namespace MasterMind_Project_2
         internal static int Row;
         internal static int Columns;
         internal static bool IsSessionValid;
-        internal static int GuessCounter;
 
         //class specific not static varriables
 
+		private int _guessCounter;
+        internal int GuessCounter { get => _guessCounter; set { _guessCounter = value; }}
         private bool _isGuessValid;
         internal bool IsGuessValid { get => _isGuessValid; set => _isGuessValid = value; }
         private string _guessString;
@@ -31,11 +32,11 @@ namespace MasterMind_Project_2
                 if ( _isGuessValid )
                 {
                     // Map validated Guesses
-                    Guess.GuessBoard = Guess.mapper(_convertedGuessPins, Guess.GuessBoard, ref GuessCounter, ref _isGuessValid);
+                    Guess.GuessBoard = Guess.mapper(_convertedGuessPins, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
 
-                    Hint.GenerateHint2(Guess, Solution);
+                    Hint.GenerateHint(Guess, Solution);
 					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
-                    GuessCounter--;
+					GuessCounter++;
                 }
             }
         }
@@ -51,41 +52,37 @@ namespace MasterMind_Project_2
 
         static Board ( )
         {
-            Row = 10;
+			Row = 10;
             Columns = 4;
             _solution = new Solution();
             _guess = new Guess();
             _hint = new Hint();
-            GuessCounter = Row;
         }
 
         public Board ( )
         {
+            GuessCounter = 0;
             IsSessionValid = true;
         }
         public Board ( int row, int columns, bool isSessionValid )
         {
             Row = row;
             Columns = columns;
-            GuessCounter = row;
+            GuessCounter = 0;
             IsSessionValid = isSessionValid;
         }
                                 
         internal bool SessionValidator ( )
         {
-            if ( GuessCounter < 0 )
-            {
-                IsSessionValid = false;
-            }
-            else if ( GuessCounter <= Row && !(Row - GuessCounter > Row - 1) )
-            {
-                IsSessionValid = true;
-            }
-            else
-            {
-                IsSessionValid = false;
-            }
-            return IsSessionValid;
+            if ( GuessCounter >= Row)
+			{
+				IsSessionValid = false;
+			} else
+			{
+				IsSessionValid = true;
+			}
+
+			return IsSessionValid;
         }
     }
 }
