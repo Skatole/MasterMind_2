@@ -11,10 +11,10 @@ using Pastel;
 
 namespace MasterMind_Project_2.console_display_classes
 {
-    internal class DisplayOnConsole : Board
+    internal static class DisplayOnConsole
     {
 
-        internal void ParseText ( string route )
+        internal static void Welcome ( string route )
         {
 
             FileInfo fi = new FileInfo(route);
@@ -32,7 +32,7 @@ namespace MasterMind_Project_2.console_display_classes
                 Console.WriteLine(path);
             }
         }
-        internal string AskForGuess ( )
+        internal static string AskForGuess ( )
         {
             string guessString = new string(string.Empty);
 
@@ -42,10 +42,10 @@ namespace MasterMind_Project_2.console_display_classes
             return guessString;
         }
 
-        internal void DisplayBoard ( )
+        internal static void DisplayBoard ( Guess guess, Hint hint)
         {
-            Board.Guess = PinShapeDefiner.defineShape(Guess);
-            Board.Hint = PinShapeDefiner.defineShape(Hint);
+            guess = PinShapeDefiner.defineShape(Guess.Guess);
+            hint = PinShapeDefiner.defineShape(Hint.Hint);
             //Display Hint
             Console.WriteLine(
                 "\n	Color Input Options:"
@@ -58,16 +58,16 @@ namespace MasterMind_Project_2.console_display_classes
                 + "	P".Pastel(Color.BlueViolet)
                 + "\n");
 
-            for ( int i = 0; i < Row; i++ )
+            for ( int i = 0; i < Board.Row; i++ )
             {
 
-                foreach ( var pin in Guess.GuessBoard [ i ] )
+                foreach ( var pin in Guess.Guess.GuessBoard [ i ] )
                 {
                     System.Console.Write($" | {pin.shape} | ");
                 }
                 Console.Write("  ==>  ");
 
-                foreach ( var pin in Hint.HintBoard [i] )
+                foreach ( var pin in Hint.Hint.HintBoard [i] )
                 {
                     System.Console.Write($" ( {pin.shape} )");
                 }

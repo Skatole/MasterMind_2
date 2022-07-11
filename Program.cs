@@ -8,7 +8,6 @@ namespace MasterMind_Project_2
 {
     class Program
     {
-        private const string Route = "Welcome.txt";
 
         private static void Main ( String [ ] args )
         {
@@ -16,16 +15,16 @@ namespace MasterMind_Project_2
             Board Board = new Board();
 
             ConsoleMenu Menu = new ConsoleMenu();
-            DisplayOnConsole ConsoleDisplay = new DisplayOnConsole();
-            ConsoleDisplay.ParseText(Route);
-            ConsoleDisplay.DisplayBoard();
+            Menu.DisplayMenu(Board);
 
 
-            while ( Board.SessionValidator() )
-            {
-                Board.GuessString = ConsoleDisplay.AskForGuess();
-                ConsoleDisplay.DisplayBoard();
-            }
+
+            // while ( Board.SessionValidator() )
+            // {
+
+            //     Board.Guess.CleanAndValidate(ConsoleDisplay.AskForGuess(), );
+            //     ConsoleDisplay.DisplayBoard(Board.Guess, Board.Hint);
+            // }
         }
     }
 

@@ -1,8 +1,9 @@
 using System;
+using MasterMind_Project_2.console_display_classes;
 
 namespace MasterMind_Project_2
 {
-    public class Board : IInputCleaner, IPinConverter
+    public class Board
     {
 
         //Class specific static variables.
@@ -18,28 +19,28 @@ namespace MasterMind_Project_2
         private bool _isGuessValid;
         internal bool IsGuessValid { get => _isGuessValid; set => _isGuessValid = value; }
         private string _guessString;
-        internal string GuessString
-        {
-            get => _guessString;
-            set
-            {
-                _guessString = value;
-                IInputCleaner _guessValidator = Guess;
-                IPinConverter _convertPin = Guess;
-                var _localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, out _isGuessValid);
-                List<(GuessPin pin, bool valid)> _convertedGuessPins = _convertPin.PinConverter(_localPassableVar, ref _isGuessValid);
+        // internal string GuessString
+        // {
+        //     get => _guessString;
+        //     set
+        //     {
+        //         _guessString = value;
+        //         IInputCleaner _guessValidator = Guess;
+        //         IPinConverter _convertPin = Guess;
+        //         var _localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, out _isGuessValid);
+        //         List<(GuessPin pin, bool valid)> _convertedGuessPins = _convertPin.PinConverter(_localPassableVar, ref _isGuessValid);
 
-                if ( _isGuessValid )
-                {
-                    // Map validated Guesses
-                    Guess.GuessBoard = Guess.mapper(_convertedGuessPins, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
+        //         if ( _isGuessValid )
+        //         {
+        //             // Map validated Guesses
+        //             Guess.GuessBoard = Guess.mapper(_convertedGuessPins, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
 
-                    Hint.GenerateHint(Guess, Solution);
-					System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
-					GuessCounter++;
-                }
-            }
-        }
+        //             Hint.GenerateHint(Guess, Solution);
+		// 			System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
+		// 			GuessCounter++;
+        //         }
+        //     }
+        // }
 
         //Object inicialisations for setting defult values
 
@@ -50,17 +51,18 @@ namespace MasterMind_Project_2
         internal static Guess Guess { get => _guess; set => _guess = value; }
         internal static Hint Hint { get => _hint; set => _hint = value; }
 
-        static Board ( )
-        {
+		static Board()
+		{
 			Row = 10;
             Columns = 4;
             _solution = new Solution();
-            _guess = new Guess();
-            _hint = new Hint();
-        }
+			_guess = new Guess();
+			_hint = new Hint();
+		}
 
         public Board ( )
         {
+			
             GuessCounter = 0;
             IsSessionValid = true;
         }
@@ -69,6 +71,9 @@ namespace MasterMind_Project_2
             Row = row;
             Columns = columns;
             GuessCounter = 0;
+            _solution = new Solution();
+			_guess = new Guess();
+			_hint = new Hint();
             IsSessionValid = isSessionValid;
         }
                                 
@@ -84,5 +89,13 @@ namespace MasterMind_Project_2
 
 			return IsSessionValid;
         }
+
+		internal void Start()
+		{
+			DisplayOnConsole.DisplayBoard(Guess, Hint);
+			DisplayOnConsole.AskForGuess();
+			System.Console.WriteLine("Start");
+		}
+
     }
 }

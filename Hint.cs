@@ -66,5 +66,17 @@ namespace MasterMind_Project_2
 
             return _hintBoard;
         }
+
+        internal Dictionary<int, HintPin [ ]> GenerateHint2 ( Guess guess, Solution solution )
+        {
+            for (int i = 0; i < guess.GuessBoard[ GuessCounter ].Length; i++)
+            {
+                int position = Array.IndexOf(solution.Sol, guess.GuessBoard[ GuessCounter ][i].Color);
+
+                
+            }
+            return _hintBoard;
+        }
+
     }
 }
