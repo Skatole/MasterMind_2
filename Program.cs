@@ -13,9 +13,7 @@ namespace MasterMind_Project_2
         {
 
             Board Board = new Board();
-            ConsoleMenu Menu = new ConsoleMenu();
-            
-            Menu.DisplayMenu(Board);
+          
         }
     }
 

@@ -73,6 +73,28 @@ namespace MasterMind_Project_2.console_display_classes
                 System.Console.Write("\n");
             }
         }
+
+        internal static void GameOverDisplay(bool IsWin, Solution solution)
+        {
+            GuessPin[] Pins = new GuessPin[solution.Sol.Length];
+
+            for (int i = 0; i < solution.Sol.Length; i++)
+            {
+               Pins[i] = new GuessPin( solution.Sol[i] );
+            }
+
+            Pins = PinShapeDefiner.defineShape(Pins);
+            if (IsWin)
+            {
+                System.Console.WriteLine("CONGRATULATIONSSSS CHAMPION YOU WIN!!!");
+                System.Console.WriteLine("THE SOLUTION WAS INDEED: ");
+                foreach (var item in Pins)
+                {
+                    System.Console.Write($" | {item.shape} | ");
+                }
+
+            }
+        }
     }
 
 }

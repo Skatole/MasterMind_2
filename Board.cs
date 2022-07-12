@@ -5,7 +5,6 @@ namespace MasterMind_Project_2
 {
     public class Board
     {
-
         //Class specific static variables.
 
         internal static int Row;
@@ -18,6 +17,9 @@ namespace MasterMind_Project_2
         internal int GuessCounter { get => _guessCounter; set { _guessCounter = value; }}
         private bool _isGuessValid;
         internal bool IsGuessValid { get => _isGuessValid; set => _isGuessValid = value; }
+		internal bool IsWin { get; set; }
+		internal bool IsGameOver { get; set; }
+
 
         //Object inicialisations for setting defult values
 
@@ -27,6 +29,9 @@ namespace MasterMind_Project_2
         internal static Solution Solution { get => _solution; }
         internal static Guess Guess { get => _guess; set => _guess = value; }
         internal static Hint Hint { get => _hint; set => _hint = value; }
+
+		// Display variables:
+		internal ConsoleMenu Menu { get; set; } 
 
 		static Board()
 		{
@@ -39,7 +44,8 @@ namespace MasterMind_Project_2
 
         public Board ( )
         {
-			
+			Menu = new ConsoleMenu();
+			Menu.DisplayMenu();
             GuessCounter = 0;
             IsSessionValid = true;
         }
@@ -54,22 +60,25 @@ namespace MasterMind_Project_2
             IsSessionValid = isSessionValid;
         }
                                 
-        internal bool SessionValidator ( )
+        internal bool GameOver ()
         {
-            if ( GuessCounter >= Row)
+            if ( GuessCounter >= Row || Win() )
 			{
-				IsSessionValid = false;
-			} else
+				IsGameOver = true;
+				DisplayOnConsole.GameOverDisplay(IsWin, Solution);
+				Menu.DisplayMenu();
+			}
+			else
 			{
-				IsSessionValid = true;
+				IsGameOver = false;
 			}
 
-			return IsSessionValid;
+			return IsGameOver;
         }
 
-		internal void Start()
+		internal void StartGame()
 		{
-			while(SessionValidator())
+			while(!GameOver())
 			{
 				List<(GuessPin Pin, bool Valid)> convGuess = Guess.PinConverter( 
 					Guess.CleanAndValidate(
@@ -82,12 +91,27 @@ namespace MasterMind_Project_2
 				if ( IsGuessValid )
 				{
 					Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
-					Hint.GenerateHint2(Guess, Solution, ref _guessCounter);
+					Hint.GenerateHint(Guess, Solution, ref _guessCounter);
 					DisplayOnConsole.DisplayBoard(Guess, Hint);
+					Win();
 					GuessCounter++;
 				}
 
 			}
+		}
+
+		internal bool Win()
+		{
+
+			if ( Hint.InPlace == Columns )
+			{
+				IsWin = true;
+			}
+			else
+			{
+				IsWin = false;
+			}
+			return IsWin;
 		}
 
     }

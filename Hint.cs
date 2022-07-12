@@ -23,7 +23,7 @@ namespace MasterMind_Project_2
             _hintBoard = mapper(( HintPin ) hintPin, HintBoard);
         }
 
-        internal Dictionary<int, HintPin [ ]> GenerateHint2 ( Guess guess, Solution solution, ref int guessCounter )
+        internal Dictionary<int, HintPin [ ]> GenerateHint ( Guess guess, Solution solution, ref int guessCounter )
         {
             // Local hint Copy:
             HintPin[] hintPinArray = new HintPin[ guess.GuessBoard[ guessCounter ].Length ];
@@ -49,7 +49,6 @@ namespace MasterMind_Project_2
             {
                if (gMemory[i] == sMemory[i])
                {
-                   System.Console.WriteLine(" In WHITE: " + "g: " + gMemory[i] + " s: " + sMemory[i] + " i:" + i );
                    InPlace++;
                    gMemory[i] = GuessColor.None;
                    sMemory[i] = GuessColor.None;
@@ -63,7 +62,6 @@ namespace MasterMind_Project_2
                     int position = Array.IndexOf(gMemory, sMemory[j]);
                     if ( position >= 0 )
                     {
-                       System.Console.WriteLine(" In WHITE: " + "g: " + gMemory[position] + " position: " + position + " s: " + sMemory[j] + " j:" + j );
                         In++;
                         gMemory[position] = GuessColor.None;
                     }

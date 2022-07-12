@@ -46,5 +46,24 @@ namespace MasterMind_Project_2.console_display_classes
             return hint;
             
         }
+
+         internal static GuessPin[] defineShape ( GuessPin[] guessPin )
+        {
+                foreach (var pin in guessPin.Select((value,i) => new { value, i }))
+                {
+                    switch(pin.value.Color)
+                    {
+                        case (GuessColor.Black) : {pin.value.shape = "o".Pastel(System.Drawing.Color.Black); break;}
+                        case (GuessColor.Blue) : {pin.value.shape = "o".Pastel(System.Drawing.Color.Blue); break;}
+                        case (GuessColor.Cyan) : {pin.value.shape = "o".Pastel(System.Drawing.Color.Cyan); break;}
+                        case (GuessColor.Green) : {pin.value.shape = "o".Pastel(System.Drawing.Color.Green); break;}
+                        case (GuessColor.None) : {pin.value.shape = "o".Pastel(System.Drawing.Color.DarkSlateGray); break;}
+                        case (GuessColor.Purple) : {pin.value.shape = "o".Pastel(System.Drawing.Color.Purple); break;}
+                        case (GuessColor.Yellow) : {pin.value.shape = "o".Pastel(System.Drawing.Color.Yellow); break;}
+                        default : { pin.value.shape = "o".Pastel(System.Drawing.Color.DarkOliveGreen); break;}
+                    }
+            }
+            return guessPin;
+        }
     }
 }
