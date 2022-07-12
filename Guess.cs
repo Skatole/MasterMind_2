@@ -70,7 +70,7 @@ namespace MasterMind_Project_2
         {
             List<(GuessPin Pin, bool Valid)> convertedPins = new List<(GuessPin Pin, bool Valid)>();
             Array Pins = Enum.GetValues(typeof(GuessColor));
-            Dictionary<int, (string guess, bool valid )> shortTermLocalMemory = new ();
+            Dictionary<int, (string guess, bool valid )> shortTermLocalMemory = new Dictionary<int, (string guess, bool valid)>();
 
             // Seed memory:
             for ( int i = 0; i < validatedInput.Length; i++ )

@@ -67,6 +67,7 @@ namespace MasterMind_Project_2
                 guessBoard [ guessCounter ] = isGuessValid ? pinArr : guessBoard [ guessCounter ];
             
             System.Console.WriteLine(guessCounter + "IN MAPPER");
+
             return guessBoard;
         }
 

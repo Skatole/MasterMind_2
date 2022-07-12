@@ -18,29 +18,6 @@ namespace MasterMind_Project_2
         internal int GuessCounter { get => _guessCounter; set { _guessCounter = value; }}
         private bool _isGuessValid;
         internal bool IsGuessValid { get => _isGuessValid; set => _isGuessValid = value; }
-        private string _guessString;
-        // internal string GuessString
-        // {
-        //     get => _guessString;
-        //     set
-        //     {
-        //         _guessString = value;
-        //         IInputCleaner _guessValidator = Guess;
-        //         IPinConverter _convertPin = Guess;
-        //         var _localPassableVar = _guessValidator.CleanAndValidate(_guessString, Columns, Row, out _isGuessValid);
-        //         List<(GuessPin pin, bool valid)> _convertedGuessPins = _convertPin.PinConverter(_localPassableVar, ref _isGuessValid);
-
-        //         if ( _isGuessValid )
-        //         {
-        //             // Map validated Guesses
-        //             Guess.GuessBoard = Guess.mapper(_convertedGuessPins, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
-
-        //             Hint.GenerateHint(Guess, Solution);
-		// 			System.Console.WriteLine(	"GUESSCOUNTER: " + GuessCounter);
-		// 			GuessCounter++;
-        //         }
-        //     }
-        // }
 
         //Object inicialisations for setting defult values
 
@@ -92,9 +69,25 @@ namespace MasterMind_Project_2
 
 		internal void Start()
 		{
-			DisplayOnConsole.DisplayBoard(Guess, Hint);
-			DisplayOnConsole.AskForGuess();
-			System.Console.WriteLine("Start");
+			while(SessionValidator())
+			{
+				List<(GuessPin Pin, bool Valid)> convGuess = Guess.PinConverter( 
+					Guess.CleanAndValidate(
+						DisplayOnConsole.AskForGuess(),
+						Columns,
+						Row,
+						out _isGuessValid),
+					ref _isGuessValid);
+
+				if ( IsGuessValid )
+				{
+					Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
+					Hint.GenerateHint(Guess, Solution);
+					DisplayOnConsole.DisplayBoard(Guess, Hint);
+					GuessCounter++;
+				}
+
+			}
 		}
 
     }

@@ -23,7 +23,8 @@ namespace MasterMind_Project_2.console_display_classes
         {
             System.Console.WriteLine(" Press: [ 1 ] to Start.".Pastel(System.Drawing.Color.RebeccaPurple));
             System.Console.WriteLine(" Press: [ 2 ] for Settings.".Pastel(System.Drawing.Color.ForestGreen));
-            System.Console.WriteLine(" Press: [ 3 ] to Exit.".Pastel(System.Drawing.Color.DarkRed));
+            System.Console.WriteLine(" Press: [ 3 ] for Autosolve.".Pastel(System.Drawing.Color.RoyalBlue));
+            System.Console.WriteLine(" Press: [ 4 ] to Exit.".Pastel(System.Drawing.Color.DarkRed));
             string input = Console.ReadLine();
             return input;
         }
@@ -34,9 +35,25 @@ namespace MasterMind_Project_2.console_display_classes
             {
                 switch(item)
                 {
-                    case '1': { board.Start(); break; }
-                    // case '2': { Settings(); break;}
-                    case '3': 
+                    case '1': { 
+        				DisplayOnConsole.DisplayBoard(Guess.Guess, Hint.Hint);
+                        board.Start(); break; }
+                    case '2': { 
+
+                        // Settings();
+
+                        System.Console.WriteLine("Not yet implemented. Sry :(");
+                        DisplayMenu(board);
+                        continue;}
+                    case '3': {
+
+                        // Autosolve();
+                        
+                        System.Console.WriteLine("Not yet implemented. Sry :(");
+                        DisplayMenu(board);
+                        continue;
+                    }
+                    case '4': 
                     {
                         System.Console.WriteLine("Good By".Pastel(System.Drawing.Color.Coral));
                         board.IsGuessValid = false;
@@ -44,8 +61,8 @@ namespace MasterMind_Project_2.console_display_classes
                     }
                     default :
                     {
-                        System.Console.WriteLine("Invalid input, please try again!");
-                        break;
+                        System.Console.WriteLine("Invalid input, please try again!".Pastel(System.Drawing.Color.DarkRed));
+                        continue;
                     }
 
                 }

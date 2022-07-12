@@ -51,10 +51,9 @@ namespace MasterMind_Project_2.console_display_classes
                 "\n	Color Input Options:"
                 + "	B".Pastel(Color.Blue)
                 + "	C".Pastel(Color.Cyan)
-                + "	B".Pastel(Color.Black)
+                + "	X".Pastel(Color.Black)
                 + "	G".Pastel(Color.Green)
                 + "	Y".Pastel(Color.Yellow)
-                + "	W".Pastel(Color.WhiteSmoke)
                 + "	P".Pastel(Color.BlueViolet)
                 + "\n");
 
