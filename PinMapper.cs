@@ -72,47 +72,44 @@ namespace MasterMind_Project_2
         }
 
         // HintPin to Hint Dictionary Mapping
-        internal HintPin[] mapper( int InPlace, int In, HintPin[] BoardRow )
+        internal HintPin[] mapper( int InPlace, int In, HintPin[] hintBoardRow )
         {
-            System.Console.WriteLine("HintBoardMapper: ");
-            if (InPlace > 0)
-            {
-                for (int i = 0; i < InPlace; i++)
-                {
-                    
-                    BoardRow[i] = new HintPin( HintColor.InPlace); 
-                }
-            }
-            foreach (var item in BoardRow.Select( (value, i ) => new { value, i }))
-            {
-                if ( item.value.Color == HintColor.None && In > 0 )    
-                { 
-                    for (int j = 0; j < In; j++)
-                    {
-                        BoardRow[item.i] = new HintPin( HintColor.In );
-                    }
-                }
 
-                System.Console.WriteLine(item.value);
+            
+            for (int i = 0; i < InPlace; i++)
+            {
+                hintBoardRow[i] = new HintPin( HintColor.InPlace );
             }
 
+            for (int j = InPlace; j < In + InPlace; j++)
+            {
+                hintBoardRow[j] = new HintPin( HintColor.In );
+            }
+            
+            return hintBoardRow;
+        }
 
-            return BoardRow;
+        internal List<GuessColor> CreateCopy ( GuessColor[] colorArray)
+        {
+            List<GuessColor> colorList = new List<GuessColor>();
+            for (int i = 0; i < colorArray.Length; i++)
+            {
+                colorList.Add(colorArray[i]);
+            }
+            return colorList;
+        }
+
+        internal List<GuessPin> CreateCopy ( GuessPin[] pinArray)
+        {
+            List<GuessPin> pinList = new List<GuessPin>();
+            for (int i = 0; i < pinArray.Length; i++)
+            {
+                pinList.Add(pinArray[i]);
+            }
+            return pinList;
         }
 
 
-
-        internal List<GuessColor> CreateShortTermMemory ( GuessColor[ ] Pins )
-        {
-            List<GuessColor> sMemory = new List<GuessColor>();
-            for ( int i = 0; i < Pins.Length; i++ )
-            {
-                sMemory.Add(Pins[i]);
-            }
-
-            return sMemory;
-        }
-    
         internal HintPin[] Scramble (HintPin[] oneRow)
         {
             List<int> indexMemory = new List<int>();

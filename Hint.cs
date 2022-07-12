@@ -11,11 +11,10 @@ namespace MasterMind_Project_2
         internal Dictionary<int, HintPin[]>? _hintBoard;
         private Array allPin = Enum.GetValues(typeof(PinColor));
         internal Dictionary<int, HintPin [ ]>? HintBoard { get => _hintBoard; set => _hintBoard = value; }
-        // private int _in;
-        // private int _inPlace;
-        // internal int In {get => _in; set => _in = value; }
-        // internal int InPlace { get => _inPlace; set => _inPlace = value; }
-
+        private int _in;
+        private int _inPlace;
+        internal int In { get => _in; set => _in = value; }
+        internal int InPlace { get => _inPlace; set => _inPlace = value; }
 
         public Hint ( )
         {
@@ -24,59 +23,56 @@ namespace MasterMind_Project_2
             _hintBoard = mapper(( HintPin ) hintPin, HintBoard);
         }
 
-
-
-
-        internal Dictionary<int, HintPin [ ]> GenerateHint ( Guess guess, Solution solution )
+        internal Dictionary<int, HintPin [ ]> GenerateHint2 ( Guess guess, Solution solution, ref int guessCounter )
         {
-                HintPin[] rowOfHintPins = new HintPin[guess.GuessBoard [ GuessCounter ].Length];
-                // Seed one row of hints with empty pins 
-                for ( int i = 0; i < guess.GuessBoard [ GuessCounter ].Length; i++ )
-                {
-                    rowOfHintPins [ i ] = new HintPin(HintColor.None);
-                }
-                //Seed memory
+            // Local hint Copy:
+            HintPin[] hintPinArray = new HintPin[ guess.GuessBoard[ guessCounter ].Length ];
+            Array.Copy(_hintBoard[ guessCounter ], hintPinArray, _hintBoard[ guessCounter ].Length );
 
-                memory = CreateShortTermMemory(solution.Sol);
+            In = 0;
+            InPlace = 0;
 
-                foreach ( var item in guess.GuessBoard [ GuessCounter ].Select(( value, i ) => new { value, i }) )
-                {
-                    if ( guess.GuessBoard [ GuessCounter ] [ item.i ].Color == memory [ item.i ] )
-                    {
-                        rowOfHintPins [ item.i ] = new HintPin(HintColor.InPlace);
-                        memory [ item.i ] = GuessColor.None;
-                    }
-                }
-                foreach ( var item in guess.GuessBoard [ GuessCounter ].Select(( value, i ) => new { value, i }) )
-                {
-                    foreach ( var sol in solution.Sol.Select(( value, i ) => new { value, i }) )
-                    {
-                        if ( guess.GuessBoard [ GuessCounter ] [ item.i ].Color == memory [ sol.i ] )
-                        {
-                            rowOfHintPins [ item.i ] = new HintPin(HintColor.In);
-                            memory [ sol.i ] = GuessColor.None;
-                        }
-                    }
-                }
-                
+            // LOCAL MEMORY CREATION FOR DELETEING THE CHECKED PINS.
+            GuessColor[] sMemory = new GuessColor[ solution.Sol.Length ];
+            GuessColor[] gMemory = new GuessColor[ guess.GuessBoard[ guessCounter ].Length ];
 
-                rowOfHintPins = Scramble(rowOfHintPins);
+            // Solution + Guess memory seed:
+            Array.Copy( solution.Sol, sMemory, solution.Sol.Length );
 
-                _hintBoard [ GuessCounter ] = rowOfHintPins;
-
-            return _hintBoard;
-        }
-
-        internal Dictionary<int, HintPin [ ]> GenerateHint2 ( Guess guess, Solution solution )
-        {
-            for (int i = 0; i < guess.GuessBoard[ GuessCounter ].Length; i++)
+            for (int i = 0; i < guess.GuessBoard[ guessCounter ].Length; i++)
             {
-                int position = Array.IndexOf(solution.Sol, guess.GuessBoard[ GuessCounter ][i].Color);
-
-                
+                gMemory[i] = guess.GuessBoard[ guessCounter ][i].Color;
             }
+            
+            // Red + WHite Dot determination:
+            for (int i = 0; i < solution.Sol.Length; i++)
+            {
+               if (gMemory[i] == sMemory[i])
+               {
+                   System.Console.WriteLine(" In WHITE: " + "g: " + gMemory[i] + " s: " + sMemory[i] + " i:" + i );
+                   InPlace++;
+                   gMemory[i] = GuessColor.None;
+                   sMemory[i] = GuessColor.None;
+               }
+            }
+
+            for (int j = 0; j < solution.Sol.Length; j++)
+            {
+                if (sMemory[j] != GuessColor.None )
+                {
+                    int position = Array.IndexOf(gMemory, sMemory[j]);
+                    if ( position >= 0 )
+                    {
+                       System.Console.WriteLine(" In WHITE: " + "g: " + gMemory[position] + " position: " + position + " s: " + sMemory[j] + " j:" + j );
+                        In++;
+                        gMemory[position] = GuessColor.None;
+                    }
+                }
+            }
+
+            _hintBoard[ guessCounter ] = mapper(InPlace, In, hintPinArray);
+
             return _hintBoard;
         }
-
     }
 }

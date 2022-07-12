@@ -82,7 +82,7 @@ namespace MasterMind_Project_2
 				if ( IsGuessValid )
 				{
 					Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
-					Hint.GenerateHint(Guess, Solution);
+					Hint.GenerateHint2(Guess, Solution, ref _guessCounter);
 					DisplayOnConsole.DisplayBoard(Guess, Hint);
 					GuessCounter++;
 				}
