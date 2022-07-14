@@ -19,10 +19,10 @@ namespace MasterMind_Project_2
             _guessBoard = mapper((GuessPin)_guessPin, _guessBoard);
         }
 
-        internal string[] CleanAndValidate ( string guess, int columns, int row, out bool isGuessValid )
+        internal string[] CleanAndValidate ( string? guess, int? columns, int? row, out bool isGuessValid )
         {
             isGuessValid = false;
-            string[] guessArr = new string[columns];
+            string[] guessArr = new string[ (int) columns];
             Array pinArray = Enum.GetValues(typeof(PinColor));
 
             if ( guess.Length == 0 )

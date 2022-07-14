@@ -24,36 +24,4 @@
                     ██║  ███╗███████║██╔████╔██║█████╗                              
                     ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝                              
                     ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗                            
-                     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝                            
-                                                                       
-	The goal is to figure out the combination of the computer
-	generated color pattern. Both the color and placement of
-	the four color is at	need of the correct solution which
-	you have 10 tryes to figure out. During the game you will get
-	hints of your guess's correction level based on the solution.
-
-		HINTS : ( Right board ==> (   o   ) )
-
-			The Red dot (R):
-			you have one of the right colors and
-			it's at the right position.
-
-			The White dot (W): 
-			you have one of the right colors BUT
-			it's NOT on the right position.
-
-		COLORS : ( Left board ==> |   o   | )
-
-			You can choose from these colors:
-				Blue : B;
-				Cyan : C;
-				Black: X;
-				Green : G;
-				Yellow: Y;
-				Purple: P;
-
-	Please only input the given shortcut letters, those represents the
-	cetrain color of choice you don't have to write the whole color name. 
-	(which would be an invalid input)
-
-
+                     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    

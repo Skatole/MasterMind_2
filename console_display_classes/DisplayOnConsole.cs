@@ -14,10 +14,32 @@ namespace MasterMind_Project_2.console_display_classes
     internal static class DisplayOnConsole
     {
 
-        internal static void Welcome ( string route )
+        private const string welcomeRoute = "TxtPages/Welcome.txt";
+        private const string infoRoute = "TxtPages/InfoPage.txt";
+
+        internal static void Welcome ()
         {
 
-            FileInfo fi = new FileInfo(route);
+            FileInfo fi = new FileInfo(welcomeRoute);
+            StreamReader parser = fi.OpenText();
+            string line;
+
+            while ( (line = parser.ReadLine()) != null )
+            {
+                string[] items = line.Split('\n');
+                string path = null;
+                foreach ( string item in items )
+                {
+                    path = item;
+                }
+                Console.WriteLine(path);
+            }
+        }
+
+          internal static void Info ()
+        {
+
+            FileInfo fi = new FileInfo(infoRoute);
             StreamReader parser = fi.OpenText();
             string line;
 
@@ -42,10 +64,10 @@ namespace MasterMind_Project_2.console_display_classes
             return guessString;
         }
 
-        internal static void DisplayBoard ( Guess guess, Hint hint)
+        internal static void DisplayBoard ( Guess? guess, Hint? hint, int? Row)
         {
-            guess = PinShapeDefiner.defineShape(Guess.Guess);
-            hint = PinShapeDefiner.defineShape(Hint.Hint);
+            guess = PinShapeDefiner.defineShape(guess);
+            hint = PinShapeDefiner.defineShape(hint);
             //Display Hint
             Console.WriteLine(
                 "\n	Color Input Options:"
@@ -57,16 +79,16 @@ namespace MasterMind_Project_2.console_display_classes
                 + "	P".Pastel(Color.BlueViolet)
                 + "\n");
 
-            for ( int i = 0; i < Board.Row; i++ )
+            for ( int i = 0; i < Row; i++ )
             {
 
-                foreach ( var pin in Guess.Guess.GuessBoard [ i ] )
+                foreach ( var pin in guess.GuessBoard [ i ] )
                 {
                     System.Console.Write($" | {pin.shape} | ");
                 }
                 Console.Write("  ==>  ");
 
-                foreach ( var pin in Hint.Hint.HintBoard [i] )
+                foreach ( var pin in hint.HintBoard [i] )
                 {
                     System.Console.Write($" ( {pin.shape} )");
                 }
@@ -93,6 +115,14 @@ namespace MasterMind_Project_2.console_display_classes
                     System.Console.Write($" | {item.shape} | ");
                 }
 
+            }
+            else
+            {
+                System.Console.WriteLine("SORRY DUM DUM YOU LOST. THE SOLUTION WAS: ");
+                  foreach (var item in Pins)
+                {
+                    System.Console.Write($" | {item.shape} | ");
+                }
             }
         }
     }

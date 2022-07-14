@@ -6,20 +6,20 @@ namespace MasterMind_Project_2
     internal class Solution : Pin
     {
 
-        private GuessColor[] _sol = new GuessColor[Columns];
-        internal GuessColor [ ] Sol { get => _sol; }
+        internal GuessColor [ ] Sol { get; set; }
 
 
 
         public Solution ( )
         {
+            Sol = new GuessColor[Columns];
             generateSolution();
         }
 
         private GuessColor [ ] generateSolution ( )
         {
 
-            Console.WriteLine("Solution : \n");
+            // Console.WriteLine("Solution : \n");
             Random random = new Random((int) DateTime.Now.Ticks);
             List<GuessColor>  randomPin = RandomPin.generateRandomPins(1, 0, Columns);
 
@@ -33,14 +33,14 @@ namespace MasterMind_Project_2
 
 
 
-                _sol [ i ] = (randomPin [ index ]);
+                Sol [ i ] = (randomPin [ index ]);
 
-                Console.Write(_sol [ i ] + " , ");
+                // Console.Write(Sol [ i ] + " , ");
             }
 
             //Console.WriteLine("\n");
 
-            return _sol;
+            return Sol;
         }
     }
 }

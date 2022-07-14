@@ -68,7 +68,7 @@ namespace MasterMind_Project_2
                 }
             }
 
-            _hintBoard[ guessCounter ] = mapper(InPlace, In, hintPinArray);
+            _hintBoard[ guessCounter ] = Scramble(mapper(InPlace, In, hintPinArray));
 
             return _hintBoard;
         }

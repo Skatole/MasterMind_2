@@ -5,14 +5,10 @@ namespace MasterMind_Project_2
 {
     public class Board
     {
-        //Class specific static variables.
-
-        internal static int Row;
-        internal static int Columns;
-        internal static bool IsSessionValid;
 
         //class specific not static varriables
-
+        internal  int Row { get; set; }
+        internal  int Columns { get; set; }
 		private int _guessCounter;
         internal int GuessCounter { get => _guessCounter; set { _guessCounter = value; }}
         private bool _isGuessValid;
@@ -23,41 +19,24 @@ namespace MasterMind_Project_2
 
         //Object inicialisations for setting defult values
 
-        private static Solution _solution;
-        private static Guess _guess;
-        private static Hint _hint;
-        internal static Solution Solution { get => _solution; }
-        internal static Guess Guess { get => _guess; set => _guess = value; }
-        internal static Hint Hint { get => _hint; set => _hint = value; }
-
-		// Display variables:
-		internal ConsoleMenu Menu { get; set; } 
-
-		static Board()
-		{
-			Row = 10;
-            Columns = 4;
-            _solution = new Solution();
-			_guess = new Guess();
-			_hint = new Hint();
-		}
-
+        private  Solution _solution;
+        private  Guess _guess;
+        private  Hint _hint;
+        internal  Solution Solution { get => _solution; set => _solution = value; }
+        internal  Guess Guess { get => _guess; set => _guess = value; }
+        internal  Hint Hint { get => _hint; set => _hint = value; }
+		
         public Board ( )
         {
-			Menu = new ConsoleMenu();
-			Menu.DisplayMenu();
             GuessCounter = 0;
-            IsSessionValid = true;
+			Columns = 4;
+			Row = 10;
         }
-        public Board ( int row, int columns, bool isSessionValid )
+        public Board ( int row, int columns )
         {
             Row = row;
             Columns = columns;
             GuessCounter = 0;
-            _solution = new Solution();
-			_guess = new Guess();
-			_hint = new Hint();
-            IsSessionValid = isSessionValid;
         }
                                 
         internal bool GameOver ()
@@ -66,7 +45,7 @@ namespace MasterMind_Project_2
 			{
 				IsGameOver = true;
 				DisplayOnConsole.GameOverDisplay(IsWin, Solution);
-				Menu.DisplayMenu();
+				ConsoleMenu.DisplayMenu();
 			}
 			else
 			{
@@ -92,7 +71,7 @@ namespace MasterMind_Project_2
 				{
 					Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
 					Hint.GenerateHint(Guess, Solution, ref _guessCounter);
-					DisplayOnConsole.DisplayBoard(Guess, Hint);
+					DisplayOnConsole.DisplayBoard(Guess, Hint, Row);
 					Win();
 					GuessCounter++;
 				}
