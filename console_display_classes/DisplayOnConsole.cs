@@ -64,7 +64,7 @@ namespace MasterMind_Project_2.console_display_classes
             return guessString;
         }
 
-        internal static void DisplayBoard ( Guess? guess, Hint? hint, int? Row)
+        internal static void DisplayBoard ( Guess? guess, Hint? hint)
         {
             guess = PinShapeDefiner.defineShape(guess);
             hint = PinShapeDefiner.defineShape(hint);
@@ -79,7 +79,7 @@ namespace MasterMind_Project_2.console_display_classes
                 + "	P".Pastel(Color.BlueViolet)
                 + "\n");
 
-            for ( int i = 0; i < Row; i++ )
+            for ( int i = 0; i < guess.GuessBoard.Count; i++ )
             {
 
                 foreach ( var pin in guess.GuessBoard [ i ] )

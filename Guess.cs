@@ -19,6 +19,13 @@ namespace MasterMind_Project_2
             _guessBoard = mapper((GuessPin)_guessPin, _guessBoard);
         }
 
+        internal Guess(int Row, int Columns) : base(Row, Columns)
+        {
+            _guessBoard = new Dictionary<int, GuessPin[]>();
+            _guessPin = new GuessPin();
+            _guessBoard = mapper((GuessPin)_guessPin, _guessBoard);
+        }
+
         internal string[] CleanAndValidate ( string? guess, int? columns, int? row, out bool isGuessValid )
         {
             isGuessValid = false;

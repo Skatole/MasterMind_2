@@ -8,14 +8,31 @@ namespace MasterMind_Project_2
 {
     abstract class PinMapper : Pin
     {
+
+        private int _rows;
+        private int _columns;
+
+        internal PinMapper() : base()
+        {
+            _rows = base.Row;
+            _columns = base.Columns;
+        }
+
+        internal PinMapper( int Rows, int Columns) : base( Rows, Columns)
+        {
+            _rows = Rows;
+            _columns = Columns;
+        }
         // Guess Pin from constructor
         internal Dictionary<int, GuessPin [ ]> mapper ( GuessPin pin, Dictionary<int, GuessPin [ ]> Board )
         {
-            GuessPin[] pinArr = new GuessPin[Columns];
+            GuessPin[] pinArr = new GuessPin[_columns];
 
-            for ( int i = 0; i < Row; i++ )
+            System.Console.WriteLine("IN MAPPER:" + " Columnes : " + _columns + " ROWS:  " + _rows );
+
+            for ( int i = 0; i < _rows; i++ )
             {
-                for ( int j = 0; j < Columns; j++ )
+                for ( int j = 0; j < _columns; j++ )
                 {
 
                     pin = new GuessPin();
@@ -32,11 +49,11 @@ namespace MasterMind_Project_2
 
         internal Dictionary<int, HintPin [ ]> mapper ( HintPin pin, Dictionary<int, HintPin [ ]> Board )
         {
-            HintPin[] pinArr = new HintPin[Columns];
+            HintPin[] pinArr = new HintPin[_columns];
 
-            for ( int i = 0; i < Row; i++ )
+            for ( int i = 0; i < _rows; i++ )
             {
-                for ( int j = 0; j < Columns; j++ )
+                for ( int j = 0; j < _columns; j++ )
                 {
 
                     pin = new HintPin();
@@ -52,7 +69,7 @@ namespace MasterMind_Project_2
         // Guess Pin from List
         internal Dictionary<int, GuessPin [ ]> mapper ( List<(GuessPin pin, bool valid)> convertedPinList, Dictionary<int, GuessPin [ ]> guessBoard, ref int guessCounter, ref bool isGuessValid )
         {
-            GuessPin[] pinArr = new GuessPin[Columns];
+            GuessPin[] pinArr = new GuessPin[_columns];
 
             // If NONE is allowed then take out the convertedPinList[i] != PinColor.None statement!
 

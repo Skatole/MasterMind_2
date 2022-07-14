@@ -4,6 +4,9 @@ namespace MasterMind_Project_2.console_display_classes
 {
     public static class ConsoleMenu
     {
+
+        private static (int, int) _settingsReturnTuple = (0,0);
+
         
         // Settings
         // Choose Display type Console vs. Form
@@ -45,17 +48,43 @@ namespace MasterMind_Project_2.console_display_classes
                 {
                     case '1': 
                     {
-                        Board defaultBoard = Sequencer.DefaultStartingSequence();
-        				DisplayOnConsole.DisplayBoard(defaultBoard.Guess, defaultBoard.Hint, defaultBoard.Row);
-                        defaultBoard.StartGame();
+                        if (_settingsReturnTuple.Item1 != 0 && _settingsReturnTuple.Item2 != 0)
+                        {
+                            System.Console.WriteLine(" Would you like to start with Custom settings? Y/N".Pastel(System.Drawing.Color.ForestGreen));
+                            string input2 = Console.ReadLine().ToUpper();
+                            foreach (var i in input2)
+                            {
+                                switch(i)
+                                {
+                                    case ('Y'):
+                                    {
+
+                                        System.Console.WriteLine("CICA");
+                                        Board customBoard = Sequencer.StartingSequence(_settingsReturnTuple);
+                                        DisplayOnConsole.DisplayBoard(customBoard.Guess, customBoard.Hint);
+                                        customBoard.StartGame();
+                                        break;
+                                    }
+                                    case 'N':
+                                    {
+                                        Board defaultBoard = Sequencer.StartingSequence();
+        				                DisplayOnConsole.DisplayBoard(defaultBoard.Guess, defaultBoard.Hint);
+                                        defaultBoard.StartGame();
+                                        break; 
+                                    }
+                                }
+                            }
+                        } else
+                        {
+                        Board Board = Sequencer.StartingSequence();
+        				DisplayOnConsole.DisplayBoard(Board.Guess, Board.Hint);
+                        Board.StartGame();
+                        }
                         break; 
                     }
                     case '2': 
                     { 
-
-                        // Settings();
-
-                        System.Console.WriteLine("Not yet implemented. Sry :(");
+                        _settingsReturnTuple = Settings.ChooseSetting();
                         DisplayMenu();
                         continue;
                     }
@@ -78,6 +107,15 @@ namespace MasterMind_Project_2.console_display_classes
                     {
                         System.Console.WriteLine("Good By".Pastel(System.Drawing.Color.Coral));
                         IsSessionValid = false;
+                        break;
+                    }
+                    case '6':
+                    {
+                        System.Console.WriteLine("All possible combinations: ");
+                        Sequencer.StartingSequence();
+                        AllPossibleCombinations combin = new AllPossibleCombinations();
+                        combin.Standard();
+                        System.Console.WriteLine("permutation count: " + combin.permutationCount);
                         break;
                     }
                     default :

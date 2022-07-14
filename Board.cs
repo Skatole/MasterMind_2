@@ -25,18 +25,20 @@ namespace MasterMind_Project_2
         internal  Solution Solution { get => _solution; set => _solution = value; }
         internal  Guess Guess { get => _guess; set => _guess = value; }
         internal  Hint Hint { get => _hint; set => _hint = value; }
-		
-        public Board ( )
+
+		public Board()
+		{
+			GuessCounter = 0;
+			Row = 10;
+			Columns = 4;
+
+		}
+        public Board ( int row, int columns ) 
         {
             GuessCounter = 0;
-			Columns = 4;
-			Row = 10;
-        }
-        public Board ( int row, int columns )
-        {
             Row = row;
             Columns = columns;
-            GuessCounter = 0;
+			System.Console.WriteLine("Board: " + " GUessCount: " + GuessCounter + " ROW: " + Row + " Columns:  " + Columns );
         }
                                 
         internal bool GameOver ()
@@ -71,7 +73,7 @@ namespace MasterMind_Project_2
 				{
 					Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
 					Hint.GenerateHint(Guess, Solution, ref _guessCounter);
-					DisplayOnConsole.DisplayBoard(Guess, Hint, Row);
+					DisplayOnConsole.DisplayBoard(Guess, Hint);
 					Win();
 					GuessCounter++;
 				}

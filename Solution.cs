@@ -3,14 +3,20 @@ using System.Collections.Generic;
 
 namespace MasterMind_Project_2
 {
-    internal class Solution : Pin
+    internal class Solution : AllPossibleCombinations
     {
 
         internal GuessColor [ ] Sol { get; set; }
 
 
 
-        public Solution ( )
+        internal Solution ( )
+        {
+            Sol = new GuessColor[Columns];
+            generateSolution();
+        }
+
+        internal Solution ( int Rows, int Columns) : base(Rows, Columns)
         {
             Sol = new GuessColor[Columns];
             generateSolution();
@@ -19,7 +25,7 @@ namespace MasterMind_Project_2
         private GuessColor [ ] generateSolution ( )
         {
 
-            // Console.WriteLine("Solution : \n");
+            Console.WriteLine("Solution : \n");
             Random random = new Random((int) DateTime.Now.Ticks);
             List<GuessColor>  randomPin = RandomPin.generateRandomPins(1, 0, Columns);
 
@@ -35,10 +41,10 @@ namespace MasterMind_Project_2
 
                 Sol [ i ] = (randomPin [ index ]);
 
-                // Console.Write(Sol [ i ] + " , ");
+                Console.Write(Sol [ i ] + " , ");
             }
 
-            //Console.WriteLine("\n");
+            Console.WriteLine("\n");
 
             return Sol;
         }

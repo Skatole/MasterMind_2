@@ -16,7 +16,14 @@ namespace MasterMind_Project_2
         internal int In { get => _in; set => _in = value; }
         internal int InPlace { get => _inPlace; set => _inPlace = value; }
 
-        public Hint ( )
+        public Hint ()
+        {
+            _hintBoard = new Dictionary<int, HintPin [ ]>();
+            hintPin = new HintPin();
+            _hintBoard = mapper(( HintPin ) hintPin, HintBoard);
+        }
+
+        public Hint( int Row, int Columns) : base(Row, Columns)
         {
             _hintBoard = new Dictionary<int, HintPin [ ]>();
             hintPin = new HintPin();
