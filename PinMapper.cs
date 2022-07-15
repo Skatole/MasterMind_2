@@ -28,7 +28,6 @@ namespace MasterMind_Project_2
         {
             GuessPin[] pinArr = new GuessPin[_columns];
 
-            System.Console.WriteLine("IN MAPPER:" + " Columnes : " + _columns + " ROWS:  " + _rows );
 
             for ( int i = 0; i < _rows; i++ )
             {
@@ -83,8 +82,6 @@ namespace MasterMind_Project_2
                 }
                 guessBoard [ guessCounter ] = isGuessValid ? pinArr : guessBoard [ guessCounter ];
             
-            System.Console.WriteLine(guessCounter + "IN MAPPER");
-
             return guessBoard;
         }
 

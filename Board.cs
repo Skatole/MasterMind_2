@@ -38,7 +38,6 @@ namespace MasterMind_Project_2
             GuessCounter = 0;
             Row = row;
             Columns = columns;
-			System.Console.WriteLine("Board: " + " GUessCount: " + GuessCounter + " ROW: " + Row + " Columns:  " + Columns );
         }
                                 
         internal bool GameOver ()
