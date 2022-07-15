@@ -18,7 +18,7 @@ namespace MasterMind_Project_2
             _columns = base.Columns;
         }
 
-        internal PinMapper( int Rows, int Columns) : base( Rows, Columns)
+        internal PinMapper( int Rows, int Columns, bool isNoneAllowed) : base( Rows, Columns, isNoneAllowed)
         {
             _rows = Rows;
             _columns = Columns;
@@ -26,23 +26,21 @@ namespace MasterMind_Project_2
         // Guess Pin from constructor
         internal Dictionary<int, GuessPin [ ]> mapper ( GuessPin pin, Dictionary<int, GuessPin [ ]> Board )
         {
-            GuessPin[] pinArr = new GuessPin[_columns];
 
-            System.Console.WriteLine("IN MAPPER:" + " Columnes : " + _columns + " ROWS:  " + _rows );
+            GuessPin[] pinArr = new GuessPin[_columns];
 
             for ( int i = 0; i < _rows; i++ )
             {
                 for ( int j = 0; j < _columns; j++ )
                 {
-
                     pin = new GuessPin();
                     pinArr [ j ] = pin;
                 }
-
                 Board.Add(i, pinArr);
-
             }
+
             return Board;
+
         }
 
         // HintPin from constructor
@@ -73,7 +71,18 @@ namespace MasterMind_Project_2
 
             // If NONE is allowed then take out the convertedPinList[i] != PinColor.None statement!
 
-          
+            if (!IsNoneAllowed)
+            {
+                for ( int i = 0; i < convertedPinList.Count; i++ )
+                {
+                    if ( convertedPinList[i].valid )
+                    {
+                        pinArr [ i ] = convertedPinList [ i ].pin;
+                    }
+                }                
+            }
+            else
+            {
                 for ( int i = 0; i < convertedPinList.Count; i++ )
                 {
                     if ( convertedPinList [ i ].pin.Color != GuessColor.None && convertedPinList[i].valid )
@@ -81,9 +90,17 @@ namespace MasterMind_Project_2
                         pinArr [ i ] = convertedPinList [ i ].pin;
                     }
                 }
-                guessBoard [ guessCounter ] = isGuessValid ? pinArr : guessBoard [ guessCounter ];
-            
-            System.Console.WriteLine(guessCounter + "IN MAPPER");
+            }
+
+            if (pinArr.Length == Columns && isGuessValid)
+            {
+                guessBoard [ guessCounter ] = pinArr;
+            }
+            else
+            {
+                isGuessValid = false;
+                System.Console.WriteLine("\n Invalid Input. Please choose from the given color input options. \n ".Pastel(System.Drawing.Color.DarkRed));
+            }
 
             return guessBoard;
         }
@@ -92,7 +109,6 @@ namespace MasterMind_Project_2
         internal HintPin[] mapper( int InPlace, int In, HintPin[] hintBoardRow )
         {
 
-            
             for (int i = 0; i < InPlace; i++)
             {
                 hintBoardRow[i] = new HintPin( HintColor.InPlace );
@@ -131,8 +147,6 @@ namespace MasterMind_Project_2
         {
             List<int> indexMemory = new List<int>();
             Random random = new Random((int) DateTime.Now.Ticks);
-            
-
 
             while(indexMemory.Count < oneRow.Length)
             {

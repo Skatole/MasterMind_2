@@ -54,7 +54,7 @@ namespace MasterMind_Project_2.console_display_classes
                 Console.WriteLine(path);
             }
         }
-        internal static string AskForGuess ( )
+        internal static string MakeAGuess ( )
         {
             string guessString = new string(string.Empty);
 
@@ -102,14 +102,14 @@ namespace MasterMind_Project_2.console_display_classes
 
             for (int i = 0; i < solution.Sol.Length; i++)
             {
-               Pins[i] = new GuessPin( solution.Sol[i] );
+               Pins[i] =  solution.Sol[i];
             }
 
             Pins = PinShapeDefiner.defineShape(Pins);
             if (IsWin)
             {
-                System.Console.WriteLine("CONGRATULATIONSSSS CHAMPION YOU WIN!!!");
-                System.Console.WriteLine("THE SOLUTION WAS INDEED: ");
+                System.Console.WriteLine(" \n CONGRATULATIONSSSS CHAMPION YOU WIN!!! \n");
+                System.Console.WriteLine(" \n THE SOLUTION WAS INDEED: \n");
                 foreach (var item in Pins)
                 {
                     System.Console.Write($" | {item.shape} | ");
@@ -118,11 +118,13 @@ namespace MasterMind_Project_2.console_display_classes
             }
             else
             {
-                System.Console.WriteLine("SORRY DUM DUM YOU LOST. THE SOLUTION WAS: ");
+                System.Console.WriteLine(" \n SORRY DUM DUM YOU LOST. THE SOLUTION WAS:  \n ");
                   foreach (var item in Pins)
                 {
                     System.Console.Write($" | {item.shape} | ");
                 }
+
+                System.Console.WriteLine("\n");
             }
         }
     }
