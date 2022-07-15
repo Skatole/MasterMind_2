@@ -12,6 +12,7 @@ namespace MasterMind_Project_2
         private static void Main ( String [ ] args )
         {
 
+          DisplayOnConsole.Welcome();
           ConsoleMenu.DisplayMenu();
         }
     }

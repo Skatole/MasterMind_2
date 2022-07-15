@@ -19,7 +19,7 @@ namespace MasterMind_Project_2
             _guessBoard = mapper((GuessPin)_guessPin, _guessBoard);
         }
 
-        internal Guess(int Row, int Columns) : base(Row, Columns)
+        internal Guess(int Row, int Columns, bool isNoneAllowed) : base(Row, Columns, isNoneAllowed)
         {
             _guessBoard = new Dictionary<int, GuessPin[]>();
             _guessPin = new GuessPin();
@@ -53,11 +53,6 @@ namespace MasterMind_Project_2
             {
                 string replacedGuess = Regex.Replace(guess, @"[^0-9a-zA-Z]+", "").ToUpper();
                 isGuessValid = true;
-                    // if (replacedGuess.Contains("?"))
-                    // {
-                        // isGuessValid = true;
-                        // CALL AUTOSOLVER
-                    // }
                 for ( var i = 0; i < replacedGuess.Length; i++ )
                 {
                     guessArr[i] = replacedGuess [ i ].ToString();

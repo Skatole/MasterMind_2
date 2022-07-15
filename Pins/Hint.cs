@@ -23,7 +23,7 @@ namespace MasterMind_Project_2
             _hintBoard = mapper(( HintPin ) hintPin, HintBoard);
         }
 
-        public Hint( int Row, int Columns) : base(Row, Columns)
+        public Hint( int Row, int Columns, bool isNoneAllowed) : base(Row, Columns, isNoneAllowed)
         {
             _hintBoard = new Dictionary<int, HintPin [ ]>();
             hintPin = new HintPin();
@@ -44,8 +44,12 @@ namespace MasterMind_Project_2
             GuessColor[] gMemory = new GuessColor[ guess.GuessBoard[ guessCounter ].Length ];
 
             // Solution + Guess memory seed:
-            Array.Copy( solution.Sol, sMemory, solution.Sol.Length );
-
+            
+            for (int j = 0; j < solution.Sol.Length; j++)
+            {
+                sMemory[j] = solution.Sol[j].Color;
+            }
+            
             for (int i = 0; i < guess.GuessBoard[ guessCounter ].Length; i++)
             {
                 gMemory[i] = guess.GuessBoard[ guessCounter ][i].Color;
@@ -74,9 +78,7 @@ namespace MasterMind_Project_2
                     }
                 }
             }
-
-            _hintBoard[ guessCounter ] = Scramble(mapper(InPlace, In, hintPinArray));
-
+            _hintBoard[ guessCounter ] = (solution.Sol.Length > 1) ? Scramble(mapper(InPlace, In, hintPinArray)) : mapper(InPlace, In, hintPinArray);
             return _hintBoard;
         }
     }

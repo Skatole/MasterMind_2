@@ -13,7 +13,7 @@ namespace MasterMind_Project_2
             shape = string.Empty;
         }
 
-        internal Pin(int Row, int Columns) : base( Row, Columns)
+        internal Pin(int Row, int Columns, bool isNoneAllowed) : base( Row, Columns, isNoneAllowed)
         {
             _color = PinColor.None;
             shape = string.Empty;
@@ -25,7 +25,7 @@ namespace MasterMind_Project_2
             shape = string.Empty;
         }
 
-        internal Pin(PinColor color, int Rows, int Columns) : base(Rows, Columns)
+        internal Pin(PinColor color, int Rows, int Columns, bool isNoneAllowed) : base(Rows, Columns, isNoneAllowed)
         {
             _color = color;
             shape = string.Empty;

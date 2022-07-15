@@ -5,7 +5,7 @@ namespace MasterMind_Project_2.console_display_classes
     public static class ConsoleMenu
     {
 
-        private static (int, int) _settingsReturnTuple = (0,0);
+        private static (int, int, bool) _settingsReturnTuple = (0,0, false);
 
         
         // Settings
@@ -18,7 +18,6 @@ namespace MasterMind_Project_2.console_display_classes
         {
             while( IsSessionValid )
             {
-                DisplayOnConsole.Welcome();
                 Navigate(MenuOptions());
             }
         }
@@ -48,7 +47,9 @@ namespace MasterMind_Project_2.console_display_classes
                 {
                     case '1': 
                     {
-                        if (_settingsReturnTuple.Item1 != 0 && _settingsReturnTuple.Item2 != 0)
+                        // Start:
+
+                        if (_settingsReturnTuple.Item1 != 0 && _settingsReturnTuple.Item2 != 0 || _settingsReturnTuple.Item3)
                         {
                             System.Console.WriteLine(" Would you like to start with Custom settings? Y/N".Pastel(System.Drawing.Color.ForestGreen));
                             string input2 = Console.ReadLine().ToUpper();
@@ -58,11 +59,17 @@ namespace MasterMind_Project_2.console_display_classes
                                 {
                                     case ('Y'):
                                     {
-
-                                        System.Console.WriteLine("CICA");
-                                        Board customBoard = Sequencer.StartingSequence(_settingsReturnTuple);
-                                        DisplayOnConsole.DisplayBoard(customBoard.Guess, customBoard.Hint);
-                                        customBoard.StartGame();
+                                        if (_settingsReturnTuple.Item1 == 0 || _settingsReturnTuple.Item2 == 0)
+                                        {
+                                            Board withNoneBoard = Sequencer.StartingSequence(_settingsReturnTuple.Item3);
+                                            DisplayOnConsole.DisplayBoard(withNoneBoard.Guess, withNoneBoard.Hint);
+                                            withNoneBoard.StartGame();
+                                        } else
+                                        {
+                                          Board customBoard = Sequencer.StartingSequence(_settingsReturnTuple);
+                                          DisplayOnConsole.DisplayBoard(customBoard.Guess, customBoard.Hint);
+                                          customBoard.StartGame();
+                                        }
                                         break;
                                     }
                                     case 'N':
@@ -76,14 +83,17 @@ namespace MasterMind_Project_2.console_display_classes
                             }
                         } else
                         {
-                        Board Board = Sequencer.StartingSequence();
-        				DisplayOnConsole.DisplayBoard(Board.Guess, Board.Hint);
-                        Board.StartGame();
+                            Board Board = Sequencer.StartingSequence();
+        				    DisplayOnConsole.DisplayBoard(Board.Guess, Board.Hint);
+                            Board.StartGame();
                         }
+                        DisplayMenu();
                         break; 
                     }
                     case '2': 
                     { 
+                        // Settings: 
+
                         _settingsReturnTuple = Settings.ChooseSetting();
                         DisplayMenu();
                         continue;
@@ -99,25 +109,32 @@ namespace MasterMind_Project_2.console_display_classes
                     }
                     case '4':
                     {
+                        //  Info
+
                         DisplayOnConsole.Info();
-                        DisplayMenu();
-                        continue;
+                        System.Console.WriteLine(" \n Press ENTER to go back! \n ".Pastel(System.Drawing.Color.ForestGreen));
+                        string input3 = System.Console.ReadLine();
+                        if (input3 != string.Empty )
+                        {
+                            DisplayMenu();
+                        }
+                        break;
                     }
                     case '5': 
                     {
-                        System.Console.WriteLine("Good By".Pastel(System.Drawing.Color.Coral));
+                        System.Console.WriteLine(" \n Good By \n ".Pastel(System.Drawing.Color.Coral));
                         IsSessionValid = false;
                         break;
                     }
-                    case '6':
-                    {
-                        System.Console.WriteLine("All possible combinations: ");
-                        Sequencer.StartingSequence();
-                        AllPossibleCombinations combin = new AllPossibleCombinations();
-                        combin.Standard();
-                        System.Console.WriteLine("permutation count: " + combin.permutationCount);
-                        break;
-                    }
+                    // case '6':
+                    // {
+                    //     System.Console.WriteLine("All possible combinations: ");
+                    //     Sequencer.StartingSequence();
+                    //     Permutations combin = new Permutations();
+                    //     combin.StandardPermutation();
+                    //     System.Console.WriteLine("permutation count: " + combin.permutationCount);
+                    //     break;
+                    // }
                     default :
                     {
                         System.Console.WriteLine("Invalid input, please try again!".Pastel(System.Drawing.Color.DarkRed));
