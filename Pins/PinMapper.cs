@@ -65,42 +65,24 @@ namespace MasterMind_Project_2
         }
 
         // Guess Pin from List
-        internal Dictionary<int, GuessPin [ ]> mapper ( List<(GuessPin pin, bool valid)> convertedPinList, Dictionary<int, GuessPin [ ]> guessBoard, ref int guessCounter, ref bool isGuessValid )
+        internal Dictionary<int, GuessPin [ ]> mapper ( List<GuessPin> convertedPinList, Dictionary<int, GuessPin [ ]> guessBoard, ref int guessCounter, ref bool isGuessValid )
         {
             GuessPin[] pinArr = new GuessPin[_columns];
 
-            // If NONE is allowed then take out the convertedPinList[i] != PinColor.None statement!
-
-            if (!IsNoneAllowed)
+            for ( int i = 0; i < Columns; i++ )
             {
-                for ( int i = 0; i < convertedPinList.Count; i++ )
+                if ( isGuessValid && convertedPinList.Count == Columns )
                 {
-                    if ( convertedPinList[i].valid )
-                    {
-                        pinArr [ i ] = convertedPinList [ i ].pin;
-                    }
-                }                
-            }
-            else
-            {
-                for ( int i = 0; i < convertedPinList.Count; i++ )
-                {
-                    if ( convertedPinList [ i ].pin.Color != GuessColor.None && convertedPinList[i].valid )
-                    {
-                        pinArr [ i ] = convertedPinList [ i ].pin;
-                    }
+                    pinArr [ i ] = convertedPinList [ i ];
                 }
-            }
+                else
+                {
+                    isGuessValid = false;
+                    pinArr[ i ] = new GuessPin();
+                }
+            }                
 
-            if (pinArr.Length == Columns && isGuessValid)
-            {
-                guessBoard [ guessCounter ] = pinArr;
-            }
-            else
-            {
-                isGuessValid = false;
-                System.Console.WriteLine("\n Invalid Input. Please choose from the given color input options. \n ".Pastel(System.Drawing.Color.DarkRed));
-            }
+            guessBoard [ guessCounter ] = pinArr;
 
             return guessBoard;
         }

@@ -42,7 +42,7 @@ namespace MasterMind_Project_2
 			GuessCounter = 0;
 			Row = 10;
 			Columns = 4;
-			IsNoneAllowed = false;
+			IsNoneAllowed = isNoneAllowed;
 		}
         public Board ( int row, int columns, bool isNoneAllowed ) 
         {
@@ -52,7 +52,35 @@ namespace MasterMind_Project_2
 			IsNoneAllowed = isNoneAllowed;
         }
 
-		
+		 public void StartGame()
+		{
+			while(!GameOver())
+			{
+				List<GuessPin> convGuess = IsNoneAllowed ? 
+				Guess.NoneAllowedConverter( 
+					Guess.CleanAndValidate(
+						DisplayOnConsole.MakeAGuess(),
+						Columns,
+						out _isGuessValid),
+					ref _isGuessValid) :
+				Guess.NoneNotAllowedConverter( 
+				Guess.CleanAndValidate(
+					DisplayOnConsole.MakeAGuess(),
+					Columns,
+					out _isGuessValid),
+				ref _isGuessValid);
+
+				if ( IsGuessValid )
+				{
+					Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
+					Hint.GenerateHint(Guess, Solution, ref _guessCounter);
+					DisplayOnConsole.DisplayBoard(Guess, Hint);
+					Win();
+					GuessCounter++;
+				}
+
+			}
+		}
 
 		internal bool GameOver ()
         {

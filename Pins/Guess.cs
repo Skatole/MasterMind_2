@@ -26,10 +26,10 @@ namespace MasterMind_Project_2
             _guessBoard = mapper((GuessPin)_guessPin, _guessBoard);
         }
 
-        internal string[] CleanAndValidate ( string? guess, int? columns, int? row, out bool isGuessValid )
+        internal string[] CleanAndValidate ( string? guess, int columns, out bool isGuessValid )
         {
             isGuessValid = false;
-            string[] guessArr = new string[ (int) columns];
+            string[] guessArr = new string[columns];
             Array pinArray = Enum.GetValues(typeof(PinColor));
 
             if ( guess.Length == 0 )
@@ -57,7 +57,6 @@ namespace MasterMind_Project_2
                 {
                     guessArr[i] = replacedGuess [ i ].ToString();
                 }
-                
             }
             else
             {
@@ -68,41 +67,67 @@ namespace MasterMind_Project_2
             return guessArr;
         }
 
-         internal List<(GuessPin Pin, bool Valid)> PinConverter ( string[] validatedInput, ref bool isGuessValid )
+         internal List<GuessPin> NoneNotAllowedConverter ( string[] validatedInput, ref bool isGuessValid )
         {
-            List<(GuessPin Pin, bool Valid)> convertedPins = new List<(GuessPin Pin, bool Valid)>();
-            Array Pins = Enum.GetValues(typeof(GuessColor));
-            Dictionary<int, (string guess, bool valid )> shortTermLocalMemory = new Dictionary<int, (string guess, bool valid)>();
+            List<GuessPin> convertedPins = new List<GuessPin>();
+            List<bool> validatorList = new List<bool>();
+            GuessColor[] Pins = (GuessColor[]) Enum.GetValues(typeof(GuessColor));
 
-            // Seed memory:
-            for ( int i = 0; i < validatedInput.Length; i++ )
+            for (int i = 0; i < validatedInput.Length; i++)
             {
-                shortTermLocalMemory.Add(i, (validatedInput [ i ], false));
-            }
-
-            // IF NONE IS ALLOWED YOU SHOULD IMPLEMENT IT HERE!!!
-
-            foreach ( var guess in validatedInput.Select(( value, i ) => new { value, i }) )
-            {
-                foreach ( var pin in Pins )
+                for (int j = 0; j < Pins.Length; j++)
                 {
-                    if ( guess.value == (( char ) (( int ) pin)).ToString() )
+                    if (validatedInput[i] == ((char) ((int) Pins[j])).ToString()
+                        && validatedInput[i] != ( (char) GuessColor.None ).ToString())
                     {
-                        isGuessValid = true;
-                        shortTermLocalMemory [ guess.i ] = (guess.value, true);
-                        convertedPins.Add((new GuessPin(( GuessColor ) pin), isGuessValid));
+                        convertedPins.Add( new GuessPin( Pins[j] ) );
                     }
                 }
-                if ( shortTermLocalMemory.ContainsValue((guess.value, false)) )
+            }
+
+            if ( convertedPins.Count == Columns )
+            { 
+                isGuessValid = true;
+            }
+            else
+            {
+                isGuessValid = false;
+                System.Console.WriteLine("Invalid guess input. Please Choose from the given color input options!".Pastel(System.Drawing.Color.DarkRed)); 
+            }
+
+            return convertedPins;
+
+        }
+
+        internal List<GuessPin> NoneAllowedConverter ( string[] validatedInput, ref bool isGuessValid )
+        {
+            List<GuessPin> convertedPins = new List<GuessPin>();
+            List<bool> validatorList = new List<bool>();
+            GuessColor[] Pins = (GuessColor[]) Enum.GetValues(typeof(GuessColor));
+
+              for (int i = 0; i < validatedInput.Length; i++)
+            {
+                for (int j = 0; j < Pins.Length; j++)
                 {
-                    isGuessValid = false;
+                    if (validatedInput[i] == ((char) ((int) Pins[j])).ToString())
+                    {
+                        convertedPins.Add( new GuessPin( Pins[j] ) );
+                    }
                 }
             }
 
-            if ( !isGuessValid )
-            { System.Console.WriteLine("Invalid guess input. Please Choose from the given color input options!".Pastel(System.Drawing.Color.DarkRed)); }
+            if ( convertedPins.Count == Columns )
+            { 
+                isGuessValid = true;
+            }
+            else
+            {
+                isGuessValid = false;
+                System.Console.WriteLine("Invalid guess input. Please Choose from the given color input options!".Pastel(System.Drawing.Color.DarkRed)); 
+            }
 
             return convertedPins;
+
         }
     }
 }
