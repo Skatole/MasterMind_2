@@ -1,28 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Pastel;
+using MasterMind_Project_2.Interfaces;
 
 namespace MasterMind_Project_2
 {
-    abstract class PinMapper : Pin
+    public abstract class PinMapper : Pin
     {
 
         private int _rows;
         private int _columns;
+        private IConfig _config;
 
-        internal PinMapper() : base()
+        internal PinMapper(IConfig config) : base(config)
         {
-            _rows = base.Row;
-            _columns = base.Columns;
+            _config = config;
+            _rows = config.Rows;
+            _columns = config.Columns;
+
         }
 
-        internal PinMapper( int Rows, int Columns, bool isNoneAllowed) : base( Rows, Columns, isNoneAllowed)
-        {
-            _rows = Rows;
-            _columns = Columns;
-        }
         // Guess Pin from constructor
         internal Dictionary<int, GuessPin [ ]> mapper ( GuessPin pin, Dictionary<int, GuessPin [ ]> Board )
         {
@@ -33,7 +27,7 @@ namespace MasterMind_Project_2
             {
                 for ( int j = 0; j < _columns; j++ )
                 {
-                    pin = new GuessPin();
+                    pin = new GuessPin(_config);
                     pinArr [ j ] = pin;
                 }
                 Board.Add(i, pinArr);
@@ -54,7 +48,7 @@ namespace MasterMind_Project_2
                 for ( int j = 0; j < _columns; j++ )
                 {
 
-                    pin = new HintPin();
+                    pin = new HintPin(_config);
                     pinArr [ j ] = pin;
                 }
 
@@ -78,7 +72,7 @@ namespace MasterMind_Project_2
                 else
                 {
                     isGuessValid = false;
-                    pinArr[ i ] = new GuessPin();
+                    pinArr[ i ] = new GuessPin(_config);
                 }
             }                
 
@@ -133,7 +127,7 @@ namespace MasterMind_Project_2
             while(indexMemory.Count < oneRow.Length)
             {
                 int randIndex = random.Next(oneRow.Length);
-                HintPin temp = new HintPin();
+                HintPin temp = new HintPin(_config);
                 for (int i = 0; i < oneRow.Length; i++)
                 {
                     if (!indexMemory.Contains(randIndex) && i != randIndex)

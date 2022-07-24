@@ -1,29 +1,25 @@
 using System.Collections.Generic;
 using Pastel;
 using System.Text.RegularExpressions;
+using MasterMind_Project_2.Interfaces;
 
 namespace MasterMind_Project_2
 {
-    class Guess : PinMapper
+    public class Guess : PinMapper
     {
 
         private Pin _guessPin;
         private Dictionary<int, GuessPin[]> _guessBoard;
         internal Dictionary<int, GuessPin[]> GuessBoard { get => _guessBoard; set => _guessBoard = value; }
+        private IConfig _config;
 
 
-        internal Guess()
+        public Guess(IConfig config) : base(config)
         {
             _guessBoard = new Dictionary<int, GuessPin[]>();
-            _guessPin = new GuessPin();
+            _guessPin = new GuessPin(config);
             _guessBoard = mapper((GuessPin)_guessPin, _guessBoard);
-        }
-
-        internal Guess(int Row, int Columns, bool isNoneAllowed) : base(Row, Columns, isNoneAllowed)
-        {
-            _guessBoard = new Dictionary<int, GuessPin[]>();
-            _guessPin = new GuessPin();
-            _guessBoard = mapper((GuessPin)_guessPin, _guessBoard);
+            _config = config;
         }
 
         internal string[] CleanAndValidate ( string? guess, int columns, out bool isGuessValid )
@@ -80,7 +76,7 @@ namespace MasterMind_Project_2
                     if (validatedInput[i] == ((char) ((int) Pins[j])).ToString()
                         && validatedInput[i] != ( (char) GuessColor.None ).ToString())
                     {
-                        convertedPins.Add( new GuessPin( Pins[j] ) );
+                        convertedPins.Add( new GuessPin( _config, Pins[j] ) );
                     }
                 }
             }
@@ -111,7 +107,7 @@ namespace MasterMind_Project_2
                 {
                     if (validatedInput[i] == ((char) ((int) Pins[j])).ToString())
                     {
-                        convertedPins.Add( new GuessPin( Pins[j] ) );
+                        convertedPins.Add( new GuessPin( _config, Pins[j] ) );
                     }
                 }
             }

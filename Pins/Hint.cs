@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using MasterMind_Project_2.Interfaces;
 
 namespace MasterMind_Project_2
 {
-    class Hint : PinMapper
+    public class Hint : PinMapper
     {
         private HintPin hintPin;
         private List<GuessColor> memory = new List<GuessColor>();
@@ -16,20 +14,12 @@ namespace MasterMind_Project_2
         internal int In { get => _in; set => _in = value; }
         internal int InPlace { get => _inPlace; set => _inPlace = value; }
 
-        public Hint ()
+        public Hint (IConfig config) : base ( config )
         {
             _hintBoard = new Dictionary<int, HintPin [ ]>();
-            hintPin = new HintPin();
+            hintPin = new HintPin(config);
             _hintBoard = mapper(( HintPin ) hintPin, HintBoard);
         }
-
-        public Hint( int Row, int Columns, bool isNoneAllowed) : base(Row, Columns, isNoneAllowed)
-        {
-            _hintBoard = new Dictionary<int, HintPin [ ]>();
-            hintPin = new HintPin();
-            _hintBoard = mapper(( HintPin ) hintPin, HintBoard);
-        }
-
         internal Dictionary<int, HintPin [ ]> GenerateHint ( Guess guess, Solution solution, ref int guessCounter )
         {
             // Local hint Copy:

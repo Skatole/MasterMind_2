@@ -1,3 +1,5 @@
+using MasterMind_Project_2.Interfaces;
+
 namespace MasterMind_Project_2
 {
     internal class GuessPin : Pin
@@ -7,14 +9,14 @@ namespace MasterMind_Project_2
         internal new GuessColor Color { get =>  _color; set => _color = value; }
         // you migh need to use new keyword here because of inheritance
         // if you want to change the color it will need a new Color property
-        public GuessPin() : base()
+        public GuessPin(IConfig config) : base(config)
         {
             _color = new GuessColor();
             Color =  GuessColor.None;
 
         }
 
-        public GuessPin(GuessColor pin) : base((PinColor) pin)
+        public GuessPin(IConfig config, GuessColor pin) : base(config, (PinColor) pin)
         {
             Color = pin;
         }        

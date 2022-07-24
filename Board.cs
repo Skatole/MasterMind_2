@@ -8,7 +8,7 @@ namespace MasterMind_Project_2
     {
 
         //class specific not static varriables
-        internal  int Row { get; set; }
+        internal  int Rows { get; set; }
         internal  int Columns { get; set; }
 		private int _guessCounter;
         internal int GuessCounter { get => _guessCounter; set { _guessCounter = value; }}
@@ -29,28 +29,14 @@ namespace MasterMind_Project_2
         internal  Guess Guess { get => _guess; set => _guess = value; }
         internal  Hint Hint { get => _hint; set => _hint = value; }
 
-		public Board()
+		public Board( IConfig config )
 		{
-			GuessCounter = 0;
-			Row = 10;
-			Columns = 4;
-			IsNoneAllowed = false;
+			GuessCounter = config.GuessCounter;
+			Rows = config.Rows;
+			Columns = config.Columns;
+			IsNoneAllowed = config.IsNoneAllowed;
+			
 		}
-
-		public Board(bool isNoneAllowed)
-		{
-			GuessCounter = 0;
-			Row = 10;
-			Columns = 4;
-			IsNoneAllowed = isNoneAllowed;
-		}
-        public Board ( int row, int columns, bool isNoneAllowed ) 
-        {
-            GuessCounter = 0;
-            Row = row;
-            Columns = columns;
-			IsNoneAllowed = isNoneAllowed;
-        }
 
 		 public void StartGame()
 		{
@@ -84,7 +70,7 @@ namespace MasterMind_Project_2
 
 		internal bool GameOver ()
         {
-            if ( GuessCounter >= Row || Win() )
+            if ( GuessCounter >= Rows|| Win() )
 			{
 				IsGameOver = true;
 				DisplayOnConsole.GameOverDisplay(IsWin, Solution);
