@@ -32,9 +32,6 @@ namespace MasterMind_Project_2.Settings
             Return = false;
            return Config;
         }
-
-        
-
         public void CustomConfig(string input)
         {
             

@@ -1,6 +1,6 @@
 ﻿using MasterMind_Project_2.Interfaces;
 
-namespace MasterMind_Project_2
+namespace MasterMind_Project_2.Pins
 {
     public class Solution : Permutations
     {

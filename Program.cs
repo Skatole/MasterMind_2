@@ -1,11 +1,16 @@
 ﻿
 
 using System;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using MasterMind_Project_2.Interfaces;
 using MasterMind_Project_2.Settings;
 using MasterMind_Project_2.Binders;
+using MasterMind_Project_2.Players;
+using MasterMind_Project_2.Pins;
+using MasterMind_Project_2.console_display_classes;
 
 namespace MasterMind_Project_2
 {
@@ -14,18 +19,11 @@ namespace MasterMind_Project_2
 
         private static void Main ( String [ ] args )
         {
-
-          // DisplayOnConsole.Welcome();
-          // ConsoleMenu.DisplayMenu();
-
           IServiceProvider serviceProvider = BuildServiceProvider();
           Processor processor = serviceProvider.GetService<Processor>()!;
           processor.InicialiseProcess();
-
-
-
-
         }
+
           static IServiceProvider BuildServiceProvider()
           {
             IServiceCollection collection = new ServiceCollection();
@@ -37,14 +35,19 @@ namespace MasterMind_Project_2
 
             collection.AddSingleton<Processor>();
             collection.AddSingleton<INavigator>( new Navigator());
-            collection.AddSingleton<IPlayer>(new Players.Player());
-            collection.AddSingleton<IMaster>(new Players.Master());
+
+            collection.AddSingleton<IPlayer>(new Player());
+            collection.AddSingleton<IMaster>(new Master());
+            collection.AddSingleton<IUser>(new User());
+
             collection.AddSingleton<Board>(new Board(config));
             collection.AddSingleton<Guess>();
             collection.AddSingleton<Hint>();
             collection.AddSingleton<Solution>();
-            collection.AddSingleton<IMenu>( new MasterMind_Project_2.console_display_classes.Menu() );
             collection.AddSingleton<Permutations>();
+
+            collection.AddSingleton<IMenu>( new Menu() );
+            collection.AddSingleton<ISettings>( new Settings.Settings(config));
 
             return collection.BuildServiceProvider();
           }

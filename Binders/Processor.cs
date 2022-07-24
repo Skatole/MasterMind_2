@@ -1,4 +1,5 @@
 using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Pins;
 
 namespace MasterMind_Project_2
 {

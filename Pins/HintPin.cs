@@ -1,7 +1,7 @@
 using System.Drawing;
 using MasterMind_Project_2.Interfaces;
 
-namespace MasterMind_Project_2
+namespace MasterMind_Project_2.Pins
 {
     internal class HintPin : Pin
     {
