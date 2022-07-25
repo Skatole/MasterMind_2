@@ -36,6 +36,11 @@ namespace MasterMind_Project_2.console_display_classes
             }
         }
 
+        internal static void DecideRole()
+        {
+            Console.WriteLine(" \n (1) Start as Player < == > (2) Start as Master \n ".Pastel(Color.DarkGreen));
+        }
+
           internal static void Info ()
         {
 

@@ -7,10 +7,9 @@ namespace MasterMind_Project_2.Binders
     public class Navigator : INavigator
     {
         public bool IsCustomGame { get; set; }
-        public IConfig? CustomConfig { get; set; }
 
 
-        public IConfig Navigate( IMenu menu, ISettings settings, IConfig config )
+        public IConfig Navigate( IUser user, IMenu menu, ISettings settings, IConfig config )
         {
             string input = menu.DisplayMenuOptions();
             foreach (var item in input)
@@ -21,10 +20,10 @@ namespace MasterMind_Project_2.Binders
                     {
                         // Start:
 
-                        if (CustomConfig != null)
+                        if (user.userConfig != null)
                         {
                             System.Console.WriteLine(" Would you like to start with Custom settings? Y/N".Pastel(System.Drawing.Color.ForestGreen));
-                            string? input2 = Console.ReadLine().ToUpper();
+                            string? input2 = user.GiveInput().ToUpper();
                             foreach (var i in input2)
                             {
                                 switch(i)
@@ -32,7 +31,7 @@ namespace MasterMind_Project_2.Binders
                                     case ('Y'):
                                     {
                                         IsCustomGame = true;
-                                        return CustomConfig;
+                                        return user.userConfig;
                                     }
                                     case 'N':
                                     {
@@ -51,8 +50,8 @@ namespace MasterMind_Project_2.Binders
                     { 
                         // Settings: 
                         settings.OpenSettingSubMenu();
-                        CustomConfig = settings.Config;
-                        Navigate(menu, settings, config);
+                        user.userConfig = settings.Config;
+                        Navigate(user, menu, settings, config);
                         continue;
                     }
                     case '3':
@@ -61,7 +60,7 @@ namespace MasterMind_Project_2.Binders
                         // Autosolve();
                         
                         System.Console.WriteLine("Not yet implemented. Sry :(");
-                        Navigate(menu, settings, config);
+                        Navigate(user, menu, settings, config);
                         continue;
                     }
                     case '4':
@@ -70,10 +69,10 @@ namespace MasterMind_Project_2.Binders
 
                         DisplayOnConsole.Info();
                         System.Console.WriteLine(" \n Press ENTER to go back! \n ".Pastel(System.Drawing.Color.ForestGreen));
-                        string? input3 = System.Console.ReadLine();
+                        string input3 = user.GiveInput();
                         if (input3 != string.Empty )
                         {
-                            Navigate(menu, settings, config);
+                            Navigate(user, menu, settings, config);
                         }
                         break;
                     }
@@ -86,7 +85,7 @@ namespace MasterMind_Project_2.Binders
                     default :
                     {
                         System.Console.WriteLine("Invalid input, please try again!".Pastel(System.Drawing.Color.DarkRed));
-                        Navigate(menu, settings, config);
+                        Navigate(user,menu, settings, config);
                         break;
                     }
 

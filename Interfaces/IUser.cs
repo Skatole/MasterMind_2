@@ -1,4 +1,4 @@
-
+using MasterMind_Project_2.Pins;
 
 namespace MasterMind_Project_2.Interfaces
 {
@@ -7,13 +7,11 @@ namespace MasterMind_Project_2.Interfaces
         public int Points { get; set; }
         public int Rounds { get; set; }
         public string Name { get; set; }
+        public IConfig userConfig { get; set; }
 
-        public IConfig Navigate( INavigator navigator, IMenu menu, ISettings settings, IConfig config );
-        public IConfig SetSettings(ISettings settings);
         public string GiveInput();
-        public void DecideRole();
         public string Login();
         public void Register();
-        
+
     }
 }
