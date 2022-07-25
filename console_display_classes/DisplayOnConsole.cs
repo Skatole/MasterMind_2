@@ -14,8 +14,8 @@ namespace MasterMind_Project_2.console_display_classes
     internal static class DisplayOnConsole
     {
 
-        private const string welcomeRoute = "TxtPages/Welcome.txt";
-        private const string infoRoute = "TxtPages/InfoPage.txt";
+        private const string welcomeRoute = "Welcome.txt";
+        private const string infoRoute = "InfoPage.txt";
 
         internal static void Welcome ()
         {
@@ -114,6 +114,8 @@ namespace MasterMind_Project_2.console_display_classes
                 {
                     System.Console.Write($" | {item.shape} | ");
                 }
+
+                Console.WriteLine("\n");
 
             }
             else
