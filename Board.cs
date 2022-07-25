@@ -52,7 +52,31 @@ namespace MasterMind_Project_2
 			IsNoneAllowed = isNoneAllowed;
         }
 
-		
+		public void StartGame ( )
+		{
+			while ( !GameOver() )
+			{
+				List<(GuessPin Pin, bool Valid)> convGuess = Guess.PinConverter(
+					Guess.CleanAndValidate(
+						DisplayOnConsole.MakeAGuess(),
+						Columns,
+						Row,
+						out _isGuessValid),
+					ref _isGuessValid);
+
+				if ( IsGuessValid )
+				{
+					Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
+					Hint.GenerateHint(Guess, Solution, ref _guessCounter);
+					DisplayOnConsole.DisplayBoard(Guess, Hint);
+					Win();
+					GuessCounter++;
+				}
+
+			}
+		}
+
+
 
 		internal bool GameOver ()
         {

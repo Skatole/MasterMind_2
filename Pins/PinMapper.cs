@@ -71,8 +71,9 @@ namespace MasterMind_Project_2
 
             // If NONE is allowed then take out the convertedPinList[i] != PinColor.None statement!
 
-            if (!IsNoneAllowed)
+            if (IsNoneAllowed)
             {
+                Console.WriteLine("\n" + IsNoneAllowed + " IsNONE IN FIRST. \n");
                 for ( int i = 0; i < convertedPinList.Count; i++ )
                 {
                     if ( convertedPinList[i].valid )
@@ -83,17 +84,28 @@ namespace MasterMind_Project_2
             }
             else
             {
+                Console.WriteLine("\n" + IsNoneAllowed + " IsNONE IN SECOND. \n");
+
                 for ( int i = 0; i < convertedPinList.Count; i++ )
                 {
                     if ( convertedPinList [ i ].pin.Color != GuessColor.None && convertedPinList[i].valid )
                     {
                         pinArr [ i ] = convertedPinList [ i ].pin;
                     }
+                    else
+                    {
+                        pinArr [ i ] = null;
+                    }
                 }
             }
+            Console.WriteLine(pinArr.Length + " pinARR");
 
-            if (pinArr.Length == Columns && isGuessValid)
+            foreach ( var item in pinArr )
             {
+                Console.WriteLine(item + " , ");
+            }
+            if (pinArr.Length == Columns || isGuessValid)
+            {  
                 guessBoard [ guessCounter ] = pinArr;
             }
             else

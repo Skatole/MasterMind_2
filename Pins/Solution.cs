@@ -37,18 +37,18 @@ namespace MasterMind_Project_2
             //     System.Console.WriteLine("\n");
             // }
 
-            Console.WriteLine("Solution : \n");
+            //Console.WriteLine("Solution : \n");
             Random random = new Random((int) DateTime.Now.Ticks);
             int index = random.Next(AllSolutions.Count);
 
             for (int i = 0; i < AllSolutions[index].Length; i++)
             {
                 Sol[i] = new GuessPin(AllSolutions[index][i]);
-                System.Console.WriteLine(Sol[i] + " , ");
+                //System.Console.WriteLine(Sol[i] + " , ");
             }
                         
 
-            System.Console.WriteLine("\n");
+            //System.Console.WriteLine("\n");
             // List<GuessColor>  randomPin = RandomPin.generateRandomPins(1, 0, Columns);
 
 
