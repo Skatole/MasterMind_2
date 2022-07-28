@@ -5,15 +5,9 @@ namespace MasterMind_Project_2.Players.Roles
 {
     public class Player : User, IPlayer
     {
-
-        private int i { get; } = 0;
-        private string TestString { get; set; } = " TEST ";
-
-        public Player(IConfig config) : base(config)
+        public Player() 
         {
-            Points = 0;
-            i++;
-            Console.WriteLine("HI THERe " + i);
+            Console.WriteLine("HI THERe ");
         }
 
         public void StartGame()

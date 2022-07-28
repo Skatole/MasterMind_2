@@ -18,11 +18,13 @@ namespace MasterMind_Project_2.Binders
         private readonly IMenu _consoleMenu;
         private readonly ISettings _settings;
         private readonly INavigator _navigator;
-        private readonly IUser _user;
+        private IUser _user1;
+        private IUser _user2;
         private IConfig _config;
 
         public Processor(
-            IUser user,
+            IUser user1,
+            IUser user2,    
             IPlayer player,
             IMaster master,
             INavigator navigator,
@@ -45,12 +47,14 @@ namespace MasterMind_Project_2.Binders
             _settings = settings;
             _config = Config;
             _navigator = navigator;
+            _user1 = user1;
+            _user2 = user2;
         }
 
         public void InicialiseProcess()
         {
             DisplayOnConsole.Welcome();
-            DecideRole();
+            DecideRole(_user1);
             while (_config.IsSessionValid)
             {
                 _config = _navigator.Navigate(_user, _consoleMenu, _settings, _config);
@@ -73,7 +77,10 @@ namespace MasterMind_Project_2.Binders
             {
                 case "1":
                     {
-                        _user = (IPlayer) user;
+                        IPlayer player = (IPlayer) new User(_config);
+                        player.StartGame();
+                        
+                        
                         break;
                     }
                 case "2":
