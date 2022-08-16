@@ -1,8 +1,7 @@
-namespace MasterMind_Project_2.Interfaces
+namespace MasterMind_Project_2.Interfaces.Menu
 {
     public interface ISettings
     {
-        public IConfig Config { get; set; }
         public void CustomConfig(string input);
         public IConfig OpenSettingSubMenu();
 

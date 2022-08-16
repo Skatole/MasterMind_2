@@ -1,4 +1,5 @@
 using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.GameBoard.Pins;
 
 namespace MasterMind_Project_2
 {

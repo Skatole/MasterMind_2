@@ -9,9 +9,10 @@ namespace MasterMind_Project_2.Interfaces
         public string Name { get; set; }
         public IConfig userConfig { get; set; }
 
-        public string GiveInput();
         public string Login();
         public void Register();
+        public string GiveInput();
+        public void StartGame();
 
     }
 }

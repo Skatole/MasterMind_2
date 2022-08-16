@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MasterMind_Project_2.Pins
+namespace MasterMind_Project_2.GameBoard.Pins
 {
     static class RandomPin
     {

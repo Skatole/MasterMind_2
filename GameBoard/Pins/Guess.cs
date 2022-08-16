@@ -3,7 +3,7 @@ using Pastel;
 using System.Text.RegularExpressions;
 using MasterMind_Project_2.Interfaces;
 
-namespace MasterMind_Project_2.Pins
+namespace MasterMind_Project_2.GameBoard.Pins
 {
     public class Guess : PinMapper
     {

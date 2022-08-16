@@ -4,94 +4,84 @@ using MasterMind_Project_2.Interfaces;
 using MasterMind_Project_2.Pins;
 using MasterMind_Project_2.console_display_classes;
 using MasterMind_Project_2.Players;
+using MasterMind_Project_2.Interfaces.Roles;
+using MasterMind_Project_2.Interfaces.Menu;
+using MasterMind_Project_2.GameBoard;
 
 namespace MasterMind_Project_2.Binders
 {
     public class Processor
     {
 
-        private readonly Board _board;
-        private readonly Guess _guess;
-        private readonly Hint _hint;
-        private readonly Solution _solution;
-        private readonly Permutations _permutations;
-        private readonly IMenu _consoleMenu;
+        private bool _isSessionValid = false;
+
         private readonly ISettings _settings;
         private readonly INavigator _navigator;
-        private IUser _user1;
-        private IUser _user2;
+        private Board _board;
+        private IUser _user;
         private IConfig _config;
 
         public Processor(
-            IUser user1,
-            IUser user2,    
-            IPlayer player,
-            IMaster master,
-            INavigator navigator,
+            IUser User,    
+            INavigator Navigator,
             Board Board,
-            Guess Guess,
-            Hint Hint,
-            Solution Solution,
-            Permutations Permutations,
-            IMenu ConsoleMenu,
             IConfig Config,
             ISettings settings)
 
         {
             _board = Board;
-            _guess = Guess;
-            _hint = Hint;
-            _solution = Solution;
-            _permutations = Permutations;
-            _consoleMenu = ConsoleMenu;
             _settings = settings;
             _config = Config;
-            _navigator = navigator;
-            _user1 = user1;
-            _user2 = user2;
+            _navigator = Navigator;
+            _user = User;
         }
 
         public void InicialiseProcess()
         {
             DisplayOnConsole.Welcome();
-            DecideRole(_user1);
-            while (_config.IsSessionValid)
+            DecideRole();
+            while (_isSessionValid)
             {
-                _config = _navigator.Navigate(_user, _consoleMenu, _settings, _config);
-                StartGameProcess(_config);
+                _config = _navigator.Navigate(_user, _settings, _config);
+                _board = new Board(_config);
+                DisplayOnConsole.DisplayBoard(_board.Guess, _board.Hint);
+                StartGameProcess();
             }
         }
-        public void StartGameProcess(IConfig config)
+        public void StartGameProcess()
         {
-            Board defaultBoard = new Board(config);
-            defaultBoard.Permutations = new Permutations(config);
-            defaultBoard.Solution = new Solution(config);
-            defaultBoard.Guess = new Guess(config);
-            defaultBoard.Hint = new Hint(config);
+            while(!_board.IsGameOver)
+            {
+                DisplayOnConsole.MakeAGuess();
+                _board.Game(_user.GiveInput());
+            }
+
+                DisplayOnConsole.GameOverDisplay(_board.IsWin, _board.Solution);
         }
 
-        private void DecideRole(IUser user)
+
+        private void DecideRole()
         {
             DisplayOnConsole.DecideRole();
             switch (_user.GiveInput())
             {
                 case "1":
                     {
-                        IPlayer player = (IPlayer) new User(_config);
-                        player.StartGame();
-                        
-                        
+                        _user = (IPlayer) _user;
+                        _isSessionValid = true;
+                        _user.StartGame();
                         break;
                     }
                 case "2":
                     {
-                        _user = (IPlayer)_user;
+                        _user = (IMaster) _user;
+                        _isSessionValid = true;
                         break;
                     }
                 default:
                     {
-                        Console.WriteLine(" \n Invalid input try again! \n ".Pastel(System.Drawing.Color.DarkRed);
-                        DecideRole(user);
+                        Console.WriteLine(" \n Invalid input try again! \n ".Pastel(System.Drawing.Color.DarkRed));
+                        DecideRole();
                         break;
                     }
             }

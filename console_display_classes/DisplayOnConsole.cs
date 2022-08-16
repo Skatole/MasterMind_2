@@ -7,6 +7,7 @@
 using System;
 using System.Drawing;
 
+using MasterMind_Project_2.GameBoard.Pins;
 using Pastel;
 
 namespace MasterMind_Project_2.console_display_classes
@@ -59,14 +60,9 @@ namespace MasterMind_Project_2.console_display_classes
                 Console.WriteLine(path);
             }
         }
-        internal static string MakeAGuess ( )
+        internal static void MakeAGuess ( )
         {
-            string guessString = new string(string.Empty);
-
             Console.WriteLine("Make a Guess:");
-            guessString = Console.ReadLine();
-
-            return guessString;
         }
 
         internal static void DisplayBoard ( Guess? guess, Hint? hint)
