@@ -1,40 +1,38 @@
 using Pastel;
+using MasterMind_Project_2.Interfaces;
 using MasterMind_Project_2.console_display_classes;
 
-namespace MasterMind_Project_2
+namespace MasterMind_Project_2.Settings
 {
-    public static class Settings
+    public class Settings : ISettings
     {
-        private static  bool isNoneAllowed = false;
-        private static bool Return = false;
-        private static int Row = 0;
-        private static int Column = 0;
-        
-        public static (int, int, bool) ChooseSetting()
+        private bool Return { get; set; }
+        public IConfig Config { get; set; }
+        public int _rows;
+        public int _columns;
+        public bool _isNoneAllowed;
+
+        public Settings(IConfig config)
         {
-            System.Console.WriteLine("Choose a setting and press ENTER: ");
+            Return = false;
+            Config = config; 
+            _rows = config.Rows;
+            _columns = config.Columns;
+            _isNoneAllowed = config.IsNoneAllowed;
+
+        }
+        public IConfig OpenSettingSubMenu()
+        {
 
            if (!Return)
            {
-               ShowSettings();
+               CustomConfig(DisplaySettingsOnConsole.ShowSettings());
            }
 
             Return = false;
-           return (Row, Column, isNoneAllowed);
+           return Config;
         }
-
-        private static void ShowSettings()
-        {
-            System.Console.WriteLine(" \n For setting custom Row & Column values press: [ 1 ] \n".Pastel(System.Drawing.Color.RoyalBlue));
-            System.Console.WriteLine(" \n For allowing Empty pins press: [ 2 ]".Pastel(System.Drawing.Color.RoyalBlue));
-            System.Console.WriteLine(" \n To Go back to the Main menu press: [ 3 ]".Pastel(System.Drawing.Color.DarkRed));
-
-            string input = Console.ReadLine();
-
-            OpenSettingSubMenu(input);
-        }
-
-        private static void OpenSettingSubMenu(string input)
+        public void CustomConfig(string input)
         {
             
             if (input.Length == 1)
@@ -46,16 +44,19 @@ namespace MasterMind_Project_2
                         case '1':
                         {
                             System.Console.WriteLine(" \n Give me the new Row value. ( Note: Represents how many tries you want.) : \n".Pastel(System.Drawing.Color.BlueViolet));
-                            int.TryParse(Console.ReadLine(), out Row);
+                            int.TryParse(Console.ReadLine(), out _rows);
+                            Config.Rows = _rows;
                             System.Console.WriteLine( " \n Give me the new Column value. (Note: represents how long a Guess and a Solution needs to be.): \n ".Pastel(System.Drawing.Color.BlueViolet));
-                            int.TryParse(Console.ReadLine(), out Column);
+                            int.TryParse(Console.ReadLine(), out _columns);
+                            Config.Columns = _columns;
                             break;
                         }
                         case '2':
                         {
-                            isNoneAllowed = !isNoneAllowed;
-                            string output = isNoneAllowed ? "\n Empty Pins enabled.".Pastel(System.Drawing.Color.OrangeRed) : " \n Empty Pins disabled.".Pastel(System.Drawing.Color.OrangeRed);
+                            _isNoneAllowed = !_isNoneAllowed;
+                            string output = _isNoneAllowed ? "\n Empty Pins enabled.".Pastel(System.Drawing.Color.OrangeRed) : " \n Empty Pins disabled.".Pastel(System.Drawing.Color.OrangeRed);
                             System.Console.WriteLine(output); 
+                            Config.IsNoneAllowed = _isNoneAllowed;
                             break;
                         }
                         case '3':
@@ -77,8 +78,7 @@ namespace MasterMind_Project_2
                 System.Console.WriteLine("\n Invalid input. \n Please choose from the given input options. \n".Pastel(System.Drawing.Color.Red));
             }
 
-            System.Console.WriteLine("IN SETTINGS: " + " ROW : " + Row + " COLUMNS: " + Column + " NONEALLOWED: " + isNoneAllowed);
-            ChooseSetting();
+            OpenSettingSubMenu();
         }
     }
 }

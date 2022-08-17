@@ -1,28 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Pastel;
+using MasterMind_Project_2.Interfaces;
 
 namespace MasterMind_Project_2
 {
-    abstract class PinMapper : Pin
+    public abstract class PinMapper : Pin
     {
 
         private int _rows;
         private int _columns;
+        private IConfig _config;
 
-        internal PinMapper() : base()
+        internal PinMapper(IConfig config) : base(config)
         {
-            _rows = base.Row;
-            _columns = base.Columns;
+            _config = config;
+            _rows = config.Rows;
+            _columns = config.Columns;
+
         }
 
-        internal PinMapper( int Rows, int Columns, bool isNoneAllowed) : base( Rows, Columns, isNoneAllowed)
-        {
-            _rows = Rows;
-            _columns = Columns;
-        }
         // Guess Pin from constructor
         internal Dictionary<int, GuessPin [ ]> mapper ( GuessPin pin, Dictionary<int, GuessPin [ ]> Board )
         {
@@ -33,7 +27,7 @@ namespace MasterMind_Project_2
             {
                 for ( int j = 0; j < _columns; j++ )
                 {
-                    pin = new GuessPin();
+                    pin = new GuessPin(_config);
                     pinArr [ j ] = pin;
                 }
                 Board.Add(i, pinArr);
@@ -54,7 +48,7 @@ namespace MasterMind_Project_2
                 for ( int j = 0; j < _columns; j++ )
                 {
 
-                    pin = new HintPin();
+                    pin = new HintPin(_config);
                     pinArr [ j ] = pin;
                 }
 
@@ -65,54 +59,24 @@ namespace MasterMind_Project_2
         }
 
         // Guess Pin from List
-        internal Dictionary<int, GuessPin [ ]> mapper ( List<(GuessPin pin, bool valid)> convertedPinList, Dictionary<int, GuessPin [ ]> guessBoard, ref int guessCounter, ref bool isGuessValid )
+        internal Dictionary<int, GuessPin [ ]> mapper ( List<GuessPin> convertedPinList, Dictionary<int, GuessPin [ ]> guessBoard, ref int guessCounter, ref bool isGuessValid )
         {
             GuessPin[] pinArr = new GuessPin[_columns];
 
-            // If NONE is allowed then take out the convertedPinList[i] != PinColor.None statement!
-
-            if (IsNoneAllowed)
+            for ( int i = 0; i < Columns; i++ )
             {
-                Console.WriteLine("\n" + IsNoneAllowed + " IsNONE IN FIRST. \n");
-                for ( int i = 0; i < convertedPinList.Count; i++ )
+                if ( isGuessValid && convertedPinList.Count == Columns )
                 {
-                    if ( convertedPinList[i].valid )
-                    {
-                        pinArr [ i ] = convertedPinList [ i ].pin;
-                    }
-                }                
-            }
-            else
-            {
-                Console.WriteLine("\n" + IsNoneAllowed + " IsNONE IN SECOND. \n");
-
-                for ( int i = 0; i < convertedPinList.Count; i++ )
-                {
-                    if ( convertedPinList [ i ].pin.Color != GuessColor.None && convertedPinList[i].valid )
-                    {
-                        pinArr [ i ] = convertedPinList [ i ].pin;
-                    }
-                    else
-                    {
-                        pinArr [ i ] = null;
-                    }
+                    pinArr [ i ] = convertedPinList [ i ];
                 }
-            }
-            Console.WriteLine(pinArr.Length + " pinARR");
+                else
+                {
+                    isGuessValid = false;
+                    pinArr[ i ] = new GuessPin(_config);
+                }
+            }                
 
-            foreach ( var item in pinArr )
-            {
-                Console.WriteLine(item + " , ");
-            }
-            if (pinArr.Length == Columns || isGuessValid)
-            {  
-                guessBoard [ guessCounter ] = pinArr;
-            }
-            else
-            {
-                isGuessValid = false;
-                System.Console.WriteLine("\n Invalid Input. Please choose from the given color input options. \n ".Pastel(System.Drawing.Color.DarkRed));
-            }
+            guessBoard [ guessCounter ] = pinArr;
 
             return guessBoard;
         }
@@ -163,7 +127,7 @@ namespace MasterMind_Project_2
             while(indexMemory.Count < oneRow.Length)
             {
                 int randIndex = random.Next(oneRow.Length);
-                HintPin temp = new HintPin();
+                HintPin temp = new HintPin(_config);
                 for (int i = 0; i < oneRow.Length; i++)
                 {
                     if (!indexMemory.Contains(randIndex) && i != randIndex)

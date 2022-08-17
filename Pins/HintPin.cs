@@ -1,6 +1,7 @@
 using System.Drawing;
+using MasterMind_Project_2.Interfaces;
 
-namespace MasterMind_Project_2
+namespace MasterMind_Project_2.Pins
 {
     internal class HintPin : Pin
     {
@@ -11,13 +12,13 @@ namespace MasterMind_Project_2
 
         // you migh need to use new keyword here because of inheritance
         // if you want to change the color it will need a new Color property
-        public HintPin () : base()
+        public HintPin (IConfig config) : base(config)
         {
             _color = new HintColor();
             Color =  HintColor.None;
         }
 
-        public HintPin(HintColor pin) : base((PinColor) pin)
+        public HintPin(IConfig config, HintColor pin) : base(config, (PinColor) pin)
         {
             Color = pin;
         }

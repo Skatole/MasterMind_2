@@ -1,25 +1,16 @@
-namespace MasterMind_Project_2
+using MasterMind_Project_2.Interfaces;
+
+namespace MasterMind_Project_2.Pins
 {
-    internal class Permutations : Pin
+    public class Permutations : Pin
     {
         internal List<GuessColor[]> AllSolutions { get; set; }
 		private static GuessColor[] _allPins = (GuessColor[]) Enum.GetValues(typeof(GuessColor));
         internal int permutationCount = 0;
-        internal Permutations(bool isNoneAllowed) 
+        public Permutations(IConfig config) : base(config) 
         {
             AllSolutions = new List<GuessColor[]>();
-              if (isNoneAllowed)
-            {
-                StandardPermutation();
-            } else
-            {
-                NoEmptyPinsPermutation();
-            }
-        }
-        internal Permutations( int Rows, int Columns, bool isNoneAllowed) : base(Rows, Columns, isNoneAllowed) 
-        {
-            AllSolutions = new List<GuessColor[]>();
-            if (isNoneAllowed)
+              if (config.IsNoneAllowed)
             {
                 StandardPermutation();
             } else

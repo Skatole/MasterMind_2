@@ -1,6 +1,6 @@
 namespace MasterMind_Project_2
 {
-    internal enum PinColor
+    public enum PinColor
     {
         None =  'N',
         White =  'W',
@@ -13,14 +13,14 @@ namespace MasterMind_Project_2
         Black =  'X',
     }
 
-    internal enum HintColor
+    public enum HintColor
     {
         None = PinColor.None,
         In = PinColor.White,
         InPlace = PinColor.Red,
     }
 
-    internal enum GuessColor
+    public enum GuessColor
     {
         None = PinColor.None,
         Blue = PinColor.Blue,
