@@ -4,10 +4,11 @@
 // Bekéri a Guesst a Program.cs helyett
 // A guess bekérés után kirajzolja a Board által generált Guess és Hint Dictionariket
 // A displayOnConsole class függvényét hívja meg az InputCleaner interface ha ? jelet talál.
-using System;
 using System.Drawing;
 
+using MasterMind_Project_2.GameBoard;
 using MasterMind_Project_2.GameBoard.Pins;
+
 using Pastel;
 
 namespace MasterMind_Project_2.console_display_classes
@@ -18,18 +19,18 @@ namespace MasterMind_Project_2.console_display_classes
         private const string welcomeRoute = "TxtPages/Welcome.txt";
         private const string infoRoute = "TxtPages/InfoPage.txt";
 
-        internal static void Welcome ()
+        internal static void Welcome()
         {
 
             FileInfo fi = new FileInfo(welcomeRoute);
             StreamReader parser = fi.OpenText();
             string line;
 
-            while ( (line = parser.ReadLine()) != null )
+            while ((line = parser.ReadLine()) != null)
             {
                 string[] items = line.Split('\n');
                 string path = null;
-                foreach ( string item in items )
+                foreach (string item in items)
                 {
                     path = item;
                 }
@@ -42,30 +43,30 @@ namespace MasterMind_Project_2.console_display_classes
             Console.WriteLine(" \n (1) Start as Player < == > (2) Start as Master \n ".Pastel(Color.DarkGreen));
         }
 
-          internal static void Info ()
+        internal static void Info()
         {
 
             FileInfo fi = new FileInfo(infoRoute);
             StreamReader parser = fi.OpenText();
             string line;
 
-            while ( (line = parser.ReadLine()) != null )
+            while ((line = parser.ReadLine()) != null)
             {
                 string[] items = line.Split('\n');
                 string path = null;
-                foreach ( string item in items )
+                foreach (string item in items)
                 {
                     path = item;
                 }
                 Console.WriteLine(path);
             }
         }
-        internal static void MakeAGuess ( )
+        internal static void MakeAGuess()
         {
             Console.WriteLine("Make a Guess:");
         }
 
-        internal static void DisplayBoard ( Guess? guess, Hint? hint)
+        internal static void DisplayBoard(Guess? guess, Hint? hint)
         {
             guess = PinShapeDefiner.defineShape(guess);
             hint = PinShapeDefiner.defineShape(hint);
@@ -80,16 +81,16 @@ namespace MasterMind_Project_2.console_display_classes
                 + "	P".Pastel(Color.BlueViolet)
                 + "\n");
 
-            for ( int i = 0; i < guess.GuessBoard.Count; i++ )
+            for (int i = 0; i < guess.GuessBoard.Count; i++)
             {
 
-                foreach ( var pin in guess.GuessBoard [ i ] )
+                foreach (var pin in guess.GuessBoard[i])
                 {
                     System.Console.Write($" | {pin.shape} | ");
                 }
                 Console.Write("  ==>  ");
 
-                foreach ( var pin in hint.HintBoard [i] )
+                foreach (var pin in hint.HintBoard[i])
                 {
                     System.Console.Write($" ( {pin.shape} )");
                 }
@@ -100,13 +101,7 @@ namespace MasterMind_Project_2.console_display_classes
         internal static void GameOverDisplay(bool IsWin, Solution solution)
         {
             GuessPin[] Pins = new GuessPin[solution.Sol.Length];
-
-            for (int i = 0; i < solution.Sol.Length; i++)
-            {
-               Pins[i] =  solution.Sol[i];
-            }
-
-            Pins = PinShapeDefiner.defineShape(Pins);
+            Pins = PinShapeDefiner.defineShape(solution.Sol);
             if (IsWin)
             {
                 System.Console.WriteLine(" \n CONGRATULATIONSSSS CHAMPION YOU WIN!!! \n");
@@ -120,7 +115,7 @@ namespace MasterMind_Project_2.console_display_classes
             else
             {
                 System.Console.WriteLine(" \n SORRY DUM DUM YOU LOST. THE SOLUTION WAS:  \n ");
-                  foreach (var item in Pins)
+                foreach (var item in Pins)
                 {
                     System.Console.Write($" | {item.shape} | ");
                 }

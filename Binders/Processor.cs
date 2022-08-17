@@ -1,12 +1,10 @@
-using Pastel;
-
-using MasterMind_Project_2.Interfaces;
-using MasterMind_Project_2.Pins;
 using MasterMind_Project_2.console_display_classes;
-using MasterMind_Project_2.Players;
-using MasterMind_Project_2.Interfaces.Roles;
-using MasterMind_Project_2.Interfaces.Menu;
 using MasterMind_Project_2.GameBoard;
+using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Interfaces.Menu;
+using MasterMind_Project_2.Interfaces.Roles;
+
+using Pastel;
 
 namespace MasterMind_Project_2.Binders
 {
@@ -22,7 +20,7 @@ namespace MasterMind_Project_2.Binders
         private IConfig _config;
 
         public Processor(
-            IUser User,    
+            IUser User,
             INavigator Navigator,
             Board Board,
             IConfig Config,
@@ -50,13 +48,13 @@ namespace MasterMind_Project_2.Binders
         }
         public void StartGameProcess()
         {
-            while(!_board.IsGameOver)
+            while (!_board.IsGameOver)
             {
                 DisplayOnConsole.MakeAGuess();
                 _board.Game(_user.GiveInput());
             }
 
-                DisplayOnConsole.GameOverDisplay(_board.IsWin, _board.Solution);
+            DisplayOnConsole.GameOverDisplay(_board.IsWin, _board.Solution);
         }
 
 
@@ -67,14 +65,14 @@ namespace MasterMind_Project_2.Binders
             {
                 case "1":
                     {
-                        _user = (IPlayer) _user;
+                        _user = (IPlayer)_user;
                         _isSessionValid = true;
                         _user.StartGame();
                         break;
                     }
                 case "2":
                     {
-                        _user = (IMaster) _user;
+                        _user = (IMaster)_user;
                         _isSessionValid = true;
                         break;
                     }

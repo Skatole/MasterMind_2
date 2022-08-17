@@ -1,6 +1,5 @@
-using MasterMind_Project_2.Interfaces;
 using MasterMind_Project_2.Configuration;
-
+using MasterMind_Project_2.Interfaces;
 using MasterMind_Project_2.Interfaces.Roles;
 
 namespace MasterMind_Project_2.Users
@@ -12,7 +11,7 @@ namespace MasterMind_Project_2.Users
         public string Name { get; set; }
         public IConfig userConfig { get; set; }
 
-        public User( IConfig config )
+        public User(IConfig config)
         {
             Points = 0;
             Rounds = config.Rounds;
@@ -33,12 +32,12 @@ namespace MasterMind_Project_2.Users
             // Its gona be empty for now ==> When DB or mock DB is set then implement.
         }
 
-        public void Register() 
+        public void Register()
         {
-/* THis will be empty for now ==>
- * This app will have a Login Interface and Class that checks if a user exists or not.
- * If not then it will register it else it will log the user in based on the parameters.
- */
+            /* THis will be empty for now ==>
+             * This app will have a Login Interface and Class that checks if a user exists or not.
+             * If not then it will register it else it will log the user in based on the parameters.
+             */
         }
 
         public void StartGame()
@@ -70,26 +69,26 @@ namespace MasterMind_Project_2.Users
 
     }
 }
-        //      public void StartGame()
-        // 	{
-        // 		while(!GameOver())
-        // 		{
-        // 			List<(GuessPin Pin, bool Valid)> convGuess = Guess.PinConverter( 
-        // 				Guess.CleanAndValidate(
-        // 					DisplayOnConsole.MakeAGuess(),
-        // 					Columns,
-        // 					Row,
-        // 					out _isGuessValid),
-        // 				ref _isGuessValid);
+//      public void StartGame()
+// 	{
+// 		while(!GameOver())
+// 		{
+// 			List<(GuessPin Pin, bool Valid)> convGuess = Guess.PinConverter( 
+// 				Guess.CleanAndValidate(
+// 					DisplayOnConsole.MakeAGuess(),
+// 					Columns,
+// 					Row,
+// 					out _isGuessValid),
+// 				ref _isGuessValid);
 
-        // 			if ( IsGuessValid )
-        // 			{
-        // 				Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
-        // 				Hint.GenerateHint(Guess, Solution, ref _guessCounter);
-        // 				DisplayOnConsole.DisplayBoard(Guess, Hint);
-        // 				Win();
-        // 				GuessCounter++;
-        // 			}
+// 			if ( IsGuessValid )
+// 			{
+// 				Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
+// 				Hint.GenerateHint(Guess, Solution, ref _guessCounter);
+// 				DisplayOnConsole.DisplayBoard(Guess, Hint);
+// 				Win();
+// 				GuessCounter++;
+// 			}
 
-        // 		}
-        // 	}
+// 		}
+// 	}

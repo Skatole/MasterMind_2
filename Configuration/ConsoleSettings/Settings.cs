@@ -1,7 +1,8 @@
-using Pastel;
+using MasterMind_Project_2.console_display_classes;
 using MasterMind_Project_2.Interfaces;
 using MasterMind_Project_2.Interfaces.Menu;
-using MasterMind_Project_2.console_display_classes;
+
+using Pastel;
 
 namespace MasterMind_Project_2.Configuration.ConsoleSettings
 {

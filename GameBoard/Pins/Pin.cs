@@ -1,32 +1,17 @@
-using MasterMind_Project_2.Interfaces;
+using Pastel;
+using MasterMind_Project_2.Interfaces.Board.Pins;
+using MasterMind_Project_2.Enums;
 
 namespace MasterMind_Project_2.GameBoard.Pins
 {
-    public class Pin
+    public abstract class Pin : IPin
     {
+        private string _shape = "o".Pastel(System.Drawing.Color.LightGray);
 
-        private PinColor _color;
-        internal string shape { get; set; }
-        public PinColor Color { get => _color; set => _color = value; }
+        public int Id { get => (int)Color; }
+        public string Shape { get => _shape; set => _shape = value; }
+        public abstract PinColor Color { get; set; }
 
-        public Pin(IConfig config) : base(config)
-        {
-            _color = PinColor.None;
-            shape = string.Empty;
-        }
-      
-        public Pin(IConfig config, PinColor color) : base(config)
-        {
-            _color = color;
-            shape = string.Empty;
-        }
-
-
-
-        public override string ToString()
-        {
-            return _color.ToString();
-        }
     }
 
 }

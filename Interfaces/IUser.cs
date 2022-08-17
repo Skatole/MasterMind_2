@@ -1,5 +1,3 @@
-using MasterMind_Project_2.Pins;
-
 namespace MasterMind_Project_2.Interfaces
 {
     public interface IUser

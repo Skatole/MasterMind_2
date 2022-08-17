@@ -1,20 +1,14 @@
 ﻿
-
-using System;
+using MasterMind_Project_2.Binders;
+using MasterMind_Project_2.Configuration;
+using MasterMind_Project_2.Configuration.ConsoleSettings;
+using MasterMind_Project_2.GameBoard;
+using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Interfaces.Menu;
+using MasterMind_Project_2.Users;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-using MasterMind_Project_2.Binders;
-using MasterMind_Project_2.console_display_classes;
-using MasterMind_Project_2.GameBoard;
-using MasterMind_Project_2.GameBoard.Pins;
-using MasterMind_Project_2.Interfaces;
-using MasterMind_Project_2.Interfaces.Menu;
-using MasterMind_Project_2.Interfaces.Roles;
-using MasterMind_Project_2.Configuration;
-using MasterMind_Project_2.Configuration.ConsoleSettings;
-using MasterMind_Project_2.Users;
 
 namespace MasterMind_Project_2
 {

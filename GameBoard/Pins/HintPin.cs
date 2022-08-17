@@ -1,27 +1,21 @@
-using System.Drawing;
-
-using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Enums;
 
 namespace MasterMind_Project_2.GameBoard.Pins
 {
-    internal class HintPin : Pin
+    public class HintPin : Pin
     {
         private HintColor _color;
-        internal new HintColor Color { get => _color; set => _color = value; }
-        
+        public override PinColor Color { get => (PinColor)_color; set => _color = (HintColor)value; }
 
-
-        // you migh need to use new keyword here because of inheritance
-        // if you want to change the color it will need a new Color property
-        public HintPin (IConfig config) : base(config)
+        public HintPin()
         {
             _color = new HintColor();
-            Color =  HintColor.None;
+            Color = (PinColor)HintColor.None;
         }
 
-        public HintPin(IConfig config, HintColor pin) : base(config, (PinColor) pin)
+        public HintPin(HintColor pin)
         {
-            Color = pin;
+            Color = (PinColor)pin;
         }
-   }
+    }
 }

@@ -1,5 +1,4 @@
 using Pastel;
-using MasterMind_Project_2.Interfaces.Menu;
 
 namespace MasterMind_Project_2.console_display_classes
 {

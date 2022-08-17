@@ -1,8 +1,7 @@
-using System;
 
+using MasterMind_Project_2.GameBoard.Pins;
 using MasterMind_Project_2.Interfaces;
 using MasterMind_Project_2.Interfaces.Board;
-using MasterMind_Project_2.GameBoard.Pins;
 
 namespace MasterMind_Project_2.GameBoard
 {
@@ -19,9 +18,9 @@ namespace MasterMind_Project_2.GameBoard
         private bool _isGuessValid;
         private int _guessCounter;
 
-        public Guess Guess { get => _guess; }
-        public Hint Hint { get => _hint; }
-        public Solution Solution { get => _solution; }
+        //public Guess Guess { get => _guess; }
+        //public Hint Hint { get => _hint; }
+        //public Solution Solution { get => _solution; }
         public bool IsWin { get; set; }
         public bool IsGameOver { get; set; }
 
