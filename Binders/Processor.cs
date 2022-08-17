@@ -78,7 +78,7 @@ namespace MasterMind_Project_2.Binders
                     }
                 case "2":
                     {
-                        _user = (IPlayer)_user;
+                        _user = (IPlayer) user;
                         break;
                     }
                 default:

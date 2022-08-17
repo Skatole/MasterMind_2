@@ -69,3 +69,8 @@ C:\Users\rbenc\Documents\C#\MasterMind_2\obj\Debug\net6.0\MasterMind_Project_2.c
 C:\Users\rbenc\Documents\C#\MasterMind_2\obj\Debug\net6.0\MasterMind_Project_2.dll
 C:\Users\rbenc\Documents\C#\MasterMind_2\obj\Debug\net6.0\refint\MasterMind_Project_2.dll
 C:\Users\rbenc\Documents\C#\MasterMind_2\obj\Debug\net6.0\MasterMind_Project_2.pdb
+D:\C#\MasterMind_2\MasterMind_2\obj\Debug\net6.0\MasterMind_Project_2.csproj.AssemblyReference.cache
+D:\C#\MasterMind_2\MasterMind_2\obj\Debug\net6.0\MasterMind_Project_2.GeneratedMSBuildEditorConfig.editorconfig
+D:\C#\MasterMind_2\MasterMind_2\obj\Debug\net6.0\MasterMind_Project_2.AssemblyInfoInputs.cache
+D:\C#\MasterMind_2\MasterMind_2\obj\Debug\net6.0\MasterMind_Project_2.AssemblyInfo.cs
+D:\C#\MasterMind_2\MasterMind_2\obj\Debug\net6.0\MasterMind_Project_2.csproj.CoreCompileInputs.cache

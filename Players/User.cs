@@ -9,7 +9,7 @@ using MasterMind_Project_2.Players.Roles;
 
 namespace MasterMind_Project_2.Players
 {
-    public class User : IUser
+    public class User : IUser, IPlayer, IMaster
     {
         public int Points { get; set; }
         public int Rounds { get; set; }
