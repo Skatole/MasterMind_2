@@ -5,7 +5,7 @@ namespace MasterMind_Project_2.GameBoard.Pins
     public class GuessPin : Pin
     {
         private GuessColor _color;
-        public override PinColor Color { get => (PinColor)_color; set => _color = (GuessColor)value; }
+        public new PinColor Color { get => (PinColor)_color; set => _color = (GuessColor)value; }
 
         public GuessPin()
         {

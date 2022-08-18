@@ -33,6 +33,7 @@ namespace MasterMind_Project_2.GameBoard
             _solution = solution;
             _permutations = permutation;
             _config = config;
+            _guessCounter = config.Rows;
         }
 
         public Board(IConfig config)
