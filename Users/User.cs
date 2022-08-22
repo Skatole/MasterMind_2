@@ -9,6 +9,7 @@ namespace MasterMind_Project_2.Users
         public int Points { get; set; }
         public int Rounds { get; set; }
         public string Name { get; set; }
+        public string Input { get; set; }
         public IConfig userConfig { get; set; }
 
         public User(IConfig config)
@@ -20,8 +21,8 @@ namespace MasterMind_Project_2.Users
         }
         public string GiveInput()
         {
-            string? input = Console.ReadLine();
-            return input;
+            Input = Console.ReadLine();
+            return Input;
         }
 
         public string Login()

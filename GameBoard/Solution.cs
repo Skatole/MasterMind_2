@@ -1,35 +1,42 @@
 ﻿using MasterMind_Project_2.GameBoard.Pins;
+using MasterMind_Project_2.Enums;
 using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Interfaces.Board;
+using MasterMind_Project_2.Interfaces.Board.Pins;
 
 namespace MasterMind_Project_2.GameBoard
 {
-    public class Solution : Permutations
+    public class Solution : Permutations, ISolution
     {
 
-        internal GuessPin[] Sol { get; set; }
+        public Dictionary<int, IPin[]> SolutionPins { get; set; }
+        private Random _random = new Random((int)DateTime.Now.Ticks);
+
 
         internal Solution(IConfig config) : base(config)
         {
-            Sol = new GuessPin[Columns];
-            generateSolution();
+            SolutionPins = new SolutionPin[config.Columns];
         }
 
-        private GuessPin[] generateSolution()
+        public override Dictionary<int, IPin[]> AddToBoard()
         {
+            Console.WriteLine("Solution: ");
+            int index = _random.Next(AllPermutations.Count);
 
-            Console.WriteLine("Solution : \n");
-            Random random = new Random((int)DateTime.Now.Ticks);
-            int index = random.Next(AllSolutions.Count);
-
-            for (int i = 0; i < AllSolutions[index].Length; i++)
+            for (int i = 0; i < AllPermutations[index].Length; i++)
             {
-                Sol[i] = new GuessPin(AllSolutions[index][i]);
-                Console.WriteLine(Sol[i] + " , ");
+                SolutionPins[i][i] = new SolutionPin((PinColor)AllPermutations[index][i]);
+                Console.WriteLine(SolutionPins[i] + " , ");
             }
 
             Console.WriteLine("\n");
 
-            return Sol;
+            return SolutionPins;
+        }
+
+        public override Dictionary<int, IPin[]> AddToBoard(IConvertable input)
+        {
+            throw new NotImplementedException();
         }
     }
 }

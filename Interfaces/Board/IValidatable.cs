@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace MasterMind_Project_2.Interfaces.Board
 {
-    internal interface IValidator
+    public interface IValidatable
     {
         public string[] userInput { get; set; }
-        public string[] Validate();
+        public bool IsInputValid { get; set; }
+        public string[] Validate(string input);
     }
 }

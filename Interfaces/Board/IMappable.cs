@@ -3,10 +3,10 @@ using MasterMind_Project_2.Interfaces.Board.Pins;
 
 namespace MasterMind_Project_2.Interfaces.Board
 {
-    internal interface IMappable
+    public interface IMappable
     {
         public IConfig Config { get; }
-        public IPin Pin { get; set; }
-        internal Dictionary<int, Pin[]> Mapper(Pin pin, Dictionary<int, Pin[]> Board);
+        public Dictionary<int, IPin[]> AddToBoard();
+        public Dictionary<int, IPin[]> AddToBoard( IConvertable input);
     }
 }
