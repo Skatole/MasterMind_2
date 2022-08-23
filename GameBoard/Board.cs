@@ -1,79 +1,112 @@
 
 using MasterMind_Project_2.GameBoard.Pins;
 using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Interfaces.Roles;
 using MasterMind_Project_2.Interfaces.Board;
 
 namespace MasterMind_Project_2.GameBoard
 {
-    public class Board : IBoard
-    {
+	public class Board : IBoard
+	{
 
-        //class specific not static varriables
+		//class specific not static varriables
+		private int _guessCounter;
 
-        private Guess _guess;
-        private Hint _hint;
-        private readonly Solution _solution;
-        private readonly Permutations _permutations;
-        private readonly IConfig _config;
-        private bool _isGuessValid;
-        private int _guessCounter;
+		private IConfig Config;
+		private IConvertable InputConverter;
+		private IPermutable Permutations;
 
-        //public Guess Guess { get => _guess; }
-        //public Hint Hint { get => _hint; }
-        //public Solution Solution { get => _solution; }
-        public bool IsWin { get; set; }
-        public bool IsGameOver { get; set; }
-
-
-        //Object inicialisations for setting defult values
-        public Board(IConfig config, Guess guess, Hint hint, Solution solution, Permutations permutation)
-        {
-            _guess = guess;
-            _hint = hint;
-            _solution = solution;
-            _permutations = permutation;
-            _config = config;
-            _guessCounter = config.Rows;
-        }
-
-        public Board(IConfig config)
-        {
-            _config = config;
-        }
-
-        public void Game(string input)
-        {
-            List<GuessPin> convGuess = _config.IsNoneAllowed ?
-            _guess.NoneAllowedConverter(
-                _guess.CleanAndValidate(input, _config.Columns, out _isGuessValid),
-                ref _isGuessValid
-                ) :
-            _guess.NoneNotAllowedConverter(
-                _guess.CleanAndValidate(input, _config.Columns, out _isGuessValid),
-            ref _isGuessValid
-            );
-
-            if (_isGuessValid)
-            {
-                _guess.mapper(convGuess, _guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
-                _hint.GenerateHint(_guess, _solution, ref _guessCounter);
-                _guessCounter = GameOverDetermination() ? _guessCounter : _guessCounter++;
-            }
-        }
-
-        public bool GameOverDetermination()
-        {
-            IsGameOver = (_guessCounter >= _config.Rows || WinnerDetermination()) ? true : false;
-            return IsGameOver;
-        }
-
-        public bool WinnerDetermination()
-        {
-            IsWin = (_hint.InPlace == _config.Columns) ? true : false;
-            return IsWin;
-        }
+        public IValidatable InputValidator { get; }
+		public IGuess Guess { get; }
+		public IHint Hint { get; }
+		public ISolution Solution { get; }
+		public bool IsWin { get; set; }
+		public bool IsGameOver { get; set; }
+		public int GuessCounter { get => _guessCounter; set => _guessCounter = value; }
 
 
+		//Object inicialisations for setting defult values
+		public Board(IConfig config, IGuess guess, IHint hint, ISolution solution, IPermutable permutation, IValidatable validator, IConvertable converter)
+		{
+			Guess = guess;
+			Hint = hint;
+			Solution = solution;
+			Config = config;
+			Permutations = permutation;
+			InputValidator = validator;
+			InputConverter = converter;
+			GuessCounter = config.Rows - config.Rows;
+		}
 
-    }
+		public Board(IConfig config)
+		{
+			Config = config;
+		}
+
+		public void Game(IUser user)
+		{
+			/* Decide what role the user has and call functions accordingly: */
+			if (user.GetType() == typeof(IPlayer))
+			{
+				InputValidator.Validate(user.Input);
+				InputConverter.ConvertGuess(InputValidator);
+				if (InputValidator.IsInputValid)
+				{
+					Guess.AddToBoard(InputConverter);
+					Hint.GenerateHint(Guess, Solution);
+				}
+			}
+
+			/* Here now the Autosolver should generate the Guess so the Player can play against the algorithm */
+			if (user.GetType() == typeof(IMaster))
+			{
+				InputValidator.Validate(user.Input);
+				InputConverter.ConvertGuess(InputValidator);
+				if (InputValidator.IsInputValid)
+				{
+					Hint.AddToBoard(InputConverter);
+				}
+			}
+
+			_guessCounter = GameOverDetermination() ? _guessCounter : _guessCounter++;
+
+			//List<GuessPin> convGuess = _config.IsNoneAllowed ?
+			//_guess.NoneAllowedConverter(
+			//    _guess.CleanAndValidate(input, _config.Columns, out _isGuessValid),
+			//    ref _isGuessValid
+			//    ) :
+			//_guess.NoneNotAllowedConverter(
+			//    _guess.CleanAndValidate(input, _config.Columns, out _isGuessValid),
+			//ref _isGuessValid
+			//);
+
+			//if (_isGuessValid)
+			//{
+			//    _guess.mapper(convGuess, _guess.Board, ref _guessCounter, ref _isGuessValid);
+			//    _hint.GenerateHint(_guess, _solution, ref _guessCounter);
+			//    GuessCounter = GameOverDetermination() ? GuessCounter : GuessCounter++;
+			//}
+		}
+
+		public void AddCustomSolution(IUser user)
+		{
+			InputValidator.Validate(user.GiveInput());
+			InputConverter.ConvertGuess(InputValidator);
+			Solution.AddToBoard(InputConverter);
+		}
+		public bool GameOverDetermination()
+		{
+			IsGameOver = (_guessCounter >= Config.Rows || WinnerDetermination()) ? true : false;
+			return IsGameOver;
+		}
+
+		public bool WinnerDetermination()
+		{
+			IsWin = (Hint.InPlace == Config.Columns) ? true : false;
+			return IsWin;
+		}
+
+
+
+	}
 }

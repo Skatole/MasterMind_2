@@ -7,17 +7,15 @@ namespace MasterMind_Project_2.Users
     public class User : IUser, IPlayer, IMaster
     {
         public int Points { get; set; }
-        public int Rounds { get; set; }
         public string Name { get; set; }
         public string Input { get; set; }
-        public IConfig userConfig { get; set; }
+        public IConfig UserCustomConfig { get; set; }
 
         public User(IConfig config)
         {
             Points = 0;
-            Rounds = config.Rounds;
             Name = Login();
-            userConfig = new Config();
+            UserCustomConfig = config;
         }
         public string GiveInput()
         {
@@ -65,7 +63,7 @@ namespace MasterMind_Project_2.Users
         /* ------------------ Master ------------------*/
         public void GiveHint()
         {
-            throw new NotImplementedException();
+            
         }
 
     }
@@ -84,7 +82,7 @@ namespace MasterMind_Project_2.Users
 
 // 			if ( IsGuessValid )
 // 			{
-// 				Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
+// 				Guess.mapper(convGuess, Guess.Board, ref _guessCounter, ref _isGuessValid);
 // 				Hint.GenerateHint(Guess, Solution, ref _guessCounter);
 // 				DisplayOnConsole.DisplayBoard(Guess, Hint);
 // 				Win();

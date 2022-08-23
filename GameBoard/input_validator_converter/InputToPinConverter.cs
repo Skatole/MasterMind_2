@@ -11,14 +11,11 @@ namespace MasterMind_Project_2.GameBoard.InputValidators
     public class InputToPinConverter : IConvertable
     {
         private IConfig _config;
-        public IPin Pin { get; set; }
         public IPin[] convertedPins { get; set; }
-
 
         public InputToPinConverter(IConfig config, IValidatable validInput)
         {
             _config = config;
-            Pin = new Pin();
             convertedPins = new Pin[_config.Columns];
         }
 

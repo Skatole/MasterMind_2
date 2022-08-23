@@ -6,6 +6,7 @@ namespace MasterMind_Project_2.Interfaces.Board
     public interface IMappable
     {
         public IConfig Config { get; }
+        public Dictionary<int, IPin[]> Board { get; }
         public Dictionary<int, IPin[]> AddToBoard();
         public Dictionary<int, IPin[]> AddToBoard( IConvertable input);
     }

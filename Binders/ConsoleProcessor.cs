@@ -1,4 +1,4 @@
-﻿using MasterMind_Project_2.console_display_classes;
+using MasterMind_Project_2.console_display_classes;
 using MasterMind_Project_2.GameBoard;
 using MasterMind_Project_2.Interfaces;
 using MasterMind_Project_2.Interfaces.Board;
@@ -9,7 +9,7 @@ using Pastel;
 
 namespace MasterMind_Project_2.Binders
 {
-    public class Processor : IProcessor
+    public class ConsoleProcessor : IProcessor
     {
 
         private bool _isSessionValid = false;
@@ -17,15 +17,15 @@ namespace MasterMind_Project_2.Binders
         private readonly ISettings _settings;
         private readonly INavigator _navigator;
         private IBoard _board;
-        private readonly IUser _user;
+        private IUser _user;
         private IConfig _config;
 
-        public Processor(
+        public ConsoleProcessor (
             IUser User,
             INavigator Navigator,
             IBoard Board,
             IConfig Config,
-            ISettings settings)
+            ISettings settings )
         {
             _board = Board;
             _settings = settings;
@@ -36,19 +36,22 @@ namespace MasterMind_Project_2.Binders
 
         public void InicialiseProcess()
         {
+            DisplayOnConsole.Welcome();
             DecideRoleProcess();
             while (_isSessionValid)
             {
                 _config = _navigator.Navigate(_user, _settings, _config);
                 _board = new Board(_config);
+                DisplayOnConsole.DisplayBoard(_board.Guess, _board.Hint);
                 StartGameProcess();
             }
         }
         public void StartGameProcess()
         {
-            if (_user.GetType() == typeof(IMaster))
+            if (_user.GetType() == IMaster)
             {
-                _board.AddCustomSolution(_user);
+                DisplayOnConsole.AskForSolution;
+                _board.Solution.AddToBoard(_board.)
             }
             while (!_board.IsGameOver)
             {
@@ -56,7 +59,7 @@ namespace MasterMind_Project_2.Binders
                 _board.Game(_user);
             }
 
-            DisplayOnConsole.GameOverDisplay(_board.IsWin, _board.Solution.SolutionPins[_config.Rounds]);
+            DisplayOnConsole.GameOverDisplay(_board.IsWin, _board.Solution);
         }
 
 

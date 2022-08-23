@@ -6,16 +6,17 @@ using MasterMind_Project_2.Interfaces.Board.Pins;
 
 namespace MasterMind_Project_2.GameBoard
 {
-    public class Solution : Permutations, ISolution
+    public class Solution : Permutations, IMappable
     {
 
-        public Dictionary<int, IPin[]> SolutionPins { get; set; }
+        public override Dictionary<int, IPin[]> Board { get; set; }
         private Random _random = new Random((int)DateTime.Now.Ticks);
 
 
         internal Solution(IConfig config) : base(config)
         {
-            SolutionPins = new SolutionPin[config.Columns];
+            Board[config.Rounds] = new SolutionPin[config.Columns];
+            AddToBoard()
         }
 
         public override Dictionary<int, IPin[]> AddToBoard()
@@ -25,18 +26,19 @@ namespace MasterMind_Project_2.GameBoard
 
             for (int i = 0; i < AllPermutations[index].Length; i++)
             {
-                SolutionPins[i][i] = new SolutionPin((PinColor)AllPermutations[index][i]);
-                Console.WriteLine(SolutionPins[i] + " , ");
+                Board[Config.Rounds][i] = new SolutionPin((PinColor)AllPermutations[index][i]);
+                Console.WriteLine(Board[i] + " , ");
             }
 
             Console.WriteLine("\n");
 
-            return SolutionPins;
+            return Board;
         }
 
         public override Dictionary<int, IPin[]> AddToBoard(IConvertable input)
         {
-            throw new NotImplementedException();
+            Board[Config.Rounds] = input.convertedPins;
+            return Board;
         }
     }
 }

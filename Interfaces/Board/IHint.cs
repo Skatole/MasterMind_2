@@ -8,7 +8,7 @@ public interface IHint : IMappable
     public IPin[] HintPins { get; }
     public int In { get; }
     public int InPlace { get; }
-    public Dictionary<int, IPin[]> HintBoard { get; }
+    public Dictionary<int, IPin[]> Board { get; }
     public Dictionary<int, IPin[]> GenerateHint(IGuess guess, ISolution solution);
     public IPin[] AddToBoard( int In, int InPlace, IPin[] HintPins );
     public IPin[] Scramble(IPin[] HintRow);

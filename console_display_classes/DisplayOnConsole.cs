@@ -8,6 +8,8 @@ using System.Drawing;
 
 using MasterMind_Project_2.GameBoard;
 using MasterMind_Project_2.GameBoard.Pins;
+using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Interfaces.Board;
 
 using Pastel;
 
@@ -81,16 +83,16 @@ namespace MasterMind_Project_2.console_display_classes
                 + "	P".Pastel(Color.BlueViolet)
                 + "\n");
 
-            for (int i = 0; i < guess.GuessBoard.Count; i++)
+            for (int i = 0; i < guess.Board.Count; i++)
             {
 
-                foreach (var pin in guess.GuessBoard[i])
+                foreach (var pin in guess.Board[i])
                 {
                     System.Console.Write($" | {pin.shape} | ");
                 }
                 Console.Write("  ==>  ");
 
-                foreach (var pin in hint.HintBoard[i])
+                foreach (var pin in hint.Board[i])
                 {
                     System.Console.Write($" ( {pin.shape} )");
                 }
@@ -98,10 +100,10 @@ namespace MasterMind_Project_2.console_display_classes
             }
         }
 
-        internal static void GameOverDisplay(bool IsWin, Solution solution)
+        internal static void GameOverDisplay(bool IsWin, ISolution solution, IConfig config)
         {
-            GuessPin[] Pins = new GuessPin[solution.Sol.Length];
-            Pins = PinShapeDefiner.defineShape(solution.Sol);
+            GuessPin[] Pins = new GuessPin[solution.Board[config.Rounds].Length];
+            Pins = PinShapeDefiner.defineShape();
             if (IsWin)
             {
                 System.Console.WriteLine(" \n CONGRATULATIONSSSS CHAMPION YOU WIN!!! \n");
