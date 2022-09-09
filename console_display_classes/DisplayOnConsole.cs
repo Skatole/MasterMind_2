@@ -100,7 +100,7 @@ namespace MasterMind_Project_2.console_display_classes
             }
         }
 
-        internal static void GameOverDisplay(bool IsWin, ISolution solution, IConfig config)
+        internal static void GameOverDisplay(bool IsWin, IMappable solution, IConfig config)
         {
             GuessPin[] Pins = new GuessPin[solution.Board[config.Rounds].Length];
             Pins = PinShapeDefiner.defineShape();

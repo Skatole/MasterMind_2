@@ -16,8 +16,11 @@ namespace MasterMind_Project_2.GameBoard
         internal Solution(IConfig config) : base(config)
         {
             Board[config.Rounds] = new SolutionPin[config.Columns];
-            AddToBoard()
         }
+
+        /*
+         * Add to Solution Board with AI
+         */
 
         public override Dictionary<int, IPin[]> AddToBoard()
         {
@@ -34,6 +37,10 @@ namespace MasterMind_Project_2.GameBoard
 
             return Board;
         }
+        
+        /*
+         * Add to Solution board manually
+         */
 
         public override Dictionary<int, IPin[]> AddToBoard(IConvertable input)
         {

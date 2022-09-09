@@ -8,22 +8,19 @@ namespace MasterMind_Project_2.GameBoard
 {
     public class Hint : PinMapper, IHint
     {
-        public IPin[] HintPins { get; set; }
         public override Dictionary<int, IPin[]> Board { get; set; }
         public int In { get; set; }
         public int InPlace { get; set; }
 
         public Hint(IConfig config) : base(config)
         {
-            HintPins = new HintPin[Config.Columns];
             Board = new Dictionary<int, IPin[]>();
             AddToBoard();
         }
 
-        public Dictionary<int, IPin[]> GenerateHint(IGuess guess, ISolution solution)
+        public Dictionary<int, IPin[]> GenerateHint(IGuess guess, IMappable solution)
         {
             // Local hint Copy:
-            Array.Copy(Board[GuessCounter], HintPins, Board[GuessCounter].Length);
 
             In = 0;
             InPlace = 0;
@@ -67,7 +64,7 @@ namespace MasterMind_Project_2.GameBoard
                     }
                 }
             }
-            Board[GuessCounter] = solution.Board[Config.Rounds].Length > 1 ? Scramble(AddToBoard(InPlace, In, HintPins)) : AddToBoard(InPlace, In, HintPins);
+            Board[GuessCounter] = solution.Board[Config.Rounds].Length > 1 ? Scramble(AddToBoard(InPlace, In, Board[GuessCounter])) : AddToBoard(InPlace, In, Board[GuessCounter]);
             return Board;
         }
 
@@ -79,7 +76,7 @@ namespace MasterMind_Project_2.GameBoard
         {
             for (int i = 0; i < Config.Rows; i++)
             {
-                Board[i] = HintPins;
+                Board[i] = new HintPin[Config.Columns];
             }
             return Board;
         }
@@ -93,10 +90,8 @@ namespace MasterMind_Project_2.GameBoard
 
             for (int j = 0; j < convertedInput.convertedPins.Length; j++)
             {
-                HintPins[j] = (HintPin)convertedInput.convertedPins[j];
+                Board[GuessCounter][j] = (HintPin)convertedInput.convertedPins[j];
             }
-
-            Board[GuessCounter] = HintPins;
 
             return Board;
 

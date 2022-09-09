@@ -8,7 +8,7 @@ namespace MasterMind_Project_2.Users
     {
         public int Points { get; set; }
         public string Name { get; set; }
-        public string Input { get; set; }
+        public IInput Input { get; set; }
         public IConfig UserCustomConfig { get; set; }
 
         public User(IConfig config)
@@ -17,9 +17,9 @@ namespace MasterMind_Project_2.Users
             Name = Login();
             UserCustomConfig = config;
         }
-        public string GiveInput()
+        public IInput GiveInput()
         {
-            Input = Console.ReadLine();
+            Input.ConsoleInput = Console.ReadLine();
             return Input;
         }
 
@@ -39,17 +39,17 @@ namespace MasterMind_Project_2.Users
              */
         }
 
-        public void StartGame()
-        {
-            try
-            {
-                Console.WriteLine(" START GAME: ");
-            }
-            catch (NullReferenceException e)
-            {
-                Console.WriteLine(e + " THIS IS NOT INSTATIATED ");
-            }
-        }
+        //public void StartGame()
+        //{
+        //    try
+        //    {
+        //        Console.WriteLine(" START GAME: ");
+        //    }
+        //    catch (NullReferenceException e)
+        //    {
+        //        Console.WriteLine(e + " THIS IS NOT INSTATIATED ");
+        //    }
+        //}
 
         /* ------------------ PLAYER ------------------*/
 
@@ -61,9 +61,10 @@ namespace MasterMind_Project_2.Users
         }
 
         /* ------------------ Master ------------------*/
-        public void GiveHint()
+        public IInput MakeHint()
         {
-            
+            GiveInput();
+            Input.
         }
 
     }

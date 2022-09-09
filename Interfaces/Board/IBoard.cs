@@ -6,7 +6,7 @@ namespace MasterMind_Project_2.Interfaces.Board
     {
         public IGuess Guess { get; }
         public IHint Hint { get; }
-        public ISolution Solution { get; }
+        public IMappable Solution { get; }
         public bool IsWin { get; set; }
         public bool IsGameOver { get; set; }
         public void Game(IUser user);

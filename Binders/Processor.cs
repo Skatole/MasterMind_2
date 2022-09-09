@@ -17,7 +17,7 @@ namespace MasterMind_Project_2.Binders
         private readonly ISettings _settings;
         private readonly INavigator _navigator;
         private IBoard _board;
-        private readonly IUser _user;
+        private IUser _user;
         private IConfig _config;
 
         public Processor(
@@ -56,7 +56,7 @@ namespace MasterMind_Project_2.Binders
                 _board.Game(_user);
             }
 
-            DisplayOnConsole.GameOverDisplay(_board.IsWin, _board.Solution.SolutionPins[_config.Rounds]);
+            DisplayOnConsole.GameOverDisplay(_board.IsWin, _board.Solution.Board[_config.Rounds]);
         }
 
 

@@ -37,7 +37,7 @@ namespace MasterMind_Project_2
             IUser user = configuration.Get<User>();
             IGuess guess = configuration.Get<Guess>();
             IHint hint = configuration.Get<Hint>();
-            ISolution solution = configuration.Get<Solution>();
+            IMappable solution = configuration.Get<Solution>();
             IPermutable permutations = configuration.Get<Permutations>();
             INavigator navigator = configuration.Get<Navigator>();
             IBoard board = configuration.Get<Board>();
@@ -72,7 +72,7 @@ namespace MasterMind_Project_2
             collection.AddSingleton<INavigator>(new Navigator());
             collection.AddSingleton<IGuess>(new Guess(config));
             collection.AddSingleton<IHint>(new Hint(config));
-            collection.AddSingleton<ISolution>(new Solution(config));
+            collection.AddSingleton<IMappable>(new Solution(config));
             collection.AddSingleton<ISettings>(new Settings(user));
             collection.AddSingleton<IPermutable>();
 
