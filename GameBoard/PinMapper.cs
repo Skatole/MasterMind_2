@@ -1,34 +1,37 @@
 using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Interfaces.Board;
+using MasterMind_Project_2.Interfaces.Board.Pins;
+using MasterMind_Project_2.GameBoard.Pins;
+using MasterMind_Project_2.Configuration;
 
-namespace MasterMind_Project_2
+namespace MasterMind_Project_2.GameBoard
 {
-    public abstract class PinMapper : Pin
+    public abstract class PinMapper : Board, IMappable
     {
 
-        private int _rows;
-        private int _columns;
-        private IConfig _config;
+        public IConfig Config { get; }
+
 
         internal PinMapper(IConfig config) : base(config)
         {
-            _config = config;
-            _rows = config.Rows;
-            _columns = config.Columns;
-
+            Config = config;
         }
 
+    
+
+
         // Guess Pin from constructor
-        internal Dictionary<int, GuessPin [ ]> mapper ( GuessPin pin, Dictionary<int, GuessPin [ ]> Board )
+        internal Dictionary<int, GuessPin[]> Mapper(GuessPin pin, Dictionary<int, GuessPin[]> Board)
         {
 
-            GuessPin[] pinArr = new GuessPin[_columns];
+            GuessPin[] pinArr = new GuessPin[Config.Columns];
 
-            for ( int i = 0; i < _rows; i++ )
+            for (int i = 0; i < Config.Rows; i++)
             {
-                for ( int j = 0; j < _columns; j++ )
+                for (int j = 0; j < Config.Columns; j++)
                 {
-                    pin = new GuessPin(_config);
-                    pinArr [ j ] = pin;
+                    pin = new GuessPin();
+                    pinArr[j] = pin;
                 }
                 Board.Add(i, pinArr);
             }
@@ -39,17 +42,17 @@ namespace MasterMind_Project_2
 
         // HintPin from constructor
 
-        internal Dictionary<int, HintPin [ ]> mapper ( HintPin pin, Dictionary<int, HintPin [ ]> Board )
+        internal Dictionary<int, HintPin[]> mapper(HintPin pin, Dictionary<int, HintPin[]> Board)
         {
             HintPin[] pinArr = new HintPin[_columns];
 
-            for ( int i = 0; i < _rows; i++ )
+            for (int i = 0; i < _rows; i++)
             {
-                for ( int j = 0; j < _columns; j++ )
+                for (int j = 0; j < _columns; j++)
                 {
 
                     pin = new HintPin(_config);
-                    pinArr [ j ] = pin;
+                    pinArr[j] = pin;
                 }
 
                 Board.Add(i, pinArr);
@@ -59,46 +62,46 @@ namespace MasterMind_Project_2
         }
 
         // Guess Pin from List
-        internal Dictionary<int, GuessPin [ ]> mapper ( List<GuessPin> convertedPinList, Dictionary<int, GuessPin [ ]> guessBoard, ref int guessCounter, ref bool isGuessValid )
+        internal Dictionary<int, GuessPin[]> mapper(List<GuessPin> convertedPinList, Dictionary<int, GuessPin[]> guessBoard, ref int guessCounter, ref bool isGuessValid)
         {
             GuessPin[] pinArr = new GuessPin[_columns];
 
-            for ( int i = 0; i < Columns; i++ )
+            for (int i = 0; i < Columns; i++)
             {
-                if ( isGuessValid && convertedPinList.Count == Columns )
+                if (isGuessValid && convertedPinList.Count == Columns)
                 {
-                    pinArr [ i ] = convertedPinList [ i ];
+                    pinArr[i] = convertedPinList[i];
                 }
                 else
                 {
                     isGuessValid = false;
-                    pinArr[ i ] = new GuessPin(_config);
+                    pinArr[i] = new GuessPin(_config);
                 }
-            }                
+            }
 
-            guessBoard [ guessCounter ] = pinArr;
+            guessBoard[guessCounter] = pinArr;
 
             return guessBoard;
         }
 
         // HintPin to Hint Dictionary Mapping
-        internal HintPin[] mapper( int InPlace, int In, HintPin[] hintBoardRow )
+        internal HintPin[] mapper(int InPlace, int In, HintPin[] hintBoardRow)
         {
 
             for (int i = 0; i < InPlace; i++)
             {
-                hintBoardRow[i] = new HintPin( HintColor.InPlace );
+                hintBoardRow[i] = new HintPin(HintColor.InPlace);
             }
 
             for (int j = InPlace; j < In + InPlace; j++)
             {
-                hintBoardRow[j] = new HintPin( HintColor.In );
+                hintBoardRow[j] = new HintPin(HintColor.In);
             }
-            
+
             return hintBoardRow;
         }
 
-        internal List<GuessColor> CreateCopy ( GuessColor[] colorArray)
+        internal List<GuessColor> CreateCopy(GuessColor[] colorArray)
         {
             List<GuessColor> colorList = new List<GuessColor>();
             for (int i = 0; i < colorArray.Length; i++)
@@ -108,7 +111,7 @@ namespace MasterMind_Project_2
             return colorList;
         }
 
-        internal List<GuessPin> CreateCopy ( GuessPin[] pinArray)
+        internal List<GuessPin> CreateCopy(GuessPin[] pinArray)
         {
             List<GuessPin> pinList = new List<GuessPin>();
             for (int i = 0; i < pinArray.Length; i++)
@@ -119,12 +122,12 @@ namespace MasterMind_Project_2
         }
 
 
-        internal HintPin[] Scramble (HintPin[] oneRow)
+        internal HintPin[] Scramble(HintPin[] oneRow)
         {
             List<int> indexMemory = new List<int>();
-            Random random = new Random((int) DateTime.Now.Ticks);
+            Random random = new Random((int)DateTime.Now.Ticks);
 
-            while(indexMemory.Count < oneRow.Length)
+            while (indexMemory.Count < oneRow.Length)
             {
                 int randIndex = random.Next(oneRow.Length);
                 HintPin temp = new HintPin(_config);
