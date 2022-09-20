@@ -50,19 +50,19 @@ namespace MasterMind_Project_2.GameBoard
                 /* Decide what role the user has and call functions accordingly: */
                 if (user.GetType() == typeof(IPlayer))
                 {
-                    PlayerInput(user);
+                    PlayerInput(user.Input);
                 }
 
                 /* Here now the Autosolver should generate the Guess so the Player can play against the algorithm */
                 if (user.GetType() == typeof(IMaster))
                 {
-                    MasterInput(user);
+                    MasterInput(user.Input);
                 }
 
-                if (user.GetType() == typeof(IAI))                                  
-                {
+                //if (user.GetType() == typeof(IAI))                                  
+                //{
 
-                }
+                //}
 
                 _guessCounter = GameOverDetermination() ? _guessCounter : _guessCounter++;
 
@@ -78,48 +78,20 @@ namespace MasterMind_Project_2.GameBoard
                     Solution.AddToBoard();
                 }
             }
-
-
-            //List<GuessPin> convGuess = _config.IsNoneAllowed ?
-            //_guess.NoneAllowedConverter(
-            //    _guess.CleanAndValidate(input, _config.Columns, out _isGuessValid),
-            //    ref _isGuessValid
-            //    ) :
-            //_guess.NoneNotAllowedConverter(
-            //    _guess.CleanAndValidate(input, _config.Columns, out _isGuessValid),
-            //ref _isGuessValid
-            //);
-
-            //if (_isGuessValid)
-            //{
-            //    _guess.mapper(convGuess, _guess.Board, ref _guessCounter, ref _isGuessValid);
-            //    _hint.GenerateHint(_guess, _solution, ref _guessCounter);
-            //    GuessCounter = GameOverDetermination() ? GuessCounter : GuessCounter++;
-            //}
         }
 
         /*
          * Mods
          */
 
-        private void PlayerInput(IUser user)
+        private void PlayerInput(IInput input)
         {
-            InputValidator.Validate(user.Input);
-            InputConverter.ConvertGuess(InputValidator);
-            if (InputValidator.IsInputValid)
-            {
                 Guess.AddToBoard(InputConverter);
-            }
         }
 
-        private void MasterInput(IUser user)
+        private void MasterInput(IInput input)
         {
-            InputValidator.Validate(user.Input);
-            InputConverter.ConvertGuess(InputValidator);
-            if (InputValidator.IsInputValid)
-            {
-                Hint.AddToBoard(InputConverter);
-            }
+            Hint.AddToBoard(InputConverter);
         }
 
         private void FullAuto(IUser user)
@@ -132,10 +104,8 @@ namespace MasterMind_Project_2.GameBoard
 
         }
 
-            private void AddCustomSolution(IUser user)
+            private void AddCustomSolution(IInput input)
             {
-                InputValidator.Validate(user.GiveInput());
-                InputConverter.ConvertGuess(InputValidator);
                 Solution.AddToBoard(InputConverter);
             }
             public bool GameOverDetermination()

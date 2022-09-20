@@ -37,7 +37,7 @@ namespace MasterMind_Project_2.GameBoard.InputValidators
                             {
                                 try
                                 {
-                                    convertedPins[i] = new Pin(pins[j]);
+                                    convertedPins[i] = new GuessPin(pins[j]);
                                 }
                                 catch (IndexOutOfRangeException)
                                 {
@@ -57,7 +57,7 @@ namespace MasterMind_Project_2.GameBoard.InputValidators
                             {
                                 try
                                 {
-                                    convertedPins[i] = new Pin(pins[j]);
+                                    convertedPins[i] = new GuessPin(pins[j]);
                                 }
                                 catch (IndexOutOfRangeException)
                                 {
@@ -101,7 +101,7 @@ namespace MasterMind_Project_2.GameBoard.InputValidators
                 {
                     if (validInput.userInput[i] == ((char)(int)allHints[j]).ToString())
                     {
-                        convertedPins[i] = new Pin((PinColor)allHints[j]);
+                        convertedPins[i] = new HintPin((PinColor)allHints[j]);
                     }
                 }
             }

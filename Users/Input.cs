@@ -5,6 +5,7 @@ namespace MasterMind_Project_2.Users;
 internal class Input : IInput
 {
     public string ConsoleInput { get; set; }
+    public IPin[] converted { get; set; }
     private IValidatable _validatedInput;
     private IConvertable _convertedInput;
 
@@ -16,12 +17,14 @@ internal class Input : IInput
     public IPin[] VerifyGuessTypeInput ( string input )
     {
         _validatedInput.Validate(ConsoleInput);
-        return _convertedInput.ConvertGuess(_validatedInput);
+        converted = _convertedInput.ConvertGuess(_validatedInput);
+        return converted;
     }
 
     public IPin[] VerifyHintTypeInput( string input )
     {
         _validatedInput.Validate(ConsoleInput);
-        return _convertedInput.ConvertHint(_validatedInput);
+        converted = _convertedInput.ConvertHint(_validatedInput);
+        return converted;
     }
 }

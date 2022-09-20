@@ -60,9 +60,8 @@ namespace MasterMind_Project_2.Binders
         }
 
 
-        public void DecideRoleProcess()
+        public void DecideRoleProcess(IInput input)
         {
-            DisplayOnConsole.DecideRole();
             switch (_user.GiveInput())
             {
                 case "1":

@@ -68,7 +68,7 @@ namespace MasterMind_Project_2.console_display_classes
             Console.WriteLine("Make a Guess:");
         }
 
-        internal static void DisplayBoard(Guess? guess, Hint? hint)
+        internal static void DisplayBoard(IGuess guess, IHint hint)
         {
             guess = PinShapeDefiner.defineShape(guess);
             hint = PinShapeDefiner.defineShape(hint);
@@ -88,13 +88,13 @@ namespace MasterMind_Project_2.console_display_classes
 
                 foreach (var pin in guess.Board[i])
                 {
-                    System.Console.Write($" | {pin.shape} | ");
+                    System.Console.Write($" | {pin.Shape} | ");
                 }
                 Console.Write("  ==>  ");
 
                 foreach (var pin in hint.Board[i])
                 {
-                    System.Console.Write($" ( {pin.shape} )");
+                    System.Console.Write($" ( {pin.Shape} )");
                 }
                 System.Console.Write("\n");
             }
@@ -103,7 +103,7 @@ namespace MasterMind_Project_2.console_display_classes
         internal static void GameOverDisplay(bool IsWin, IMappable solution, IConfig config)
         {
             GuessPin[] Pins = new GuessPin[solution.Board[config.Rounds].Length];
-            Pins = PinShapeDefiner.defineShape();
+            Pins = PinShapeDefiner.defineShape((IGuess) solution);
             if (IsWin)
             {
                 System.Console.WriteLine(" \n CONGRATULATIONSSSS CHAMPION YOU WIN!!! \n");

@@ -12,11 +12,14 @@ namespace MasterMind_Project_2.Users
         public IConfig UserCustomConfig { get; set; }
 
         public User(IConfig config)
-        {
+        {                               
             Points = 0;
             Name = Login();
             UserCustomConfig = config;
         }
+        /* 
+         * If you wanna implement new input methods, you should implement it here ==> Also with a PLatfrom mode if statement
+         */
         public IInput GiveInput()
         {
             Input.ConsoleInput = Console.ReadLine();
@@ -39,56 +42,23 @@ namespace MasterMind_Project_2.Users
              */
         }
 
-        //public void StartGame()
-        //{
-        //    try
-        //    {
-        //        Console.WriteLine(" START GAME: ");
-        //    }
-        //    catch (NullReferenceException e)
-        //    {
-        //        Console.WriteLine(e + " THIS IS NOT INSTATIATED ");
-        //    }
-        //}
-
         /* ------------------ PLAYER ------------------*/
 
-        public string MakeMove()
+        public IInput MakeMoveToConsole()
         {
-            string MakeMoveTest = " I Made a move. ";
-            Console.WriteLine(MakeMoveTest);
-            return MakeMoveTest;
+            GiveInput();
+            Input.VerifyGuessTypeInput(Input.ConsoleInput);
+            return Input;
         }
 
         /* ------------------ Master ------------------*/
-        public IInput MakeHint()
+        public IInput MakeHintToConsole()
         {
             GiveInput();
-            Input.
+            Input.VerifyHintTypeInput(Input.ConsoleInput);
+            return Input;
+
         }
 
     }
 }
-//      public void StartGame()
-// 	{
-// 		while(!GameOver())
-// 		{
-// 			List<(GuessPin Pin, bool Valid)> convGuess = Guess.PinConverter( 
-// 				Guess.CleanAndValidate(
-// 					DisplayOnConsole.MakeAGuess(),
-// 					Columns,
-// 					Row,
-// 					out _isGuessValid),
-// 				ref _isGuessValid);
-
-// 			if ( IsGuessValid )
-// 			{
-// 				Guess.mapper(convGuess, Guess.Board, ref _guessCounter, ref _isGuessValid);
-// 				Hint.GenerateHint(Guess, Solution, ref _guessCounter);
-// 				DisplayOnConsole.DisplayBoard(Guess, Hint);
-// 				Win();
-// 				GuessCounter++;
-// 			}
-
-// 		}
-// 	}

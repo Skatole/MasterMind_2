@@ -35,8 +35,6 @@ namespace MasterMind_Project_2.GameBoard.InputValidators
 
             inputMapper(input);
 
-            if (_config.IsNoneAllowed)
-            {
                 if (userInput.Length <= _config.Columns)
                 {
                     for (int i = 0; i < userInput.Length; i++)
@@ -51,39 +49,6 @@ namespace MasterMind_Project_2.GameBoard.InputValidators
                 {
                     Console.WriteLine($"\n Please Only Enter {_config.Columns} characters! \n".Pastel(System.Drawing.Color.DarkRed));
                 }
-            }
-            else
-            {
-
-                if (userInput.Length == 0)
-                {
-                    Console.WriteLine(" \n	No guess Input! \n 	Please choose from the given color input options. \n"
-                    .Pastel(System.Drawing.Color.DarkRed));
-                }
-                else if (userInput.Length > _config.Columns)
-                {
-                    Console.WriteLine($"\n Please Only Enter {_config.Columns} characters! \n".Pastel(System.Drawing.Color.DarkRed));
-                }
-                else if (userInput.Length < _config.Columns)
-                {
-                    Console.WriteLine($"\n This is less than {_config.Columns} characters".Pastel(System.Drawing.Color.DarkRed));
-                }
-                else if (userInput.Length == _config.Columns)
-                {
-                    for (int i = 0; i < userInput.Length; i++)
-                    {
-
-                        string replacedGuess = Regex.Replace(userInput[i], @"[^0-9a-zA-Z]+", "").ToUpper().ToString();
-                        userInput[i] = replacedGuess[i].ToString();
-                    }
-                    IsInputValid = true;
-                }
-                else
-                {
-                    Console.WriteLine(" \n	Invalid guess input! \n 	Please choose from the given color input options. \n".Pastel(System.Drawing.Color.DarkRed));
-                }
-            }
-
             return userInput;
         }
     }
