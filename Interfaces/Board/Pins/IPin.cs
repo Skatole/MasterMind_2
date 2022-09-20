@@ -6,7 +6,7 @@ namespace MasterMind_Project_2.Interfaces.Board.Pins
     {
         int Id { get => (int)Color; }
         PinColor Color { get; }
-        string Shape { get; }
+        string Shape { get; set; }
 
     }
 }

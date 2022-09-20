@@ -1,16 +1,19 @@
 using MasterMind_Project_2.GameBoard.Pins;
+using MasterMind_Project_2.Enums;
 using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Interfaces.Board;
 
 namespace MasterMind_Project_2.GameBoard
 {
-    public class Permutations : Pin
+    public abstract class Permutations : PinMapper, IPermutable
     {
-        internal List<GuessColor[]> AllSolutions { get; set; }
-        private static GuessColor[] _allPins = (GuessColor[])Enum.GetValues(typeof(GuessColor));
-        internal int permutationCount = 0;
+        public List<GuessColor[]> AllPermutations { get; set; }
+        public GuessColor[] AllPins { get; }
+
         public Permutations(IConfig config) : base(config)
         {
-            AllSolutions = new List<GuessColor[]>();
+            AllPins = (GuessColor[])Enum.GetValues(typeof(GuessColor));
+            AllPermutations = new List<GuessColor[]>();
             if (config.IsNoneAllowed)
             {
                 StandardPermutation();
@@ -22,35 +25,35 @@ namespace MasterMind_Project_2.GameBoard
         }
 
 
-        // Create an array which contains "Column" amount of new GuessPin( GuessColor.NOne ) objects.
+        // Create an array which contains "Column" amount of new GuessPin( GuessColor.None ) objects.
         // After iterate through the array
 
 
-        internal List<GuessColor[]> StandardPermutation()
+        public List<GuessColor[]> StandardPermutation()
         {
-            int len = _allPins.Length;
-            return addPermutation(_allPins, len, Columns);
+            int len = AllPins.Length;
+            return addPermutation(AllPins, len, Config.Columns);
         }
 
-        internal List<GuessColor[]> NoEmptyPinsPermutation()
+        public List<GuessColor[]> NoEmptyPinsPermutation()
         {
-            GuessColor[] noNone = new GuessColor[_allPins.Length - 1];
-            noNone = Array.FindAll(_allPins, i => i != GuessColor.None);
+            GuessColor[] noNone = new GuessColor[AllPins.Length - 1];
+            noNone = Array.FindAll(AllPins, i => i != GuessColor.None);
             int len = noNone.Length;
-            return addPermutation(noNone, len, Columns);
+            return addPermutation(noNone, len, Config.Columns);
         }
 
-        internal List<GuessColor[]> addPermutation(GuessColor[] Pins, int len, int Columns)
+        private List<GuessColor[]> addPermutation(GuessColor[] Pins, int len, int Columns)
         {
             for (int i = 0; i < (int)Math.Pow(len, Columns); i++)
             {
-                AllSolutions.Add(permutationUtility(i, Pins, len, Columns));
+                AllPermutations.Add(permutationUtility(i, Pins, len, Columns));
             }
 
-            return AllSolutions;
+            return AllPermutations;
         }
 
-        internal GuessColor[] permutationUtility(int n, GuessColor[] Pins, int len, int Columns)
+        private GuessColor[] permutationUtility(int n, GuessColor[] Pins, int len, int Columns)
         {
             GuessColor[] onePermutation = new GuessColor[Columns];
             for (int i = 0; i < Columns; i++)

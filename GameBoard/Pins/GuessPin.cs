@@ -5,18 +5,27 @@ namespace MasterMind_Project_2.GameBoard.Pins
     public class GuessPin : Pin
     {
         private GuessColor _color;
-        public override PinColor Color { get => (PinColor)_color; set => _color = (GuessColor)value; }
+        public new GuessColor Color { get => _color; set => _color = value; }
 
         public GuessPin()
         {
             _color = new GuessColor();
-            Color = (PinColor)GuessColor.None;
+            _color = GuessColor.None;
 
         }
 
-        public GuessPin(GuessColor pin)
+        public GuessPin(PinColor pin)
         {
-            Color = (PinColor)pin;
+            try
+            {
+                _color = (GuessColor)pin;
+            }
+            catch (InvalidCastException)
+            {
+                Console.WriteLine($"A {pin} colored pin can't be a Guess pin.");
+                throw new InvalidCastException();
+
+            }
         }
     }
 }

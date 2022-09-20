@@ -8,6 +8,8 @@ using System.Drawing;
 
 using MasterMind_Project_2.GameBoard;
 using MasterMind_Project_2.GameBoard.Pins;
+using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Interfaces.Board;
 
 using Pastel;
 
@@ -66,7 +68,7 @@ namespace MasterMind_Project_2.console_display_classes
             Console.WriteLine("Make a Guess:");
         }
 
-        internal static void DisplayBoard(Guess? guess, Hint? hint)
+        internal static void DisplayBoard(IGuess guess, IHint hint)
         {
             guess = PinShapeDefiner.defineShape(guess);
             hint = PinShapeDefiner.defineShape(hint);
@@ -81,27 +83,27 @@ namespace MasterMind_Project_2.console_display_classes
                 + "	P".Pastel(Color.BlueViolet)
                 + "\n");
 
-            for (int i = 0; i < guess.GuessBoard.Count; i++)
+            for (int i = 0; i < guess.Board.Count; i++)
             {
 
-                foreach (var pin in guess.GuessBoard[i])
+                foreach (var pin in guess.Board[i])
                 {
-                    System.Console.Write($" | {pin.shape} | ");
+                    System.Console.Write($" | {pin.Shape} | ");
                 }
                 Console.Write("  ==>  ");
 
-                foreach (var pin in hint.HintBoard[i])
+                foreach (var pin in hint.Board[i])
                 {
-                    System.Console.Write($" ( {pin.shape} )");
+                    System.Console.Write($" ( {pin.Shape} )");
                 }
                 System.Console.Write("\n");
             }
         }
 
-        internal static void GameOverDisplay(bool IsWin, Solution solution)
+        internal static void GameOverDisplay(bool IsWin, IMappable solution, IConfig config)
         {
-            GuessPin[] Pins = new GuessPin[solution.Sol.Length];
-            Pins = PinShapeDefiner.defineShape(solution.Sol);
+            GuessPin[] Pins = new GuessPin[solution.Board[config.Rounds].Length];
+            Pins = PinShapeDefiner.defineShape((IGuess) solution);
             if (IsWin)
             {
                 System.Console.WriteLine(" \n CONGRATULATIONSSSS CHAMPION YOU WIN!!! \n");

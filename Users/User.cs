@@ -7,21 +7,23 @@ namespace MasterMind_Project_2.Users
     public class User : IUser, IPlayer, IMaster
     {
         public int Points { get; set; }
-        public int Rounds { get; set; }
         public string Name { get; set; }
-        public IConfig userConfig { get; set; }
+        public IInput Input { get; set; }
+        public IConfig UserCustomConfig { get; set; }
 
         public User(IConfig config)
-        {
+        {                               
             Points = 0;
-            Rounds = config.Rounds;
             Name = Login();
-            userConfig = new Config();
+            UserCustomConfig = config;
         }
-        public string GiveInput()
+        /* 
+         * If you wanna implement new input methods, you should implement it here ==> Also with a PLatfrom mode if statement
+         */
+        public IInput GiveInput()
         {
-            string? input = Console.ReadLine();
-            return input;
+            Input.ConsoleInput = Console.ReadLine();
+            return Input;
         }
 
         public string Login()
@@ -40,55 +42,23 @@ namespace MasterMind_Project_2.Users
              */
         }
 
-        public void StartGame()
-        {
-            try
-            {
-                Console.WriteLine(" START GAME: ");
-            }
-            catch (NullReferenceException e)
-            {
-                Console.WriteLine(e + " THIS IS NOT INSTATIATED ");
-            }
-        }
-
         /* ------------------ PLAYER ------------------*/
 
-        public string MakeMove()
+        public IInput MakeMoveToConsole()
         {
-            string MakeMoveTest = " I Made a move. ";
-            Console.WriteLine(MakeMoveTest);
-            return MakeMoveTest;
+            GiveInput();
+            Input.VerifyGuessTypeInput(Input.ConsoleInput);
+            return Input;
         }
 
         /* ------------------ Master ------------------*/
-        public void GiveHint()
+        public IInput MakeHintToConsole()
         {
-            throw new NotImplementedException();
+            GiveInput();
+            Input.VerifyHintTypeInput(Input.ConsoleInput);
+            return Input;
+
         }
 
     }
 }
-//      public void StartGame()
-// 	{
-// 		while(!GameOver())
-// 		{
-// 			List<(GuessPin Pin, bool Valid)> convGuess = Guess.PinConverter( 
-// 				Guess.CleanAndValidate(
-// 					DisplayOnConsole.MakeAGuess(),
-// 					Columns,
-// 					Row,
-// 					out _isGuessValid),
-// 				ref _isGuessValid);
-
-// 			if ( IsGuessValid )
-// 			{
-// 				Guess.mapper(convGuess, Guess.GuessBoard, ref _guessCounter, ref _isGuessValid);
-// 				Hint.GenerateHint(Guess, Solution, ref _guessCounter);
-// 				DisplayOnConsole.DisplayBoard(Guess, Hint);
-// 				Win();
-// 				GuessCounter++;
-// 			}
-
-// 		}
-// 	}

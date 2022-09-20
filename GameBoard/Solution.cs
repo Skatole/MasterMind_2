@@ -1,35 +1,51 @@
 ﻿using MasterMind_Project_2.GameBoard.Pins;
+using MasterMind_Project_2.Enums;
 using MasterMind_Project_2.Interfaces;
+using MasterMind_Project_2.Interfaces.Board;
+using MasterMind_Project_2.Interfaces.Board.Pins;
 
 namespace MasterMind_Project_2.GameBoard
 {
-    public class Solution : Permutations
+    public class Solution : Permutations, IMappable
     {
 
-        internal GuessPin[] Sol { get; set; }
+        public override Dictionary<int, IPin[]> Board { get; set; }
+        private Random _random = new Random((int)DateTime.Now.Ticks);
+
 
         internal Solution(IConfig config) : base(config)
         {
-            Sol = new GuessPin[Columns];
-            generateSolution();
+            Board[config.Rounds] = new SolutionPin[config.Columns];
         }
 
-        private GuessPin[] generateSolution()
+        /*
+         * Add to Solution Board with AI
+         */
+
+        public override Dictionary<int, IPin[]> AddToBoard()
         {
+            Console.WriteLine("Solution: ");
+            int index = _random.Next(AllPermutations.Count);
 
-            Console.WriteLine("Solution : \n");
-            Random random = new Random((int)DateTime.Now.Ticks);
-            int index = random.Next(AllSolutions.Count);
-
-            for (int i = 0; i < AllSolutions[index].Length; i++)
+            for (int i = 0; i < AllPermutations[index].Length; i++)
             {
-                Sol[i] = new GuessPin(AllSolutions[index][i]);
-                Console.WriteLine(Sol[i] + " , ");
+                Board[Config.Rounds][i] = new SolutionPin((PinColor)AllPermutations[index][i]);
+                Console.WriteLine(Board[i] + " , ");
             }
 
             Console.WriteLine("\n");
 
-            return Sol;
+            return Board;
+        }
+        
+        /*
+         * Add to Solution board manually
+         */
+
+        public override Dictionary<int, IPin[]> AddToBoard(IConvertable input)
+        {
+            Board[Config.Rounds] = input.convertedPins;
+            return Board;
         }
     }
 }
